@@ -1,0 +1,84 @@
+@use "sass:map";
+@use 'sass:list';
+
+@use "../variables" as var;
+@use "../mixins";
+@use "../functions" as *;
+
+$publish: get-publishes( var.$publish-normalize, var.$unpublish-normalize );
+
+
+
+// --------------------
+// ディバイダー
+// --------------------
+
+// 罫線
+@if list.index( $publish, 'hr' ) {
+  hr {
+    color: inherit;
+    background-color: currentColor;
+    margin-top: var.$spacer;
+    margin-bottom: var.$spacer;
+    width: 100%;
+    height: 0;
+    display: block;
+    clear: both;
+    border: 0;
+  }
+
+  hr:not([size]) {
+    height: var.$border-width;
+  }
+}
+
+
+// > SMALL
+@mixin mqx-up-hr-s {
+}
+
+// > MEDIUM
+@mixin mqx-up-hr-m {
+}
+
+// > LARGE
+@mixin mqx-up-hr-l {
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-hr-xl {
+}
+
+
+
+
+
+// --------------------
+// メディアクエリ
+// --------------------
+
+
+// > SMALL
+@mixin mqx-up-s {
+  @include mqx-up-hr-s;
+}
+
+// > MEDIUM
+@mixin mqx-up-m {
+  @include mqx-up-hr-m;
+}
+
+// > LARGE
+@mixin mqx-up-l {
+  @include mqx-up-hr-l;
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-xl {
+  @include mqx-up-hr-xl;
+}
+
+
+
+
+

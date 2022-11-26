@@ -1,0 +1,72 @@
+@use "sass:meta";
+
+@use "variables" as var;
+@use "mixins";
+
+@use "structure/html";
+@use "structure/body";
+@use "structure/wrapper";
+@use "structure/containers";
+
+
+
+
+
+// --------------------
+// メディアクエリ
+// --------------------
+
+
+// > SMALL
+@mixin mqx-up-s {
+  @include html.mqx-up-s;
+  @include body.mqx-up-s;
+  @include wrapper.mqx-up-s;
+  @include containers.mqx-up-s;
+}
+
+// > MEDIUM
+@mixin mqx-up-m {
+  @include html.mqx-up-m;
+  @include body.mqx-up-m;
+  @include wrapper.mqx-up-m;
+  @include containers.mqx-up-m;
+}
+
+// > LARGE
+@mixin mqx-up-l {
+  @include html.mqx-up-l;
+  @include body.mqx-up-l;
+  @include wrapper.mqx-up-l;
+  @include containers.mqx-up-l;
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-xl {
+  @include html.mqx-up-xl;
+  @include body.mqx-up-xl;
+  @include wrapper.mqx-up-xl;
+  @include containers.mqx-up-xl;
+}
+
+
+// メディアクエリを出力
+@if var.$publish-media-query and var.$publish-mqx-up {
+  @include mixins.mqx-up (s) {
+    @include mqx-up-s;
+  }
+  @include mixins.mqx-up (m) {
+    @include mqx-up-m;
+  }
+  @include mixins.mqx-up (l) {
+    @include mqx-up-l;
+  }
+  @include mixins.mqx-up (xl) {
+    @include mqx-up-xl;
+  }
+}
+
+
+
+
+

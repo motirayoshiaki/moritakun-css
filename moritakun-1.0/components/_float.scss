@@ -1,0 +1,275 @@
+@use "sass:map";
+@use 'sass:list';
+
+@use "../variables" as var;
+@use "../mixins";
+@use "../functions" as *;
+
+$publish: get-publishes( var.$publish-components, var.$unpublish-components );
+
+
+
+// --------------------
+// テキストの回り込み
+// --------------------
+
+@if list.index($publish, '.clearfix') {
+  .wrap-text,
+  .clearfix,
+  .clearfix-third,
+  .clearfix-fourth {
+    @include mixins.clearfix();
+  }
+}
+
+@if list.index($publish, '.float') {
+  .float-start, .alignleft,
+  .float-end, .alignright,
+  .float-none, .aligncenter {
+    box-sizing: border-box;
+  }
+
+  // 左寄せ
+  .float-start, .alignleft {
+    margin-right: var.$gutter;
+    float: left;
+    clear: none;
+  }
+
+  // 右寄せ
+  .float-end, .alignright {
+    margin-left: var.$gutter;
+    float: right;
+    clear: none;
+  }
+
+  // 解除
+  .float-none, .aligncenter {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    float: none !important;
+    clear: both;
+  }
+
+  // サイズ制限
+  @if var.$wraptext-img-maxwidth {
+    .float-start, .alignleft,
+    .float-end, .alignright {
+      max-width: var.$wraptext-img-maxwidth;
+    }
+  }
+
+}
+
+
+
+
+
+// --------------------
+// メディアクエリ
+// --------------------
+
+
+// > SMALL
+@mixin mqx-up-s {
+  @if list.index($publish, '.float') {
+    .float-s-start, .float-s-end {
+      clear: none;
+    }
+    // 左寄せ
+    .float-s-start {
+      margin-right: if(var.$gutter-s,var.$gutter-s,var.$gutter);
+      float: left;
+    }
+    // 右寄せ
+    .float-s-end {
+      margin-left: if(var.$gutter-s,var.$gutter-s,var.$gutter);
+      float: right;
+    }
+    // 解除
+    .float-s-none {
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+      float: none !important;
+      clear: both;
+    }
+    // サイズ制限
+    @if var.$wraptext-img-maxwidth-s {
+      .float-start, .float-end,
+      .float-s-start, .float-s-end,
+      .alignleft, .alignright {
+        max-width: var.$wraptext-img-maxwidth-s;
+      }
+    }
+    @else {
+      .float-s-start, .float-s-end {
+        max-width: var.$wraptext-img-maxwidth;
+      }
+    }
+  }
+  @else {
+    // サイズ制限
+    @if var.$wraptext-img-maxwidth-s {
+      .alignleft, .alignright {
+        max-width: var.$wraptext-img-maxwidth-s;
+      }
+    }
+  }
+}
+
+// > MEDIUM
+@mixin mqx-up-m {
+  @if list.index($publish, '.float') {
+    .float-m-start, .float-m-end {
+      clear: none;
+    }
+    // 左寄せ
+    .float-m-start {
+      margin-right: if(var.$gutter-m,var.$gutter-m,if(var.$gutter-s,var.$gutter-s,var.$gutter));
+      float: left;
+    }
+    // 右寄せ
+    .float-m-end {
+      margin-left: if(var.$gutter-m,var.$gutter-m,if(var.$gutter-s,var.$gutter-s,var.$gutter));
+      float: right;
+    }
+    // 解除
+    .float-m-none {
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+      float: none !important;
+      clear: both;
+    }
+    // サイズ制限
+    @if var.$wraptext-img-maxwidth-m {
+      .float-start, .float-end,
+      .float-s-start, .float-s-end,
+      .float-m-start, .float-m-end,
+      .alignleft, .alignright {
+        max-width: var.$wraptext-img-maxwidth-m;
+      }
+    }
+    @else {
+      .float-m-start, .float-m-end {
+        max-width: if(var.$wraptext-img-maxwidth-s,var.$wraptext-img-maxwidth-s,var.$wraptext-img-maxwidth);
+      }
+    }
+  }
+  @else {
+    // サイズ制限
+    @if var.$wraptext-img-maxwidth-m {
+      .alignleft, .alignright {
+        max-width: var.$wraptext-img-maxwidth-m;
+      }
+    }
+  }
+}
+
+// > LARGE
+@mixin mqx-up-l {
+  @if list.index($publish, '.float') {
+    .float-l-start, .float-l-end {
+      clear: none;
+    }
+    // 左寄せ
+    .float-l-start {
+      margin-right: if(var.$gutter-l,var.$gutter-l,if(var.$gutter-m,var.$gutter-m,if(var.$gutter-s,var.$gutter-s,var.$gutter)));
+      float: left;
+    }
+    // 右寄せ
+    .float-l-end {
+      margin-left: if(var.$gutter-l,var.$gutter-l,if(var.$gutter-m,var.$gutter-m,if(var.$gutter-s,var.$gutter-s,var.$gutter)));
+      float: right;
+    }
+    // 解除
+    .float-l-none {
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+      float: none !important;
+      clear: both;
+    }
+    // サイズ制限
+    @if var.$wraptext-img-maxwidth-l {
+      .float-start, .float-end,
+      .float-s-start, .float-s-end,
+      .float-m-start, .float-m-end,
+      .float-l-start, .float-l-end,
+      .alignleft, .alignright {
+        max-width: var.$wraptext-img-maxwidth-l;
+      }
+    }
+    @else {
+      .float-l-start, .float-l-end {
+        max-width: if(var.$wraptext-img-maxwidth-m,var.$wraptext-img-maxwidth-m,if(var.$wraptext-img-maxwidth-s,var.$wraptext-img-maxwidth-s,var.$wraptext-img-maxwidth));
+      }
+    }
+  }
+  @else {
+    // サイズ制限
+    @if var.$wraptext-img-maxwidth-l {
+      .alignleft, .alignright {
+        max-width: var.$wraptext-img-maxwidth-l;
+      }
+    }
+  }
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-xl {
+  @if list.index($publish, '.float') {
+    .float-xl-start, .float-xl-end {
+      clear: none;
+    }
+    // 左寄せ
+    .float-xl-start {
+      margin-right: if(var.$gutter-xl,var.$gutter-xl,if(var.$gutter-l,var.$gutter-l,if(var.$gutter-m,var.$gutter-m,if(var.$gutter-s,var.$gutter-s,var.$gutter))));
+      float: left;
+    }
+    // 右寄せ
+    .float-xl-end {
+      margin-left: if(var.$gutter-xl,var.$gutter-xl,if(var.$gutter-l,var.$gutter-l,if(var.$gutter-m,var.$gutter-m,if(var.$gutter-s,var.$gutter-s,var.$gutter))));
+      float: right;
+    }
+    // 解除
+    .float-xl-none {
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+      float: none !important;
+      clear: both;
+    }
+    // サイズ制限
+    @if var.$wraptext-img-maxwidth-xl {
+      .float-start, .float-end,
+      .float-s-start, .float-s-end,
+      .float-m-start, .float-m-end,
+      .float-l-start, .float-l-end,
+      .float-xl-start, .float-xl-end,
+      .alignleft, .alignright {
+        max-width: var.$wraptext-img-maxwidth-xl;
+      }
+    }
+    @else {
+      .float-xl-start, .float-xl-end {
+        max-width: if(var.$wraptext-img-maxwidth-l,var.$wraptext-img-maxwidth-l,if(var.$wraptext-img-maxwidth-m,var.$wraptext-img-maxwidth-m,if(var.$wraptext-img-maxwidth-s,var.$wraptext-img-maxwidth-s,var.$wraptext-img-maxwidth)));
+      }
+    }
+  }
+  @else {
+    // サイズ制限
+    @if var.$wraptext-img-maxwidth-xl {
+      .alignleft, .alignright {
+        max-width: var.$wraptext-img-maxwidth-xl;
+      }
+    }
+  }
+}
+
+
+
+
+

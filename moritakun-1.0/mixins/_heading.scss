@@ -1,0 +1,30 @@
+
+@use "../variables" as var;
+@use "../functions";
+
+
+@mixin heading (
+  $color: null,
+  $weight: null,
+  $line-height: null
+) {
+
+  $color: if( $color, $color, var.$headings-color);
+  color: if( $color, $color, null);
+
+  $weight: if( $weight, $weight, var.$headings-weight );
+  font-weight: if( $weight, $weight, null );
+
+  $line-height: if( $line-height, $line-height, var.$headings-line-height );
+  line-height: if( $line-height, $line-height, null );
+
+  word-break: break-word;
+  margin-bottom: .5rem;
+  @content;
+
+}
+
+
+
+
+

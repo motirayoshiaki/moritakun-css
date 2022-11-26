@@ -1,0 +1,37 @@
+
+@use "../variables" as var;
+@use "../functions";
+
+
+@mixin label (
+  $color: null,
+  $bg-color: null,
+  $font-size: null
+) {
+
+  $color: if( $color, $color, var.$label-color);
+  color: if( $color, $color, null);
+
+  $bg-color: if( $bg-color, $bg-color, var.$label-bg);
+  background-color: if( $bg-color, $bg-color, null);
+
+  $font-size: if( $font-size, $font-size, var.$label-font-size);
+  font-size: if( $font-size, $font-size, null);
+
+  text-decoration: none;
+  text-align: center;
+  line-height: 1;
+  vertical-align: middle;
+  margin: var.$label-margin;
+  padding: var.$label-padding-y var.$label-padding-x;
+  display: inline-block;
+  border-radius: if( var.$label-border-radius, var.$label-border-radius, null);
+  opacity: if( var.$label-opacity, var.$label-opacity, null );
+  box-sizing: border-box;
+  appearance: none;
+}
+
+
+
+
+

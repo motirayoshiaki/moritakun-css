@@ -1,0 +1,110 @@
+@use "sass:math";
+@use "sass:map";
+@use 'sass:list';
+
+@use "../variables" as var;
+@use "../mixins";
+@use "../functions" as func;
+
+
+$publish: func.get-publishes( var.$publish-components, var.$unpublish-components );
+
+
+
+// --------------------
+// フェードイン
+// --------------------
+
+@if list.index($publish, '.fade') {
+  .fade {
+    position: relative;
+    transition: opacity var.$duration linear;
+    &:not(.show) {
+      opacity: 0;
+    }
+  }
+
+  // 左から右へ
+  .fade.show-l2r {
+    transition: opacity var.$duration linear, left var.$slide-duration var.$slide-easing;
+    left: -(var.$slide-length);
+    &.show {
+      left: 0;
+    }
+  }
+
+  // 右から左へ
+  .fade.show-r2l {
+    transition: opacity var.$duration linear, right var.$slide-duration var.$slide-easing;
+    left: auto;
+    right: -(var.$slide-length);
+    &.show {
+      right: 0;
+    }
+  }
+
+  // 下から上へ
+  .fade.show-b2t {
+    transition: opacity var.$duration linear, top var.$slide-duration var.$slide-easing;
+    top: var.$slide-length;
+    &.show {
+      top: 0;
+    }
+  }
+
+  // 簡潔
+  @media (prefers-reduced-motion: reduce) {
+    .fade {
+      transition: none !important;
+      opacity: 1;
+      &.show-l2r {
+        left: auto;
+      }
+      &.show-r2l {
+        right: auto;
+      }
+      &.show-b2t {
+        top: auto;
+      }
+    }
+  }
+
+}
+
+
+
+
+
+// --------------------
+// メディアクエリ
+// --------------------
+
+
+// > SMALL
+@mixin mqx-up-s {
+  @if list.index($publish, '.fade') {
+  }
+}
+
+// > MEDIUM
+@mixin mqx-up-m {
+  @if list.index($publish, '.fade') {
+  }
+}
+
+// > LARGE
+@mixin mqx-up-l {
+  @if list.index($publish, '.fade') {
+  }
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-xl {
+  @if list.index($publish, '.fade') {
+  }
+}
+
+
+
+
+

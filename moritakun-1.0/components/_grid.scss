@@ -1,0 +1,324 @@
+@use "sass:math";
+@use "sass:map";
+@use 'sass:list';
+
+@use "../variables" as var;
+@use "../mixins";
+@use "../functions" as func;
+
+
+$publish: func.get-publishes( var.$publish-components, var.$unpublish-components );
+
+// グリッドのクラス名
+$grid: var.$grid-class;
+
+
+
+// --------------------
+// 共通スタイルのミックスイン
+// --------------------
+
+@mixin apply-grid( $infix: '' ) {
+  // グリッドアイテム
+  @for $i from 1 through var.$grid-max-columns {
+    &#{$grid}-cols#{$infix}-#{$i} {
+      @if '' != $infix {
+        grid-template-columns: repeat($i, 1fr) !important;
+      }
+      @else {
+        grid-template-columns: repeat($i, 1fr);
+      }
+
+      @if list.index($publish, '#{$grid}.gapless') {
+        &.gap#{$infix}-0,
+        &.gapless#{$infix} {
+          grid-gap: 0;
+          gap: 0;
+
+          $percent: func.floor(math.div(99.99%, $i), 3);
+          @if '' != $infix {
+            grid-template-columns: repeat($i, $percent) !important;
+          }
+          @else {
+            grid-template-columns: repeat($i, $percent);
+          }
+        }
+      }
+
+    }
+
+  }
+
+  // ディレクション
+  &#{$grid}-cols#{$infix}-rtl {
+    direction: rtl;
+    & > * {
+      direction: ltr;
+    }
+  }
+  &#{$grid}-cols#{$infix}-ltr {
+    direction: ltr;
+    & > * {
+      direction: rtl;
+    }
+  }
+}
+
+
+
+
+
+// --------------------
+// グリッドレイアウト
+// --------------------
+
+@if list.index($publish, $grid) {
+  #{$grid} {
+    display: grid;
+
+    // グリッドアイテム
+    & > * {
+      margin: 0;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+
+    // 間隔
+    grid-gap: var(--gap, #{var.$grid-gap});
+    gap: var(--gap, #{var.$grid-gap});
+
+    // グリッド設定
+    @include apply-grid( '' );
+
+    // 方向
+    @if list.index($publish, '#{$grid}-middle') {
+      &#{$grid}-middle {
+        align-items: center;
+      }
+    }
+    @if list.index($publish, '#{$grid}-bottom') {
+      &#{$grid}-bottom {
+        align-items: end;
+      }
+    }
+
+    // リスト
+    ul#{&}, ol#{&} {
+      padding-left: 0;
+      list-style: none;
+    }
+
+  }
+}
+
+
+
+// > SMALL
+@mixin mqx-up-grid-s {
+  @if list.index($publish, $grid) {
+    #{$grid} {
+
+      // 間隔
+      &, &.gap-s {
+        grid-gap: if(var.$grid-gap-s, var.$grid-gap-s, null);
+        gap: if(var.$grid-gap-s, var.$grid-gap-s, null);
+      }
+
+      // グリッド設定
+      @include apply-grid( '-s' );
+    }
+  }
+}
+
+// > MEDIUM
+@mixin mqx-up-grid-m {
+  @if list.index($publish, $grid) {
+    #{$grid} {
+
+      // 間隔
+      &, &.gap-m {
+        grid-gap: if(var.$grid-gap-m, var.$grid-gap-m, null);
+        gap: if(var.$grid-gap-m, var.$grid-gap-m, null);
+      }
+
+      // グリッド設定
+      @include apply-grid( '-m' );
+    }
+  }
+}
+
+// > LARGE
+@mixin mqx-up-grid-l {
+  @if list.index($publish, $grid) {
+    #{$grid} {
+
+      // 間隔
+      &, &.gap-l {
+        grid-gap: if(var.$grid-gap-l, var.$grid-gap-l, null);
+        gap: if(var.$grid-gap-l, var.$grid-gap-l, null);
+      }
+
+      // グリッド設定
+      @include apply-grid( '-l' );
+    }
+  }
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-grid-xl {
+  @if list.index($publish, $grid) {
+    #{$grid} {
+
+      // 間隔
+      &, &.gap-xl {
+        grid-gap: if(var.$grid-gap-xl, var.$grid-gap-xl, null);
+        gap: if(var.$grid-gap-xl, var.$grid-gap-xl, null);
+      }
+
+      // グリッド設定
+      @include apply-grid( '-xl' );
+    }
+  }
+}
+
+
+
+
+
+// --------------------
+// カラムのプロパティ変更
+// --------------------
+
+@if list.index($publish, '#{$grid}-colspan-*') {
+  @for $i from 2 through var.$grid-max-columns {
+    // 幅変更
+    #{$grid}-colspan-#{$i} {
+      grid-column: span $i;
+    }
+    // 高さ変更
+    #{$grid}-rowspan-#{$i} {
+      grid-row: span $i;
+    }
+  }
+}
+
+/*
+#{$grid}-align-stretch {
+  align-self: stretch;
+}
+
+#{$grid}-align-start {
+  align-self: start;
+}
+
+#{$grid}-align-center {
+  align-self: center;
+}
+
+#{$grid}-align-end {
+  align-self: end;
+}
+ */
+
+
+// > SMALL
+@mixin mqx-up-cols-s {
+  @if list.index($publish, '#{$grid}-colspan-*') {
+    @for $i from 2 through var.$grid-max-columns {
+      // 幅変更
+      #{$grid}-colspan-s-#{$i} {
+        grid-column: span $i;
+      }
+      // 高さ変更
+      #{$grid}-rowspan-s-#{$i} {
+        grid-row: span $i;
+      }
+    }
+  }
+}
+
+// > MEDIUM
+@mixin mqx-up-cols-m {
+  @if list.index($publish, '#{$grid}-colspan-*') {
+    @for $i from 2 through var.$grid-max-columns {
+      // 幅変更
+      #{$grid}-colspan-m-#{$i} {
+        grid-column: span $i;
+      }
+      // 高さ変更
+      #{$grid}-rowspan-m-#{$i} {
+        grid-row: span $i;
+      }
+    }
+  }
+}
+
+// > LARGE
+@mixin mqx-up-cols-l {
+  @if list.index($publish, '#{$grid}-colspan-*') {
+    @for $i from 2 through var.$grid-max-columns {
+      // 幅変更
+      #{$grid}-colspan-l-#{$i} {
+        grid-column: span $i;
+      }
+      // 高さ変更
+      #{$grid}-rowspan-l-#{$i} {
+        grid-row: span $i;
+      }
+    }
+  }
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-cols-xl {
+  @if list.index($publish, '#{$grid}-colspan-*') {
+    @for $i from 2 through var.$grid-max-columns {
+      // 幅変更
+      #{$grid}-colspan-xl-#{$i} {
+        grid-column: span $i;
+      }
+      // 高さ変更
+      #{$grid}-rowspan-xl-#{$i} {
+        grid-row: span $i;
+      }
+    }
+  }
+}
+
+
+
+
+
+// --------------------
+// メディアクエリ
+// --------------------
+
+// > SMALL
+@mixin mqx-up-s {
+  @include mqx-up-grid-s;
+  @include mqx-up-cols-s;
+}
+
+// > MEDIUM
+@mixin mqx-up-m {
+  @include mqx-up-grid-m;
+  @include mqx-up-cols-m;
+}
+
+// > LARGE
+@mixin mqx-up-l {
+  @include mqx-up-grid-l;
+  @include mqx-up-cols-l;
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-xl {
+  @include mqx-up-grid-xl;
+  @include mqx-up-cols-xl;
+}
+
+
+
+
+

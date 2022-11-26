@@ -1,0 +1,149 @@
+@use "sass:math";
+@use "sass:map";
+@use 'sass:list';
+
+@use "../variables" as var;
+@use "../mixins";
+@use "../functions" as *;
+
+$publish: get-publishes( var.$publish-utilities, var.$unpublish-utilities );
+
+
+
+// --------------------
+// 文字色
+// --------------------
+
+// テーマ
+@if list.length(var.$theme-colors) and list.index($publish, 'color') {
+  @each $color, $value in var.$theme-colors {
+    .text-#{$color} {
+      color: $value !important;
+    }
+  }
+}
+
+@if list.index($publish, 'color') {
+  .text-white {
+    color: var.$white !important;
+  }
+  .text-body {
+    color: var.$body-color !important;
+  }
+  .text-muted {
+    color: var.$gray !important;
+  }
+  .text-black-50 {
+    color: rgba(var.$black, .5) !important;
+  }
+  .text-white-50 {
+    color: rgba(var.$white, .5) !important;
+  }
+  .text-reset {
+    color: inherit !important;
+  }
+}
+
+
+// > SMALL
+@mixin mqx-up-color-s {
+}
+
+// > MEDIUM
+@mixin mqx-up-color-m {
+}
+
+// > LARGE
+@mixin mqx-up-color-l {
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-color-xl {
+}
+
+
+
+
+
+// --------------------
+// 背景色
+// --------------------
+
+// テーマ
+@if list.length(var.$theme-colors) and list.index($publish, 'background-color') {
+  @each $color, $value in var.$theme-colors {
+    .bg-#{$color} {
+      background-color: $value !important;
+    }
+  }
+}
+
+@if list.index($publish, 'background-color') {
+  .bg-white {
+    background-color: var.$white !important;
+  }
+  .bg-body {
+    background-color: var.$body-bg !important;
+  }
+  .bg-whitesmoke {
+    background-color: var.$whitesmoke !important;
+  }
+  .bg-transparent {
+    background-color: transparent !important;
+  }
+}
+
+
+// > SMALL
+@mixin mqx-up-bg-s {
+}
+
+// > MEDIUM
+@mixin mqx-up-bg-m {
+}
+
+// > LARGE
+@mixin mqx-up-bg-l {
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-bg-xl {
+}
+
+
+
+
+
+// --------------------
+// メディアクエリ
+// --------------------
+
+
+// > SMALL
+@mixin mqx-up-s {
+  @include mqx-up-color-s;
+  @include mqx-up-bg-s;
+}
+
+// > MEDIUM
+@mixin mqx-up-m {
+  @include mqx-up-color-m;
+  @include mqx-up-bg-m;
+}
+
+// > LARGE
+@mixin mqx-up-l {
+  @include mqx-up-color-l;
+  @include mqx-up-bg-l;
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-xl {
+  @include mqx-up-color-xl;
+  @include mqx-up-bg-xl;
+}
+
+
+
+
+

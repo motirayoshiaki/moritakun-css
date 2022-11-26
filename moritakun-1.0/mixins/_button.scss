@@ -1,0 +1,165 @@
+
+@use "sass:list";
+@use "../variables" as var;
+@use "../functions" as func;
+@use "./box-shadow" as *;
+
+
+
+$publish: func.get-publishes( var.$publish-components, var.$unpublish-components );
+
+// ボタンのクラス名
+$btn: var.$btn-class;
+// フォーカス時のセレクター
+$btn-focus: func.get-btn-focus();
+// シャドー用のセレクター
+$btn-active: func.get-btn-active();
+
+
+
+// --------------------
+// ミックスイン
+// --------------------
+
+@mixin button-variant (
+  $bg-color,
+  $border-color: null,
+  $hover-bg-color: null,
+  $hover-border-color: null,
+  $hover-color: null,
+  $btn-active-bg-color: null,
+  $btn-active-border-color: null,
+  $btn-active-color: null,
+  $disabled-bg-color: null,
+  $disabled-border-color: null,
+  $disabled-color: null
+) {
+  $color: func.get-contrast-text-color( $bg-color );
+
+  @if( null == $border-color ) {
+    // $border-color: $bg-color;
+  }
+  @if( null == $hover-bg-color ) {
+    $hover-bg-color: if( $color == var.$color-contrast-light, mix(black, $bg-color, 15%), mix(white, $bg-color, 15%) );
+  }
+  @if( null == $hover-border-color ) {
+    @if ( null != $border-color ) {
+      $hover-border-color: if( $color == var.$color-contrast-light, mix(black, $border-color, 20%), mix(white, $border-color, 10%) );
+    }
+  }
+  @if( null == $hover-color ) {
+    $hover-color: func.get-contrast-text-color( $hover-bg-color );
+  }
+  @if( null == $btn-active-bg-color ) {
+    $btn-active-bg-color: if( $color == var.$color-contrast-light, mix(black, $bg-color, 20%), mix(white, $bg-color, 20%) );
+  }
+  @if( null == $btn-active-border-color ) {
+    @if ( null != $border-color ) {
+      $btn-active-border-color: if( $color == var.$color-contrast-light, mix(black, $border-color, 25%), mix(white, $border-color, 10%) );
+    }
+  }
+  @if( null == $btn-active-color ) {
+    $btn-active-color: func.get-contrast-text-color( $btn-active-bg-color );
+  }
+
+  @if( null == $disabled-bg-color ) {
+    $disabled-bg-color: $bg-color;
+  }
+  @if( null == $disabled-border-color ) {
+    @if ( null != $border-color ) {
+      $disabled-border-color: $border-color;
+    }
+  }
+  @if( null == $disabled-color ) {
+    $disabled-color: func.get-contrast-text-color( $disabled-bg-color );
+  }
+
+  color: $color;
+  background: $bg-color;
+  border-color: $border-color;
+  @include box-shadow( var.$btn-box-shadow );
+
+  &:hover {
+    color: $hover-color;
+    background: $hover-bg-color;
+    border-color: $hover-border-color;
+  }
+
+  #{$btn-focus} {
+    color: $hover-color;
+    background: $hover-bg-color;
+    border-color: $hover-border-color;
+    @if var.$enable-shadows {
+      @include box-shadow( var.$btn-box-shadow, 0 0 0 var.$btn-focus-width rgba(mix($color, $border-color, 15%), .5));
+    }
+  }
+
+  #{$btn-active} {
+    color: $btn-active-color;
+    background: $btn-active-bg-color;
+    border-color: $btn-active-border-color;
+
+    @if var.$enable-shadows {
+      &:focus {
+        @include box-shadow( var.$btn-active-box-shadow, 0 0 0 var.$btn-focus-width rgba(mix($color, $border-color, 15%), .5) );
+      }
+    }
+  }
+
+  &:disabled,
+  &.disabled {
+    color: $disabled-color;
+    background: $disabled-bg-color;
+    border-color: $disabled-border-color;
+  }
+
+}
+
+
+@mixin button-outline-variant (
+  $color,
+  $hover-color: func.get-contrast-text-color($color),
+  $btn-active-background: $color,
+  $btn-active-border: $color,
+  $btn-active-color: func.get-contrast-text-color($btn-active-background)
+) {
+  color: $color;
+  background: transparent;
+  border-color: $color;
+
+  &:hover {
+    color: $hover-color;
+    background-color: $btn-active-background;
+    border-color: $btn-active-border;
+  }
+
+  #{$btn-focus} {
+    box-shadow: 0 0 0 var.$btn-focus-width rgba($color, .5);
+  }
+
+  #{$btn-active} {
+    color: $btn-active-color;
+    background-color: $btn-active-background;
+    border-color: $btn-active-border;
+
+    &:focus {
+      @if var.$enable-shadows {
+        @include box-shadow(var.$btn-active-box-shadow, 0 0 0 var.$btn-focus-width rgba($color, .5));
+      } @else {
+        // Avoid using mixin so we can pass custom focus shadow properly
+        box-shadow: 0 0 0 var.$btn-focus-width rgba($color, .5);
+      }
+    }
+  }
+
+  &:disabled,
+  &.disabled {
+    color: $color;
+    background-color: transparent;
+  }
+}
+
+
+
+
+

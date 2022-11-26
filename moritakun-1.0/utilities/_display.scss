@@ -1,0 +1,375 @@
+@use "sass:list";
+@use "sass:map";
+
+@use "../variables" as var;
+@use "../mixins";
+@use "../functions" as *;
+
+$publish: get-publishes( var.$publish-utilities, var.$unpublish-utilities );
+
+
+
+// --------------------
+// 表示切り替え
+// --------------------
+
+// コンテンツ視認
+@if list.index( $publish, 'visibility' ) {
+  .visible {
+    visibility: visible !important;
+  }
+  .invisible {
+    visibility: hidden !important;
+  }
+}
+
+// 非表示
+@if list.index( $publish, '.visually-hidden' ) {
+  .visually-hidden,
+  .visually-hidden-focusable:not(:focus),
+  .assistive-text,
+  .screen-reader-text {
+    @include mixins.visually-hidden();
+  }
+}
+
+// 表示
+$displays: inline, inline-block, block, table, table-row, table-cell, grid, flex;
+
+@if list.index( $publish, 'display' ) {
+  .d-none, .hidden {
+    display: none !important;
+  }
+
+  @each $value in $displays {
+    .d-#{$value} {
+      display: $value !important;
+    }
+  }
+
+  $displays: list.append($displays, none);
+  $displays: list.append($displays, inherit);
+}
+
+
+// > SMALL
+@mixin mqx-up-visually-s {
+  @if list.index( $publish, 'display' ) {
+    @each $value in $displays {
+      .d-s-#{$value} {
+        display: $value !important;
+      }
+    }
+  }
+}
+
+// > MEDIUM
+@mixin mqx-up-visually-m {
+  @if list.index( $publish, 'display' ) {
+    @each $value in $displays {
+      .d-m-#{$value} {
+        display: $value !important;
+      }
+    }
+  }
+}
+
+// > LARGE
+@mixin mqx-up-visually-l {
+  @if list.index( $publish, 'display' ) {
+    @each $value in $displays {
+      .d-l-#{$value} {
+        display: $value !important;
+      }
+    }
+  }
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-visually-xl {
+  @if list.index( $publish, 'display' ) {
+    @each $value in $displays {
+      .d-xl-#{$value} {
+        display: $value !important;
+      }
+    }
+  }
+}
+
+// > PRINT
+@if list.index( $publish, '@print' ) {
+  @media print {
+    // 表示
+    @if list.index( $publish, 'display' ) {
+      [data-print="none"] {
+        display: none !important;
+      }
+
+      @each $value in $displays {
+        .d-print-#{$value} {
+          display: $value !important;
+        }
+      }
+    }
+
+  }
+}
+
+
+
+
+
+// --------------------
+// 余白・間隔
+// --------------------
+
+// 余白・間隔なし
+@if list.index( $publish, 'margin-*' ) and list.index( $publish, 'padding-*' ) {
+  .mp0 {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}
+
+// 間隔
+@if list.index( $publish, 'margin-*' ) {
+  $margins: map.merge( ('auto': auto), var.$spacers );
+
+  @if list.index( $publish, 'margin-top' ) {
+    @each $n, $value in var.$spacers {
+      .mt-#{$n} {
+        margin-top: $value !important;
+      }
+    }
+  }
+
+  @if list.index( $publish, 'margin-right' ) {
+    @each $n, $value in var.$spacers {
+      .me-#{$n} {
+        margin-right: $value !important;
+      }
+    }
+  }
+
+  @if list.index( $publish, 'margin-bottom' ) {
+    @each $n, $value in var.$spacers {
+      .mb-#{$n} {
+        margin-bottom: $value !important;
+      }
+    }
+  }
+
+  @if list.index( $publish, 'margin-left' ) {
+    @each $n, $value in var.$spacers {
+      .ms-#{$n} {
+        margin-left: $value !important;
+      }
+    }
+  }
+}
+
+
+// > SMALL
+@mixin mqx-up-gap-s {
+}
+
+// > MEDIUM
+@mixin mqx-up-gap-m {
+}
+
+// > LARGE
+@mixin mqx-up-gap-l {
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-gap-xl {
+}
+
+
+
+
+
+// --------------------
+// 矩形
+// --------------------
+
+// 角丸
+@if list.index( $publish, 'border-radius' ) {
+  .rounded {
+    border-radius: var.$border-radius !important;
+  }
+  .rounded-0 {
+    border-radius: 0 !important;
+  }
+  .rounded-1 {
+    border-radius: var.$border-radius-small !important;
+  }
+  .rounded-2 {
+    border-radius: var.$border-radius !important;
+  }
+  .rounded-3 {
+    border-radius: var.$border-radius-large !important;
+  }
+  .rounded-circle {
+    border-radius: 50% !important;
+  }
+  .rounded-pill {
+    border-radius: 50rem !important;
+  }
+}
+
+
+
+
+
+// --------------------
+// グリッド・フレックス
+// --------------------
+
+$flex-directions: row, column, row-reverse, column-reverse;
+
+@if list.index( $publish, 'flex' ) {
+  .flex-fill {
+    flex: 1 1 auto !important;
+  }
+
+  @each $value in $flex-directions {
+    .flex-#{$value} {
+      flex-direction: $value !important;
+    }
+  }
+}
+
+
+// > SMALL
+@mixin mqx-up-misc-s {
+  @if list.index( $publish, 'flex' ) {
+    .flex-s-fill {
+      flex: 1 1 auto !important;
+    }
+
+    @each $value in $flex-directions {
+      .flex-s-#{$value} {
+        flex-direction: $value !important;
+      }
+    }
+  }
+}
+
+// > MEDIUM
+@mixin mqx-up-misc-m {
+  @if list.index( $publish, 'flex' ) {
+    .flex-m-fill {
+      flex: 1 1 auto !important;
+    }
+
+    @each $value in $flex-directions {
+      .flex-m-#{$value} {
+        flex-direction: $value !important;
+      }
+    }
+  }
+}
+
+// > LARGE
+@mixin mqx-up-misc-l {
+  @if list.index( $publish, 'flex' ) {
+    .flex-m-fill {
+      flex: 1 1 auto !important;
+    }
+
+    @each $value in $flex-directions {
+      .flex-l-#{$value} {
+        flex-direction: $value !important;
+      }
+    }
+  }
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-misc-xl {
+  @if list.index( $publish, 'flex' ) {
+    .flex-m-fill {
+      flex: 1 1 auto !important;
+    }
+
+    @each $value in $flex-directions {
+      .flex-xl-#{$value} {
+        flex-direction: $value !important;
+      }
+    }
+  }
+}
+
+
+
+
+
+// --------------------
+// その他
+// --------------------
+
+// カーソル
+@if list.index( $publish, 'cursor' ) {
+  .cursor-help {
+    cursor: help !important;
+  }
+}
+
+
+// > SMALL
+@mixin mqx-up-misc-s {
+}
+
+// > MEDIUM
+@mixin mqx-up-misc-m {
+}
+
+// > LARGE
+@mixin mqx-up-misc-l {
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-misc-xl {
+}
+
+
+
+
+
+// --------------------
+// メディアクエリ
+// --------------------
+
+// > SMALL
+@mixin mqx-up-s {
+  @include mqx-up-visually-s;
+  @include mqx-up-gap-s;
+  @include mqx-up-misc-s;
+}
+
+// > MEDIUM
+@mixin mqx-up-m {
+  @include mqx-up-visually-m;
+  @include mqx-up-gap-m;
+  @include mqx-up-misc-m;
+}
+
+// > LARGE
+@mixin mqx-up-l {
+  @include mqx-up-visually-l;
+  @include mqx-up-gap-l;
+  @include mqx-up-misc-l;
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-xl {
+  @include mqx-up-visually-xl;
+  @include mqx-up-gap-xl;
+  @include mqx-up-misc-xl;
+}
+
+
+
+
+

@@ -1,0 +1,119 @@
+@use "sass:map";
+@use 'sass:list';
+
+@use "../variables" as var;
+@use "../mixins";
+@use "../functions" as *;
+
+$publish: get-publishes( var.$publish-structure, var.$unpublish-structure );
+
+
+
+// --------------------
+// ボディ設定
+// --------------------
+
+@if list.index( $publish, 'body' ) {
+  body {
+    color: var.$body-color;
+    background: var.$body-bg;
+
+    @if var.$body-bg-size {
+      background-size: var.$body-bg-size;
+    }
+
+    font-family: var.$body-font-family;
+    font-weight: var.$body-font-weight;
+
+    @if var.$font-size-base and 0 != var.$font-size-base {
+      font-size: var.$font-size-base;
+    }
+
+    @if var.$body-text-align {
+      text-align: var.$body-text-align;
+    }
+
+    line-height: var.$line-height;
+    min-width: 100%;
+    min-height: 100%;
+    height: 100%;
+
+    @if not list.index( $publish, 'html' ) {
+      @include mixins.html();
+    }
+  }
+}
+
+// 選択時のカラー設定
+@if list.index( $publish, '::selection' ) {
+  ::selection {
+    @if var.$selection-color and 0 != var.$selection-color {
+      color: var.$selection-color;
+    }
+    @if var.$selection-bg-color and 0 != var.$selection-bg-color {
+      background: var.$selection-bg-color;
+    }
+  }
+}
+
+
+// > SMALL
+@mixin mqx-up-s {
+  @if list.index( $publish, 'body' ) {
+    body {
+      @if var.$line-height-s and 0 != var.$line-height-s {
+        line-height: var.$line-height-s;
+      }
+      @if var.$body-bg-size-s {
+        background-size: var.$body-bg-size-s;
+      }
+    }
+  }
+}
+
+// > MEDIUM
+@mixin mqx-up-m {
+  @if list.index( $publish, 'body' ) {
+    body {
+      @if var.$line-height-m and 0 != var.$line-height-m {
+        line-height: var.$line-height-m;
+      }
+      @if var.$body-bg-size-m {
+        background-size: var.$body-bg-size-m;
+      }
+    }
+  }
+}
+
+// > LARGE
+@mixin mqx-up-l {
+  @if list.index( $publish, 'body' ) {
+    body {
+      @if var.$line-height-l and 0 != var.$line-height-l {
+        line-height: var.$line-height-l;
+      }
+      @if var.$body-bg-size-l {
+        background-size: var.$body-bg-size-l;
+      }
+    }
+  }
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-xl {
+  @if list.index( $publish, 'body' ) {
+    body {
+      @if var.$line-height-xl and 0 != var.$line-height-xl {
+        line-height: var.$line-height-xl;
+      }
+      @if var.$body-bg-size-xl {
+        background-size: var.$body-bg-size-xl;
+      }
+    }
+  }
+}
+
+
+
+
+

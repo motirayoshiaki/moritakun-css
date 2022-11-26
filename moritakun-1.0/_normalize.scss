@@ -1,0 +1,88 @@
+@use "sass:meta";
+
+@use "variables" as var;
+@use "mixins";
+
+@use "normalize/img";
+@use "normalize/list";
+@use "normalize/table";
+@use "normalize/text";
+@use "normalize/heading";
+@use "normalize/div";
+@use "normalize/form";
+
+
+
+
+
+// --------------------
+// メディアクエリ
+// --------------------
+
+
+// > SMALL
+@mixin mqx-up-s {
+  @include img.mqx-up-s;
+  @include list.mqx-up-s;
+  @include table.mqx-up-s;
+  @include text.mqx-up-s;
+  @include heading.mqx-up-s;
+  @include div.mqx-up-s;
+  @include form.mqx-up-s;
+}
+
+
+// > MEDIUM
+@mixin mqx-up-m {
+  @include img.mqx-up-m;
+  @include list.mqx-up-m;
+  @include table.mqx-up-m;
+  @include text.mqx-up-m;
+  @include heading.mqx-up-m;
+  @include div.mqx-up-m;
+  @include form.mqx-up-m;
+}
+
+// > LARGE
+@mixin mqx-up-l {
+  @include img.mqx-up-l;
+  @include list.mqx-up-l;
+  @include table.mqx-up-l;
+  @include text.mqx-up-l;
+  @include heading.mqx-up-l;
+  @include div.mqx-up-l;
+  @include form.mqx-up-l;
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-xl {
+  @include img.mqx-up-xl;
+  @include list.mqx-up-xl;
+  @include table.mqx-up-xl;
+  @include text.mqx-up-xl;
+  @include heading.mqx-up-xl;
+  @include div.mqx-up-xl;
+  @include form.mqx-up-xl;
+}
+
+
+// メディアクエリを出力
+@if var.$publish-media-query and var.$publish-mqx-up {
+  @include mixins.mqx-up (s) {
+    @include mqx-up-s;
+  }
+  @include mixins.mqx-up (m) {
+    @include mqx-up-m;
+  }
+  @include mixins.mqx-up (l) {
+    @include mqx-up-l;
+  }
+  @include mixins.mqx-up (xl) {
+    @include mqx-up-xl;
+  }
+}
+
+
+
+
+

@@ -1,0 +1,101 @@
+@use 'sass:list';
+@use 'sass:map';
+
+@use "../variables" as var;
+@use "../functions" as *;
+
+$publish: get-publishes( var.$publish-normalize, var.$unpublish-normalize );
+
+
+
+// --------------------
+// リストスタイル
+// --------------------
+
+@if list.index( $publish, 'ol' ) and list.index( $publish, 'ul' ) and list.index( $publish, 'dl' ) {
+  ol, ul, dl {
+    margin-bottom: var.$spacer;
+  }
+}
+
+@if list.index( $publish, 'ol' ) and list.index( $publish, 'ul' ) {
+  ol, ul {
+    @if not list.index( $publish, 'dl' ) {
+      margin-bottom: var.$spacer;
+    }
+    ol, ul {
+      margin-bottom: 0;
+    }
+  }
+}
+
+@if list.index( $publish, 'ol' ) {
+  ol {
+    @if not list.index( $publish, 'ul' ) {
+      margin-bottom: var.$spacer;
+    }
+    padding-left: 2em;
+  }
+}
+
+@if list.index( $publish, 'ul' ) {
+  ul {
+    @if not list.index( $publish, 'ol' ) {
+      margin-bottom: var.$spacer;
+    }
+    padding-left: 1.25em;
+  }
+}
+
+@if list.index( $publish, 'dl' ) {
+  dt {
+    font-weight: var.$dt-font-weight;
+  }
+
+  dd {
+    margin-bottom: map.get(var.$spacers, 2);
+    margin-left: 0;
+  }
+}
+
+
+// ナビゲーション
+@if list.index( $publish, 'nav' ) {
+  nav {
+    ol, ul {
+      list-style: none;
+      margin-bottom: 0;
+      padding-left: 0;
+    }
+  }
+}
+
+
+
+
+
+// --------------------
+// メディアクエリ
+// --------------------
+
+
+// > SMALL
+@mixin mqx-up-s {
+}
+
+// > MEDIUM
+@mixin mqx-up-m {
+}
+
+// > LARGE
+@mixin mqx-up-l {
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-xl {
+}
+
+
+
+
+

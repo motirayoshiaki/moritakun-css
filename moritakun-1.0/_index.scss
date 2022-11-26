@@ -1,0 +1,64 @@
+/*!
+ * https://emwai.jp/
+ * Copyright (C) Yoshiaki Morita
+ */
+
+@use 'sass:meta';
+
+@forward "variables";
+@forward "functions";
+@forward "mixins";
+
+//
+@forward 'reset';      // CSSリセット
+@forward 'normalize';  // ノーマライズ
+@forward 'structure';  // 構造
+@forward 'utilities';  // 汎用クラス
+@forward 'components'; // 部品
+
+
+
+
+
+//
+//
+// 変数 '$publish-media-query が 'false' の場合
+// 変数 '$publish-mqx-up が 'false' の場合は
+// 以下のメディアクエリ出力を自前で用意する
+//
+//
+
+// * 'ns.' ... name space
+
+// > SMALL
+//@include ns.mqx-up (s) {
+//  @if( meta.mixin-exists("mqx-up-s", ns) ) {
+//    @include ns.mqx-up-s;
+//  }
+//}
+
+// > MEDIUM
+//@include ns.mqx-up (m) {
+//  @if( meta.mixin-exists("mqx-up-m", ns) ) {
+//    @include ns.mqx-up-m;
+//  }
+//}
+
+// > LARGE
+//@include ns.mqx-up (l) {
+//  @if( meta.mixin-exists("mqx-up-l", ns) ) {
+//    @include ns.mqx-up-l;
+//  }
+//}
+
+// > LARGE DESKTOP
+//@include ns.mqx-up (xl) {
+//  @if( meta.mixin-exists("mqx-up-xl", ns) ) {
+//    @include ns.mqx-up-xl;
+//  }
+//}
+
+
+
+
+

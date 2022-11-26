@@ -1,0 +1,120 @@
+@use "sass:math";
+@use "sass:map";
+@use 'sass:list';
+
+@use "../variables" as var;
+@use "../mixins";
+@use "../functions" as func;
+
+
+$publish: func.get-publishes( var.$publish-components, var.$unpublish-components );
+
+
+
+// --------------------
+// 引用
+// --------------------
+
+@if list.index($publish, '.blockquote') {
+  .blockquote {
+    background: var.$whitesmoke;
+    text-align: left;
+    padding: func.round(var.$gap * .5);
+    display: block;
+    position: relative;
+    // 引用符
+    &:before {
+      content: '“';
+      font-family: var.$font-family-serif;
+      font-size: 400%;
+      font-weight: normal;
+      line-height: 1;
+      width: 1em;
+      height: 1em;
+      display: block;
+      position: absolute;
+      top: -.25em;
+      left: .2em;
+      z-index: 1;
+    }
+  }
+}
+
+
+// > SMALL
+@mixin mqx-up-blockquote-s {
+  @if list.index($publish, '.blockquote') {
+    @if var.$gap-s or 0 == var.$gap-s {
+      .blockquote {
+        padding: func.round(var.$gap-s * .5);
+      }
+    }
+  }
+}
+
+// > MEDIUM
+@mixin mqx-up-blockquote-m {
+  @if list.index($publish, '.blockquote') {
+    @if var.$gap-m or 0 == var.$gap-m {
+      .blockquote {
+        padding: func.round(var.$gap-m * .5);
+      }
+    }
+  }
+}
+
+// > LARGE
+@mixin mqx-up-blockquote-l {
+  @if list.index($publish, '.blockquote') {
+    @if var.$gap-l or 0 == var.$gap-l {
+      .blockquote {
+        padding: func.round(var.$gap-l * .5);
+      }
+    }
+  }
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-blockquote-xl {
+  @if list.index($publish, '.blockquote') {
+    @if var.$gap-xl or 0 == var.$gap-xl {
+      .blockquote {
+        padding: func.round(var.$gap-xl * .5);
+      }
+    }
+  }
+}
+
+
+
+
+
+// --------------------
+// メディアクエリ
+// --------------------
+
+
+// > SMALL
+@mixin mqx-up-s {
+  @include mqx-up-blockquote-s;
+}
+
+// > MEDIUM
+@mixin mqx-up-m {
+  @include mqx-up-blockquote-m;
+}
+
+// > LARGE
+@mixin mqx-up-l {
+  @include mqx-up-blockquote-l;
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-xl {
+  @include mqx-up-blockquote-xl;
+}
+
+
+
+
+

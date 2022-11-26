@@ -1,0 +1,221 @@
+@use "sass:math";
+@use "sass:map";
+@use 'sass:list';
+
+@use "../variables" as var;
+@use "../mixins";
+@use "../functions" as *;
+
+$publish: get-publishes( var.$publish-components, var.$unpublish-components );
+
+// ボタンのクラス名
+$btn: var.$btn-class;
+
+
+
+// --------------------
+// 基本
+// --------------------
+
+@if list.index($publish, $btn) {
+  // ボタンのスタイル
+  #{$btn} {
+    $bg-color: if( var.$btn-bg-color, var.$btn-bg-color, transparent );
+    $border-color: if( var.$btn-border-width, $bg-color, null );
+    @include mixins.button-variant(
+      $bg-color, $bg-color,
+      var.$btn-bg-hover-color, var.$btn-bg-hover-color, null,
+      null, null, null,
+      var.$btn-disabled-color, var.$btn-disabled-color, null,
+    );
+
+    @if( var.$btn-font-family ) {
+      font-family: var.$btn-font-family;
+    }
+
+    font-weight: var.$btn-font-weight;
+    line-height: var.$btn-line-height;
+    font-style: normal;
+    text-decoration: if( var.$link-decoration == none, null, var.$btn-decoration );
+    text-align: center;
+    white-space: if( var.$btn-white-space, var.$btn-white-space, null );
+    vertical-align: middle;
+
+    padding: var.$btn-padding-y var.$btn-padding-x;
+    border: var.$btn-border-width solid transparent;
+
+    @include mixins.border-radius(var.$btn-border-radius);
+
+    display: inline-block;
+    cursor: pointer;
+
+    user-select: none;
+    appearance: none;
+    @include mixins.transition(var.$btn-transition);
+
+    &:hover {
+      text-decoration: if( var.$link-hover-decoration == none, null, var.$btn-hover-decoration );
+    }
+
+    $btn-focus: get-btn-focus();
+    #{$btn-focus} {
+      outline: 0;
+      @include mixins.box-shadow( var.$btn-focus-box-shadow );
+    }
+
+    @if var.$enable-shadows {
+      $btn-active: get-btn-active();
+      #{$btn-active} {
+        @include mixins.box-shadow( var.$btn-active-box-shadow );
+        &:focus {
+          @include mixins.box-shadow( var.$btn-focus-box-shadow, var.$btn-active-box-shadow );
+        }
+      }
+    }
+
+    &:disabled,
+    &.disabled,
+    fieldset:disabled & {
+      opacity: var.$btn-disabled-opacity;
+      @include mixins.box-shadow(none);
+      pointer-events: none;
+    }
+
+  }
+
+  // リンク
+  @if list.index($publish, #{$btn}-link) {
+    #{$btn}-link {
+      color: var.$link-color;
+      background: transparent;
+      font-weight: normal;
+      text-decoration: var.$link-decoration;
+
+      &:hover {
+        color: var.$link-hover-color;
+        background: transparent;
+        border-color: transparent;
+        text-decoration: var.$link-hover-decoration;
+      }
+
+      &:focus {
+        text-decoration: var.$link-hover-decoration;
+      }
+
+      &:disabled,
+      &.disabled {
+        color: var.$text-muted;
+      }
+    }
+  }
+
+  // テーマ
+  @if list.length(var.$theme-colors) {
+    @each $color, $value in var.$theme-colors {
+      #{$btn}-#{$color} {
+        @include mixins.button-variant($value, $value);
+      }
+
+      #{$btn}-outline-#{$color} {
+        @include mixins.button-outline-variant($value);
+      }
+    }
+  }
+
+  // 白
+  @if list.index($publish, #{$btn}-white) {
+    #{$btn}-white {
+      color: var.$link-color;
+      background: var.$white;
+      border-color: var.$white;
+      @include mixins.box-shadow( var.$btn-box-shadow );
+
+      &:hover {
+        color: var.$link-hover-color;
+        background: var.$white;
+        border-color: var.$white;
+      }
+
+      $btn-focus: get-btn-focus();
+      #{$btn-focus} {
+        color: var.$link-hover-color;
+        // background: var.$white;
+        // border-color: var.$white;
+        @if var.$enable-shadows {
+          @include mixins.box-shadow( var.$btn-box-shadow, 0 0 0 var.$btn-focus-width rgba(mix(var.$link-color, var.$white, 15%), .5));
+        }
+      }
+
+      $btn-active: get-btn-active();
+      #{$btn-active} {
+        color: var.$link-hover-color;
+        // background: var.$white;
+        // border-color: var.$white;
+
+        &:focus {
+          @if var.$enable-shadows {
+            @include mixins.box-shadow( var.$btn-box-shadow, 0 0 0 var.$btn-focus-width rgba(mix(var.$link-color, var.$white, 15%), .5));
+          }
+        }
+      }
+
+      &:disabled,
+      &.disabled {
+        color: get-contrast-text-color( var.$white );
+        // background: var.$white;
+        // border-color: var.$white;
+      }
+    }
+  }
+
+  // ゴーストボタン
+  @if list.index($publish, #{$btn}-ghost) {
+    #{$btn}-ghost {
+      @include mixins.button-outline-variant(var.$white);
+    }
+  }
+
+  // サイズ
+  @if list.index($publish, #{$btn}-large) {
+    #{$btn}-large {
+      padding: var.$btn-padding-y-large var.$btn-padding-x-large;
+    }
+  }
+  @if list.index($publish, #{$btn}-small) {
+    #{$btn}-small {
+      padding: var.$btn-padding-y-small var.$btn-padding-x-small;
+    }
+  }
+
+}
+
+
+
+
+
+
+// --------------------
+// メディアクエリ
+// --------------------
+
+
+// > SMALL
+@mixin mqx-up-s {
+}
+
+// > MEDIUM
+@mixin mqx-up-m {
+}
+
+// > LARGE
+@mixin mqx-up-l {
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-xl {
+}
+
+
+
+
+

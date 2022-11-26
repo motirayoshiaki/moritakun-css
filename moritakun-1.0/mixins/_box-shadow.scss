@@ -1,0 +1,27 @@
+@use "sass:list";
+@use "../variables" as var;
+
+
+@mixin box-shadow ( $values... ) {
+  @if var.$enable-shadows {
+    $result: ();
+
+    @each $value in $values {
+      @if $value != null {
+        $result: list.append($result, $value, "comma");
+      }
+      @if $value == none and list.length($values) > 1 {
+        $result: none;
+      }
+    }
+
+    @if 0 < list.length($result) {
+      box-shadow: $result;
+    }
+  }
+}
+
+
+
+
+

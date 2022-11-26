@@ -1,0 +1,35 @@
+
+@use "sass:list";
+@use "../variables" as var;
+
+
+@mixin transition ( $values... ) {
+  @if 0 == list.length($values) {
+    $values: var.$transition-base;
+  }
+
+  @if 1 < list.length($values) {
+    @each $value in $values {
+      @if $value == null or $value == none {
+        $values: none;
+      }
+    }
+  }
+
+  @if var.$enable-transitions {
+    @if list.nth($values, 1) != null {
+      transition: $values;
+    }
+
+    @if var.$enable-reduced-motion and list.nth($values, 1) != null and list.nth($values, 1) != none {
+      @media (prefers-reduced-motion: reduce) {
+        transition: none;
+      }
+    }
+  }
+}
+
+
+
+
+

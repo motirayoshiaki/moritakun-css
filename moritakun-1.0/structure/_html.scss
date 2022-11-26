@@ -1,0 +1,81 @@
+@use "sass:map";
+@use 'sass:list';
+
+@use "../variables" as var;
+@use "../mixins";
+@use "../functions" as *;
+
+$publish: get-publishes( var.$publish-structure, var.$unpublish-structure );
+
+
+// --------------------
+// HTML
+// --------------------
+
+@if list.index( $publish, 'html' ) {
+  html {
+    font-size: var.$font-size;
+    height: auto;
+
+    @if not list.index( $publish, 'body' ) {
+      @include mixins.html();
+    }
+  }
+
+  @if list.index( $publish, 'body' ) {
+    html, body {
+      @include mixins.html();
+    }
+  }
+
+}
+
+
+// > SMALL
+@mixin mqx-up-s {
+  @if list.index( $publish, 'html' ) {
+    @if var.$font-size-s and 0 != var.$font-size-s {
+      html {
+        font-size: var.$font-size-s;
+      }
+    }
+  }
+}
+
+// > MEDIUM
+@mixin mqx-up-m {
+  @if list.index( $publish, 'html' ) {
+    @if var.$font-size-m and 0 != var.$font-size-m {
+      html {
+        font-size: var.$font-size-m;
+      }
+    }
+  }
+}
+
+// > LARGE
+@mixin mqx-up-l {
+  @if list.index( $publish, 'html' ) {
+    @if var.$font-size-l and 0 != var.$font-size-l {
+      html {
+        font-size: var.$font-size-l;
+      }
+    }
+  }
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-xl {
+  @if list.index( $publish, 'html' ) {
+    @if var.$font-size-xl and 0 != var.$font-size-xl {
+      html {
+        font-size: var.$font-size-xl;
+      }
+    }
+  }
+}
+
+
+
+
+

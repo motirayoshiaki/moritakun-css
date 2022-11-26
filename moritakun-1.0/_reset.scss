@@ -1,0 +1,151 @@
+
+@use "./variables" as var;
+
+// CSS変数
+:root {
+  --#{var.$var-prefix}breakpoint-s:  #{var.$grid-breakpoint-s};
+  --#{var.$var-prefix}breakpoint-m:  #{var.$grid-breakpoint-m};
+  --#{var.$var-prefix}breakpoint-l:  #{var.$grid-breakpoint-l};
+  --#{var.$var-prefix}breakpoint-xl: #{var.$grid-breakpoint-xl};
+}
+
+
+abbr, address, article, aside, audio,
+b, blockquote, body,
+canvas, caption, cite, code,
+dd, del, details, dfn, div, dl, dt,
+em,
+fieldset, figcaption, figure, footer, form,
+h1, h2, h3, h4, h5, h6, header, hr, html,
+i, iframe, img, ins,
+kbd,
+label, legend, li,
+main, mark, menu,
+nav,
+object, ol,
+p, pre,
+q,
+samp, section, small, span, strong, sub, summary, sup,
+table, tbody, td, tfoot, th, thead, time, tr,
+ul,
+var, video {
+  background: transparent;
+  vertical-align: baseline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+}
+
+address, article, aside,
+blockquote,
+details, div,
+footer,
+h1, h2, h3, h4, h5, h6, header, hr,
+iframe,
+main, menu,
+nav,
+p, pre,
+section {
+  display: block;
+}
+
+[hidden], template {
+  display: none !important;
+}
+
+:focus {
+  outline: 0;
+}
+
+hr {
+  line-height: 0;
+}
+
+article, aside,
+div,
+footer,
+header,
+iframe,
+main,
+nav,
+section {
+  margin: 0 auto;
+}
+
+command,
+datalist,
+label,
+meter {
+  display: inline;
+}
+
+audio,
+canvas,
+keygen,
+output,
+progress,
+summary,
+video {
+  display: inline-block;
+}
+
+address,
+dfn,
+em,
+i,
+p, pre,
+strong,
+var {
+  font-style: normal;
+}
+
+cite {
+  font-style: italic;
+}
+
+rp, rt {
+  font-weight: normal;
+}
+
+b,
+dt,
+strong {
+  font-weight: bold;
+}
+
+hr,
+iframe {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+abbr[title],
+dfn[title] {
+  cursor: help;
+  text-decoration-skip-ink: none;
+}
+abbr[title] {
+  text-decoration: underline;
+  text-decoration: underline dotted;
+}
+
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+
+summary {
+  cursor: pointer;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+
+
+
+

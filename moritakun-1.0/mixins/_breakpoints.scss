@@ -1,0 +1,75 @@
+
+@use "sass:map";
+@use "../variables" as var;
+
+
+// 最小のブレイクポイントを取得
+//  >> breakpoint-min(sm, (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px))
+//  576px
+@function breakpoint-min ( $name, $breakpoints: var.$grid-breakpoints ) {
+  $min: map.get($breakpoints, $name);
+  @return if( $min != 0, $min, null );
+}
+
+
+// ブレイクポイント以上にメディアクエリを適用（モバイルファースト用）
+@mixin mqx-up ( $name, $breakpoints: var.$grid-breakpoints ) {
+  $min: breakpoint-min($name, $breakpoints);
+  @if $min {
+    @media (min-width: $min) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
+@mixin media-breakpoint-up ( $name, $breakpoints: var.$grid-breakpoints ) {
+  @include mqx-up( $name, $breakpoints: var.$grid-breakpoints );
+}
+
+
+// ブレイクポイント以下にメディアクエリを適用（デスクトップモニタ優先）
+@mixin mqx-down ( $name, $breakpoints: var.$grid-breakpoints ) {
+  $max: breakpoint-min($name, $breakpoints);
+  @if $max {
+    @media (max-width: $max) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
+@mixin media-breakpoint-down ( $name, $breakpoints: var.$grid-breakpoints ) {
+  @include mqx-down( $name, $breakpoints: var.$grid-breakpoints );
+}
+
+
+// 最小と最大のブレイクポイントの間に適用
+@mixin mqx-between ( $min-n, $max-n, $breakpoints: var.$grid-breakpoints ) {
+  $min: breakpoint-min($min-n, $breakpoints);
+  $max: breakpoint-min($max-n, $breakpoints);
+  @if $min != null and $max != null {
+    @media (min-width: $min) and (max-width: $max) {
+      @content;
+    }
+  } @else if null == $max {
+    @include media-breakpoint-up( $min ) {
+      @content;
+    }
+  } @else if null == $min {
+    @include media-breakpoint-down( $max ) {
+      @content;
+    }
+  }
+}
+
+@mixin media-breakpoint-between ( $min-n, $max-n, $breakpoints: var.$grid-breakpoints ) {
+  @include mqx-between( $min-n, $max-n, $breakpoints: var.$grid-breakpoints );
+}
+
+
+
+
+

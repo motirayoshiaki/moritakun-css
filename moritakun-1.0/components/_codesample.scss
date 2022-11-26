@@ -1,0 +1,115 @@
+@use "sass:math";
+@use "sass:map";
+@use 'sass:list';
+
+@use "../variables" as var;
+@use "../mixins";
+@use "../functions" as func;
+
+
+$publish: func.get-publishes( var.$publish-components, var.$unpublish-components );
+
+
+
+// --------------------
+// コードサンプル
+// --------------------
+
+@if list.index($publish, '.codesample') {
+  .codesample {
+    background: var.$whitesmoke;
+    text-align: left;
+    padding: func.round(var.$gap * .5);
+    display: block;
+    position: relative;
+
+    code {
+      line-height: 1.8;
+      white-space: pre;
+      word-wrap: normal;
+      word-break: normal;
+      min-width: 100%;
+      display: block;
+      overflow: auto;
+    }
+  }
+}
+
+
+// > SMALL
+@mixin mqx-up-codesample-s {
+  @if list.index($publish, '.codesample') {
+    @if var.$gap-s or 0 == var.$gap-s {
+      .codesample {
+        padding: func.round(var.$gap-s * .5);
+      }
+    }
+  }
+}
+
+// > MEDIUM
+@mixin mqx-up-codesample-m {
+  @if list.index($publish, '.codesample') {
+    @if var.$gap-m or 0 == var.$gap-m {
+      .codesample {
+        padding: func.round(var.$gap-m * .5);
+      }
+    }
+  }
+}
+
+// > LARGE
+@mixin mqx-up-codesample-l {
+  @if list.index($publish, '.blockquote') {
+    @if var.$gap-l or 0 == var.$gap-l {
+      .codesample {
+        padding: func.round(var.$gap-l * .5);
+      }
+    }
+  }
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-codesample-xl {
+  @if list.index($publish, '.blockquote') {
+    @if var.$gap-xl or 0 == var.$gap-xl {
+      .codesample {
+        padding: func.round(var.$gap-xl * .5);
+      }
+    }
+  }
+}
+
+
+
+
+
+// --------------------
+// メディアクエリ
+// --------------------
+
+
+// > SMALL
+@mixin mqx-up-s {
+  @include mqx-up-codesample-s;
+}
+
+// > MEDIUM
+@mixin mqx-up-m {
+  @include mqx-up-codesample-m;
+}
+
+// > LARGE
+@mixin mqx-up-l {
+  @include mqx-up-codesample-l;
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-xl {
+  @include mqx-up-codesample-xl;
+}
+
+
+
+
+

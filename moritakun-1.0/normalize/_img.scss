@@ -1,0 +1,80 @@
+@use 'sass:list';
+
+@use "../variables" as var;
+@use "../functions" as *;
+
+$publish: get-publishes( var.$publish-normalize, var.$unpublish-normalize );
+
+
+
+// --------------------
+// 画像・SVG
+// --------------------
+
+@if list.index( $publish, 'img' ) and list.index( $publish, 'svg' ) {
+  img, svg {
+    vertical-align: middle;
+  }
+}
+
+
+@if list.index( $publish, 'img' ) {
+  img {
+    @if not list.index( $publish, 'svg' ) {
+      vertical-align: middle;
+    }
+    max-width: 100%;
+    height: auto;
+    image-rendering: smooth;
+    -ms-interpolation-mode: bicubic;
+  }
+}
+
+@if list.index( $publish, 'svg' ) {
+  svg {
+    @if not list.index( $publish, 'img' ) {
+      vertical-align: middle;
+    }
+    &:not(:root) {
+      overflow: hidden;
+    }
+  }
+}
+
+// フィギュア要素
+@if list.index( $publish, 'figure' ) {
+  figure, figcaption {
+    max-width: 100%;
+    display: block;
+  }
+}
+
+
+
+
+
+// --------------------
+// メディアクエリ
+// --------------------
+
+
+// > SMALL
+@mixin mqx-up-s {
+}
+
+// > MEDIUM
+@mixin mqx-up-m {
+}
+
+// > LARGE
+@mixin mqx-up-l {
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-xl {
+}
+
+
+
+
+

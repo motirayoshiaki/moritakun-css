@@ -1,0 +1,133 @@
+@use "sass:math";
+@use "sass:map";
+@use "sass:list";
+
+@use "../variables" as var;
+@use "../mixins";
+@use "../functions" as *;
+
+$publish: get-publishes( var.$publish-components, var.$unpublish-components );
+
+
+
+// --------------------
+// 文章スタイル
+// --------------------
+
+// 説明
+@if list.index( $publish, '.description' ) {
+  .description {
+    font-size: var.$font-size-small;
+    line-height: math.min(1.5, var.$line-height);
+    margin: 0;
+    padding: map.get(var.$spacers, 1) 0;
+  }
+}
+
+// 注意書き
+@if list.index( $publish, '.notice' ) {
+  .notice {
+    // color: $gray;
+    font-size: 90%;
+    margin: 0;
+    padding-top: map.get(var.$spacers, 1);
+    padding-bottom: map.get(var.$spacers, 1);
+    padding-left: 1em;
+    &:before {
+      content: '※';
+      margin: 0 .25em 0 -1.25em;
+      display: inline-block;
+    }
+  }
+}
+
+
+// > SMALL
+@mixin mqx-up-p-s {
+}
+
+// > MEDIUM
+@mixin mqx-up-p-m {
+}
+
+// > LARGE
+@mixin mqx-up-p-l {
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-p-xl {
+}
+
+
+
+
+
+// --------------------
+// 文章フォーマット
+// --------------------
+
+// 郵便番号のクリック無効（スマホの電話番号リンク対策）
+@if list.index( $publish, '.postalCode' ) {
+  .postalCode {
+    pointer-events: none;
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+  }
+}
+
+
+// > SMALL
+@mixin mqx-up-fmt-s {
+}
+
+// > MEDIUM
+@mixin mqx-up-fmt-m {
+}
+
+// > LARGE
+@mixin mqx-up-fmt-l {
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-fmt-xl {
+}
+
+
+
+
+
+// --------------------
+// メディアクエリ
+// --------------------
+
+
+// > SMALL
+@mixin mqx-up-s {
+  @include mqx-up-p-s;
+  @include mqx-up-fmt-s;
+}
+
+// > MEDIUM
+@mixin mqx-up-m {
+  @include mqx-up-p-m;
+  @include mqx-up-fmt-m;
+}
+
+// > LARGE
+@mixin mqx-up-l {
+  @include mqx-up-p-l;
+  @include mqx-up-fmt-l;
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-xl {
+  @include mqx-up-p-xl;
+  @include mqx-up-fmt-xl;
+}
+
+
+
+
+

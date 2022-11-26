@@ -1,0 +1,399 @@
+@use "sass:map";
+@use 'sass:list';
+
+@use "../variables" as var;
+@use "../functions" as *;
+
+$publish: get-publishes( var.$publish-normalize, var.$unpublish-normalize );
+
+
+
+// --------------------
+// 段落ほか
+// --------------------
+
+// 書き出し対象のセレクター
+$blocks: ();
+@each $s in [ address blockquote figure p pre ] {
+  @if list.index( $publish, $s ) {
+    $blocks: list.join( $blocks, $s, $separator: comma );
+  }
+}
+
+@if 0 < list.length($blocks) {
+  #{$blocks} {
+    margin-bottom: var.$spacer;
+    &:empty {
+      margin: 0;
+      padding: 0;
+      height: 0;
+    }
+  }
+}
+
+
+// > SMALL
+@mixin mqx-up-block-s {
+}
+
+// > MEDIUM
+@mixin mqx-up-block-m {
+}
+
+// > LARGE
+@mixin mqx-up-block-l {
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-block-xl {
+}
+
+
+
+
+
+// --------------------
+// テキスト
+// --------------------
+
+// 上付き、下付き
+$sub: ();
+@each $s in [ sub sup ] {
+  @if list.index( $publish, $s ) {
+    $sub: list.join( $sub, $s, $separator: comma );
+  }
+}
+
+@if 0 < list.length($sub) {
+  #{$sub} {
+    font-size: var.$sup-font-size;
+    font-weight: normal;
+    line-height: 0;
+    position: relative;
+  }
+}
+
+@if list.index( $publish, 'sup' ) {
+  sup {
+    vertical-align: super;
+    // top: -.5em;
+  }
+}
+
+@if list.index( $publish, 'sub' ) {
+  sub {
+    vertical-align: sub;
+    bottom: 3em;
+  }
+}
+
+// 編集要素
+@if list.index( $publish, 'ins' ) {
+  ins {
+    text-decoration: underline;
+    * {
+      text-decoration: none;
+    }
+  }
+}
+
+@if list.index( $publish, 'del' ) {
+  del {
+    text-decoration: line-through;
+  }
+}
+
+// 引用
+$blockquote: ();
+@each $s in [ blockquote q ] {
+  @if list.index( $publish, $s ) {
+    $blockquote: list.join( $blockquote, $s, $separator: comma );
+  }
+}
+
+@if 0 < list.length($blockquote) {
+  #{$blockquote} {
+    quotes: none;
+    &:before,
+    &:after {
+      content: '';
+      content: none;
+    }
+  }
+}
+
+
+// > SMALL
+@mixin mqx-up-text-s {
+}
+
+// > MEDIUM
+@mixin mqx-up-text-m {
+}
+
+// > LARGE
+@mixin mqx-up-text-l {
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-text-xl {
+}
+
+
+
+
+
+// --------------------
+// リンクテキスト
+// --------------------
+
+@if list.index( $publish, 'a' ) {
+  a {
+    color: var.$link-color;
+    text-decoration: var.$link-decoration;
+    -webkit-text-decoration-skip: objects;
+    @if var.$duration {
+      transition: color var.$duration linear;
+    }
+
+    img {
+      text-decoration: none !important;
+    }
+
+    @if var.$link-hover-color or var.$link-hover-decoration {
+      &:hover {
+        @if var.$link-hover-color {
+          color: var.$link-hover-color;
+        }
+        @if var.$link-hover-decoration {
+          text-decoration: var.$link-hover-decoration;
+        }
+      }
+    }
+
+  }
+}
+
+
+// > SMALL
+@mixin mqx-up-link-s {
+}
+
+// > MEDIUM
+@mixin mqx-up-link-m {
+}
+
+// > LARGE
+@mixin mqx-up-link-l {
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-link-xl {
+}
+
+
+
+
+
+// --------------------
+// コードサンプル
+// --------------------
+
+$mono: ();
+@each $s in [ code, kbd, pre, samp, var ] {
+  @if list.index( $publish, $s ) {
+    $mono: list.join( $mono, $s, $separator: comma );
+  }
+}
+
+@if 0 < list.length($mono) {
+  #{$mono} {
+    font-family: var.$font-family-monospace;
+    font-style: normal;
+    word-wrap: normal;
+    word-break: normal;
+    direction: ltr /* rtl:ignore */;
+    unicode-bidi: bidi-override;
+  }
+}
+
+@if list.index($publish, 'pre') and list.index($publish, 'code') {
+  pre, code {
+    font-size: var.$code-font-size;
+  }
+}
+
+@if list.index($publish, 'pre') {
+  pre {
+    @if not list.index($publish, 'code') {
+      font-size: var.$code-font-size;
+    }
+    white-space: pre;
+    overflow: auto;
+    word-wrap: normal;
+    word-break: normal;
+
+    @if list.index($publish, 'code') {
+      code {
+        font-size: inherit;
+        color: inherit;
+        word-break: normal;
+      }
+    }
+  }
+}
+
+@if list.index($publish, 'code') {
+  code {
+    @if not list.index($publish, 'pre') {
+      font-size: var.$code-font-size;
+    }
+    word-wrap: break-word;
+    a > & {
+      color: inherit;
+    }
+  }
+}
+
+
+// 段落内のスタイル
+$mark: ();
+@if list.index( $publish, 'code' ) {
+  $mark: list.join( $mark, 'p code', $separator: comma );
+}
+@if list.index( $publish, 'samp' ) {
+  $mark: list.join( $mark, 'p samp', $separator: comma );
+}
+@if list.index( $publish, 'var' ) {
+  $mark: list.join( $mark, 'p var', $separator: comma );
+}
+@if list.index( $publish, 'mark' ) {
+  $mark: list.join( $mark, 'mark', $separator: comma );
+}
+
+@if 0 < list.length($mono) {
+  #{$mono} {
+    display: inline-block;
+  }
+}
+
+
+// キー
+@if list.index($publish, 'kbd') {
+  kbd {
+    color: var.$white;
+    background: var.$body-color;
+    padding: var.$label-padding-y var.$label-padding-x;
+    border-radius: var.$label-border-radius;
+    kbd {
+      padding: 0;
+      font-size: 1em;
+    }
+  }
+}
+
+
+// > SMALL
+@mixin mqx-up-code-s {
+}
+
+// > MEDIUM
+@mixin mqx-up-code-m {
+}
+
+// > LARGE
+@mixin mqx-up-code-l {
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-code-xl {
+}
+
+
+
+
+
+// --------------------
+// プレフィックス、サフィックス
+// --------------------
+
+@if list.index( $publish, '[data-prefix]' ) or list.index( $publish, '[data-suffix]' ) {
+  *[data-prefix]:before,
+  *[data-suffix]:after {
+    display: inline-block;
+  }
+  *[data-prefix]:before {
+    content: attr(data-prefix);
+  }
+
+  *[data-suffix]:after {
+    content: attr(data-suffix);
+  }
+}
+
+
+// > SMALL
+@mixin mqx-up-pseudo-s {
+}
+
+// > MEDIUM
+@mixin mqx-up-pseudo-m {
+}
+
+// > LARGE
+@mixin mqx-up-pseudo-l {
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-pseudo-xl {
+}
+
+
+
+
+
+// --------------------
+// メディアクエリ
+// --------------------
+
+
+// > SMALL
+@mixin mqx-up-s {
+  @include mqx-up-block-s;
+  @include mqx-up-text-s;
+  @include mqx-up-link-s;
+  @include mqx-up-code-s;
+  @include mqx-up-pseudo-s;
+}
+
+// > MEDIUM
+@mixin mqx-up-m {
+  @include mqx-up-block-m;
+  @include mqx-up-text-m;
+  @include mqx-up-link-m;
+  @include mqx-up-code-m;
+  @include mqx-up-pseudo-m;
+}
+
+// > LARGE
+@mixin mqx-up-l {
+  @include mqx-up-block-l;
+  @include mqx-up-text-l;
+  @include mqx-up-link-l;
+  @include mqx-up-code-l;
+  @include mqx-up-pseudo-l;
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-xl {
+  @include mqx-up-block-xl;
+  @include mqx-up-text-xl;
+  @include mqx-up-link-xl;
+  @include mqx-up-code-xl;
+  @include mqx-up-pseudo-xl;
+}
+
+
+
+
+

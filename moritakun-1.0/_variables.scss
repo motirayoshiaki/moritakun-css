@@ -1,0 +1,726 @@
+//
+// ----------------------------------------
+// Variables
+//
+// 命名規則（BootStrap 引用）
+// $component-state-property-size
+//   Ex: $nav-link-disabled-color
+//   Ex: $modal-content-box-shadow-xs
+// ----------------------------------------
+//
+
+@use "sass:math";
+
+// デバッグ用
+$debug: 0 !default;
+
+// CSS変数プレフィックス
+$var-prefix: '' !default;
+
+// オプション
+// $enable-caret:                true !default;
+$enable-rounded:              true !default;
+$enable-shadows:              false !default;
+// $enable-gradients:            false !default;
+$enable-transitions:          true !default;
+$enable-reduced-motion:       true !default;
+// $enable-smooth-scroll:        true !default;
+// $enable-grid-classes:         true !default;
+// $enable-button-pointers:      true !default;
+// $enable-rfs:                  true !default;
+// $enable-validation-icons:     true !default;
+// $enable-negative-margins:     false !default;
+// $enable-deprecation-messages: true !default;
+// $enable-important-utilities:  true !default;
+
+$object-positions: ( 1: 0, 2: 12.5%, 3: 25%, 4: 33.33%, 5: center, 6: 66.66%, 7: 75%, 8: 87.5%, 9: 100% ); // クロップ画像のクラスとポジション
+
+
+
+
+
+// --------------------
+// Selector
+// --------------------
+
+// クラス名の設定
+$container-class: '.container' !default; // コンテナー
+$btn-class:       '.btn' !default; // ボタン
+$card-class:      '.card' !default; // カード
+$grid-class:      '.grid' !default; // グリッド
+$lazyload-class:  '.lazyload' !default; // 遅延ロード
+
+
+
+
+
+// --------------------
+// Color
+// --------------------
+
+// グレー
+$gray:       #808080 !default;
+$lightgray:  #d3d3d3 !default; // 薄いグレー
+$gainsboro:  #dcdcdc !default; // 薄いグレー
+$whitesmoke: #f5f5f5 !default; // 背景用の薄いグレー
+$blackgray:  #222    !default; // 濃いグレー
+$text-muted: $gray   !default; // 弱調色
+// ブルー
+$lightblue:  #0dcaf0 !default;
+$ghostwhite: #f8f9fa !default;
+
+// BootStrap 互換
+$white:   #fff    !default;
+
+$blue:    #0d6efd !default;
+$indigo:  #6610f2 !default;
+$purple:  #6f42c1 !default;
+$pink:    #d63384 !default;
+$red:     #dc3545 !default;
+$orange:  #fd7e14 !default;
+$yellow:  #ffc107 !default;
+$green:   #198754 !default;
+$teal:    #20c997 !default;
+$cyan:    #0dcaf0 !default;
+
+$black:   #000 !default;
+
+// カラーテーマ
+$primary:   $blue !default;
+$secondary: $gray !default;
+$success:   $green !default;
+$info:      $cyan !default;
+$warning:   $yellow !default;
+$danger:    $red !default;
+$light:     $lightgray !default;
+$dark:      $blackgray !default;
+
+$theme-colors: (
+  "primary":    $primary,
+  "secondary":  $secondary,
+  "success":    $success,
+  "info":       $info,
+  "warning":    $warning,
+  "danger":     $danger,
+  "light":      $light,
+  "dark":       $dark
+) !default;
+
+// BODY設定
+$body-color: $black !default;
+$body-bg:    $white !default;
+$body-bg-size:    null !default;
+$body-bg-size-s:  null !default;
+$body-bg-size-m:  null !default;
+$body-bg-size-l:  null !default;
+$body-bg-size-xl: null !default;
+
+$body-scroll-behavior: smooth !default;
+
+
+// カラーコントラスト機能向け
+$color-contrast-dark:  $black !default;
+$color-contrast-light: $white !default;
+// The contrast ratio to reach against white, to determine if color changes from "light" to "dark". Acceptable values for WCAG 2.0 are 3, 4.5 and 7.
+// See https://www.w3.org/TR/WCAG20/#visual-audio-contrast-contrast
+$min-contrast-ratio: 4.5 !default;
+
+// SNS用カラー
+$colors: (
+  facebook:             #3c5a98,
+  facebook-light:       #4b71bf, // HSB.B += 15
+  twitter:              #66a6dd,
+  twitter-light:        #75bfff, // HSB.B += 13
+  googleplus:           #bf4f42,
+  googleplus-light:     #e05d4f, // HSB.B += 13
+  instagram:            linear-gradient( -135deg, #1400c8, #b900b4, #f50000 ),
+  instagram-light:      linear-gradient( -135deg, lighten(#1400c8, 10), lighten(#b900b4, 10), lighten(#f50000, 10) ),
+  instagram-text:       #f50000,
+  instagram-text-light: #b900b4,
+  line:                 #00c300,
+  line-light:           #00e800, // HSB.B += 15
+) !default;
+
+// リンクテキスト
+$link-color: $primary !default;
+$link-decoration: underline !default;
+$link-hover-color: $success !default;
+$link-hover-decoration: null !default;
+
+// 選択時のカラー設定
+$selection-color: inherit !default;
+$selection-bg-color: $ghostwhite !default;
+
+// コンポーネントのデフォルトカラー
+$component-active-color: $white !default;
+$component-active-bg:    $primary !default;
+
+
+
+
+
+// --------------------
+// Effect
+// --------------------
+
+// トランジション経過時間
+$duration: .2s !default;
+
+// 影
+$box-shadow: rgba(#000, .1) 0 1px 10px !default;
+$box-shadow-reverse: rgba(#000, .1) 0 -2px 10px !default;
+$box-shadow-inset: rgba(#000, .15) 0 0 10px inset !default;
+$text-shadow: rgba(#000, .6) 0 1px 1em !default;
+
+// 透明度
+$alpha:      .75 !default; // 透明度
+$lightalpha: .25 !default; // 淡い透明度
+
+// アニメーション
+$transition-base: all $duration linear !default;
+$transition-fade: opacity $duration linear !default;
+$transition-collapse: height $duration linear !default;
+
+// スライドエフェクト
+$slide-duration: 1s !default;
+$slide-length: 5em !default;
+$slide-easing: ease-in-out !default;
+
+
+
+
+
+// --------------------
+// Fonts
+// --------------------
+
+// フォントサイズ
+$font-size-base: 1rem   !default;
+
+$font-size:      3.2vw  !default;
+$font-size-s:    null   !default;
+$font-size-m:    1.33vw !default;
+$font-size-l:    null   !default;
+$font-size-xl:   16px   !default;
+
+$font-size-small:  .875rem !default;
+$font-size-large:  1.25rem !default;
+$sup-font-size:    .75em   !default; // 上付き、下付き
+$code-font-size:   $font-size-small !default;
+
+$h1-font-size: $font-size-base * 2.5  !default;
+$h2-font-size: $font-size-base * 2    !default;
+$h3-font-size: $font-size-base * 1.75 !default;
+$h4-font-size: $font-size-base * 1.5  !default;
+$h5-font-size: $font-size-base * 1.25 !default;
+$h6-font-size: $font-size-base !default;
+$h1-font-size-s: null  !default;
+$h2-font-size-s: null  !default;
+$h3-font-size-s: null  !default;
+$h4-font-size-s: null  !default;
+$h5-font-size-s: null  !default;
+$h6-font-size-s: null  !default;
+$h1-font-size-m: null  !default;
+$h2-font-size-m: null  !default;
+$h3-font-size-m: null  !default;
+$h4-font-size-m: null  !default;
+$h5-font-size-m: null  !default;
+$h6-font-size-m: null  !default;
+$h1-font-size-l: null  !default;
+$h2-font-size-l: null  !default;
+$h3-font-size-l: null  !default;
+$h4-font-size-l: null  !default;
+$h5-font-size-l: null  !default;
+$h6-font-size-l: null  !default;
+$h1-font-size-xl: null  !default;
+$h2-font-size-xl: null  !default;
+$h3-font-size-xl: null  !default;
+$h4-font-size-xl: null  !default;
+$h5-font-size-xl: null  !default;
+$h6-font-size-xl: null  !default;
+
+$font-sizes: (
+  base: $font-size-base,
+  0:  $font-size,
+  s:  $font-size-s,
+  m:  $font-size-m,
+  l:  $font-size-l,
+  xl: $font-size-xl,
+  h1: $h1-font-size,
+  h2: $h2-font-size,
+  h3: $h3-font-size,
+  h4: $h4-font-size,
+  h5: $h5-font-size,
+  h6: $h6-font-size,
+  h1-s: $h1-font-size-s,
+  h2-s: $h2-font-size-s,
+  h3-s: $h3-font-size-s,
+  h4-s: $h4-font-size-s,
+  h5-s: $h5-font-size-s,
+  h6-s: $h6-font-size-s,
+  h1-m: $h1-font-size-m,
+  h2-m: $h2-font-size-m,
+  h3-m: $h3-font-size-m,
+  h4-m: $h4-font-size-m,
+  h5-m: $h5-font-size-m,
+  h6-m: $h6-font-size-m,
+  h1-l: $h1-font-size-l,
+  h2-l: $h2-font-size-l,
+  h3-l: $h3-font-size-l,
+  h4-l: $h4-font-size-l,
+  h5-l: $h5-font-size-l,
+  h6-l: $h6-font-size-l,
+  h1-xl: $h1-font-size-xl,
+  h2-xl: $h2-font-size-xl,
+  h3-xl: $h3-font-size-xl,
+  h4-xl: $h4-font-size-xl,
+  h5-xl: $h5-font-size-xl,
+  h6-xl: $h6-font-size-xl
+) !default;
+
+// 行間
+$line-height:    1.5 !default;
+$line-height-s:  null !default;
+$line-height-m:  null !default;
+$line-height-l:  null !default;
+$line-height-xl: null !default;
+
+// 行揃え
+$body-text-align: null !default;
+
+// フォントファミリー
+$font-family-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
+$font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !default;
+$font-family-serif: '游明朝体', 'Yu Mincho', '游明朝', 'YuMincho', 'Hiragino Mincho Pro', 'HG明朝E', 'HG明朝B', 'MS明朝', serif !default;
+
+$body-font-family: $font-family-sans-serif !default;
+
+$body-font-weight: null !default;
+
+
+// タイトル文字
+$headings-color: null !default;
+$headings-weight: null !default;
+$headings-line-height: 1.2 !default;
+
+// ハンバーガーアイコン
+$hamburger-bar-width: 2px !default; // バーの太さ
+
+// グーグル マテリアルアイコン
+$google-material-icons-font-size: 1em !default;
+
+
+
+
+
+// --------------------
+// Gap, Gutter
+// --------------------
+
+// 汎用的なマージン
+$gap:    2.5rem !default;
+$gap-s:  null !default;
+$gap-m:  null !default;
+$gap-l:  null !default;
+$gap-xl: 40px !default;
+
+// モニターの余白
+$gutter:    math.div( math.round(math.div($gap, 2) * 1000), 1000 ) !default;
+$gutter-s:  null        !default;
+$gutter-m:  null        !default;
+$gutter-l:  null        !default;
+$gutter-xl: math.div( math.round(math.div($gap-xl, 2) * 1000), 1000 ) !default;
+
+// 段落スペース
+$spacer: 1rem !default;
+$spacers: (
+  0: 0,
+  1: math.div( math.round(math.div($spacer, 4) * 1000), 1000 ),
+  2: math.div( math.round(math.div($spacer, 2) * 1000), 1000 ),
+  3: $spacer,
+  4: $spacer * 1.5,
+  5: $spacer * 2,
+  6: $spacer * 3,
+) !default;
+
+
+
+
+
+// --------------------
+// Breakpoints, Size
+// --------------------
+
+// ブレイクポイント
+$grid-breakpoint:    null   !default;
+$grid-breakpoint-s:  580px  !default; // スマートフォン
+$grid-breakpoint-m:  768px  !default; // タブレット
+$grid-breakpoint-l:  1000px  !default;
+$grid-breakpoint-xl: 1240px !default;
+
+$grid-breakpoints: (
+  xs: $grid-breakpoint,
+  s:  $grid-breakpoint-s,
+  m:  $grid-breakpoint-m,
+  l:  $grid-breakpoint-l,
+  xl: $grid-breakpoint-xl
+) !default;
+
+// コンテンツ領域の最大幅
+$container-max-width-s:  540px  !default;
+$container-max-width-m:  728px  !default;
+$container-max-width-l:  960px  !default;
+$container-max-width-xl: 1200px !default;
+
+$container-max-widths: (
+  s:  $container-max-width-s,
+  m:  $container-max-width-m,
+  l:  $container-max-width-l,
+  xl: $container-max-width-xl
+) !default;
+
+// サイドバーカラム幅の比率（デスクトップ: 900px: 300px ）
+$sidebar-ratio:    30% !default;
+$sidebar-ratio-s:  30% !default;
+$sidebar-ratio-m:  30% !default;
+$sidebar-ratio-l:  25% !default;
+$sidebar-ratio-xl: 25% !default;
+
+// 回り込み画像の最大幅
+$wraptext-img-maxwidth:    50% !default;
+$wraptext-img-maxwidth-s:  false !default;
+$wraptext-img-maxwidth-m:  false !default;
+$wraptext-img-maxwidth-l:  false !default;
+$wraptext-img-maxwidth-xl: false !default;
+
+// グリッドレイアウト
+$grid-max-columns: 12 !default;
+$grid-gap:    $gutter !default;
+$grid-gap-s:  $gutter-s !default;
+$grid-gap-m:  $gutter-m !default;
+$grid-gap-l:  $gutter-l  !default;
+$grid-gap-xl: $gutter-xl !default;
+
+
+
+
+
+// --------------------
+// Border
+// --------------------
+
+// ボーダーの色
+$border-color: $lightgray !default;
+
+// デフォルトのラウンド角
+$border-radius: .25rem !default;
+$border-radius-small: .2rem !default;
+$border-radius-large: .3rem !default;
+
+// 通常のボーダー
+$border-width: 1px !default;
+$border-style: solid !default;
+$border: $border-color $border-width $border-style !default;
+$dotted-border: $border-color $border-width dotted !default;
+
+// 太いボーダー
+$bold-border-width: 3px !default;
+$bold-border: $border-color $bold-border-width solid !default;
+$bold-dotted-border: $border-color $bold-border-width dotted !default;
+
+// フィールドのボーダー
+$field-border-width: 3px !default;
+$field-border: $border-color $field-border-width solid !default;
+
+
+
+
+
+// --------------------
+// Button
+// --------------------
+
+// 色
+$btn-bg-color: $primary  !default;
+
+$btn-bg-hover-color: $success !default;
+
+$btn-disabled-color: $gray !default;
+$btn-bg-disabled-color: $whitesmoke !default;
+
+// サイズ
+$btn-padding-y: .375rem !default;
+$btn-padding-x: .75rem !default;
+
+$btn-padding-y-small: .25rem !default;
+$btn-padding-x-small: .5rem !default;
+
+$btn-padding-y-large: .5rem !default;
+$btn-padding-x-large: 1rem !default;
+
+// テキスト
+$btn-font-family: null !default;
+
+$btn-font-size:       $font-size-base !default;
+$btn-font-size-small: $font-size-small !default;
+$btn-font-size-large: $font-size-large !default;
+
+$btn-font-weight: normal !default;
+$btn-line-height: $line-height !default;
+$btn-white-space: null !default; // テキストの折り返しを防ぐには、nowrapに設定
+
+// ボーダー
+$btn-border-width: $border-width !default;
+$btn-border-radius: $border-radius !default;
+$btn-border-radius-small: $border-radius-small !default;
+$btn-border-radius-large: $border-radius-large !default;
+
+// 装飾
+$btn-decoration: none !default;
+$btn-hover-decoration: none !default;
+
+$btn-box-shadow: 0 !default;
+$btn-focus-width:         .25rem !default;
+$btn-focus-color-opacity: .25 !default;
+$btn-focus-color:         rgba($component-active-bg, $btn-focus-color-opacity) !default;
+$btn-focus-box-shadow:    0 0 0 $btn-focus-width $btn-focus-color !default;
+$btn-disabled-opacity:    $alpha !default;
+$btn-active-box-shadow:   $box-shadow-inset !default;
+
+$btn-transition:
+  color $duration linear,
+  background-color $duration linear,
+  border-color $duration linear,
+  box-shadow $duration linear
+  !default;
+
+
+
+
+
+// --------------------
+// Cards
+// --------------------
+
+// 色
+$card-color: null !default;
+$card-bg-color: $white !default;
+
+// サイズ
+$card-spacer-y: $spacer !default;
+$card-spacer-x: $spacer !default;
+$card-height: null !default;
+
+// テキスト
+$card-title-spacer-y: math.div( math.round(math.div($spacer, 2) * 1000), 1000 ) !default;
+$card-cap-padding-y: math.div( math.round(math.div($card-spacer-y, 2) * 1000), 1000 ) !default;
+$card-cap-padding-x: $card-spacer-x !default;
+$card-cap-color: null !default;
+$card-cap-bg: $whitesmoke !default;
+
+// ボーダー
+$card-border-color: $border-color !default;
+$card-border-width: $border-width !default;
+$card-border-radius: $border-radius !default;
+$card-inner-border-radius: null !default;
+
+// 画像
+$card-img-overlay-padding: $spacer !default;
+$card-group-margin: math.div( math.round(math.div($gutter, 2) * 1000), 1000 ) !default;
+
+// 装飾
+$card-box-shadow: 0 !default;
+
+
+
+
+// --------------------
+// Table
+// --------------------
+
+$table-cell-padding-y:       .5rem !default;
+$table-cell-padding-x:       .5rem !default;
+$table-cell-padding-y-small: .25rem !default;
+$table-cell-padding-x-small: .25rem !default;
+
+$table-cell-vertical-align: top !default;
+
+$table-color: $body-color !default;
+$table-bg:    transparent !default;
+$table-caption-color: $text-muted !default;
+
+$table-th-font-weight: null !default;
+
+// 交互背景色
+$table-striped-color: $table-color !default;
+$table-striped-bg: $whitesmoke !default;
+$table-striped-order: odd !default;
+
+// ボーダー
+$table-border-color: $border-color !default;
+$table-border-width: $border-width !default;
+$table-border-style: $border-style !default;
+$table-border-bold-width: $bold-border-width !default;
+$table-border: $table-border-color $table-border-width $table-border-style !default;
+$table-border-bold: $table-border-color $table-border-bold-width $table-border-style !default;
+
+
+
+
+
+// --------------------
+// List
+// --------------------
+
+// リスト
+$ul-prefix-bullet: '・' !default;
+$ul-prefix-circle: '●' !default;
+$ul-prefix-asterisk: '※' !default;
+
+// 箇条書き（BSのリストグループ）
+$itemized-border-radius: $border-radius !default;
+$itemized-border-width: $border-width !default;
+$itemized-border-style: solid !default;
+$itemized-border-color: $border-color !default;
+$itemized-spacer-y: $card-spacer-y !default;
+$itemized-spacer-x: $card-spacer-x !default;
+
+$ul-prefixes: (
+  default:  $ul-prefix-bullet,
+  bullet:   $ul-prefix-bullet,
+  circle:   $ul-prefix-circle,
+  asterisk: $ul-prefix-asterisk
+) !default;
+
+// 定義リスト
+$dt-font-weight: bold !default;
+
+
+
+
+
+// --------------------
+// Form
+// --------------------
+
+
+
+
+
+// --------------------
+// Label, Tooltips
+// --------------------
+
+// ラベル
+$label-font-size: $font-size-small !default;
+$label-color: $white !default;
+$label-bg: $black !default;
+$label-border-radius: $border-radius !default;
+$label-opacity: null !default;
+$label-padding-y: math.div( math.round(math.div($spacer, 4) * 1000), 1000 ) !default;
+$label-padding-x: math.div( math.round(math.div($spacer, 2) * 1000), 1000 ) !default;
+$label-margin: 0 !default;
+
+// ツールチップ
+$tooltip-font-size: $label-font-size !default;
+$tooltip-max-width: 15em !default;
+$tooltip-color: $label-color !default;
+$tooltip-bg: $label-bg !default;
+$tooltip-border-radius: $label-border-radius !default;
+$tooltip-opacity: $label-opacity !default;
+$tooltip-padding-y: $label-padding-y !default;
+$tooltip-padding-x: $label-padding-x !default;
+$tooltip-margin: 0 !default;
+
+$tooltip-arrow-width: .8rem !default;
+$tooltip-arrow-height: .4rem !default;
+$tooltip-arrow-color: $tooltip-bg !default;
+
+
+
+
+
+// --------------------
+// Publish
+// --------------------
+
+// メディアクエリを書き出すかどうか（プロジェクト側で一括で吐き出す場合は false）
+$publish-media-query: true !default;
+$publish-mqx-up: false !default; // mqx-up() を書き出すかどうか
+
+// ノーマライズ
+$publish-normalize: (
+  // normalize/_img.scss
+  'img', 'svg', 'figure',
+  // normalize/_list.scss
+  'ol', 'ul', 'dl', 'nav',
+  // normalize/_table.scss
+  'table',
+  // normalize/_text.scss
+  'address', 'p', 'pre', 'sub', 'sup', 'ins', 'del', 'blockquote', 'q', 'a', 'code', 'kbd', 'samp', 'var', 'mark', '[data-prefix]', '[data-suffix]',
+  // normalize/_heading.scss
+  'h1-h6', '.h1-.h6',
+  // normalize/_div.scss
+  'hr',
+  // normalize/_form.scss
+  'form', 'button', 'input', 'select', 'label', 'textarea', 'fieldset', 'search',
+) !default;
+$unpublish-normalize: () !default;
+
+// 構造
+$publish-structure: (
+  'html', 'body', '::selection', '#wrapper',
+  '#header', '#main', '#aside', '#footer', '#{$container-class}',
+) !default;
+$unpublish-structure: () !default;
+
+// ユーテリティクラス
+$publish-utilities: (
+  // utilities/_text.scss
+  'font-size', 'font-style', 'font-variant', 'text-transform', 'text-decoration', 'white-space', 'letter-spacing', 'text-align', '.br-*',
+  // utilities/_display.scss
+  'visibility', 'display', '.visually-hidden', '@print', 'margin-*', 'margin-top', 'margin-right', 'margin-bottom', 'margin-left', 'padding-*', 'border-radius', 'flex', 'cursor',
+  // utilities/_color.scss
+  'color', 'background-color',
+) !default;
+$unpublish-utilities: () !default;
+
+// 部品
+$publish-components: (
+  // components/_img.scss
+  '#{$lazyload-class}', 'img.grayscale',
+  // components/_text.scss
+  '.description', '.notice', '.postalCode',
+  // components/_table.scss
+  '.table', '.table-*', '.table-small', '.table-bordered', '.table-borderless', '.table-striped', '.table-fixed', '.table-vertical', '.table-responsive', '.caption-*', '.caption-top',
+  // components/_list.scss
+  '.nav', '.unstyled', '.unordered', '.ordered', 'ul.notes', '.list-inline', '.itemized',
+  // components/_button.scss
+  '#{$btn-class}', '#{$btn-class}-check', '#{$btn-class}-link', '#{$btn-class}-white', '#{$btn-class}-ghost', '#{$btn-class}-large', '#{$btn-class}-small', '#{$btn-class}.gapless',
+  // components/_card.scss
+  '#{$card-class}',
+  // components/_grid.scss
+  '#{$grid-class}', '#{$grid-class}.gapless', '#{$grid-class}-middle', '#{$grid-class}-bottom', '#{$grid-class}-colspan-*',
+  // components/_float.scss
+  '.clearfix', '.float',
+  // components/_embed.scss
+  '.blockquote',
+  // components/_codesample.scss
+  '.codesample',
+  // components/_icons.scss
+  '.hamburger', '.material-icons',
+  // components/_fade.scss
+  '.fade',
+) !default;
+$unpublish-components: () !default;
+
+
+$availables: (
+  utilities: true,
+  components: true,
+) !default;
+
+
+
+
+

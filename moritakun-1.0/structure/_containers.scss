@@ -1,0 +1,147 @@
+@use "sass:math";
+@use "sass:map";
+@use 'sass:list';
+
+@use "../variables" as var;
+@use "../mixins";
+@use "../functions" as *;
+
+$publish: get-publishes( var.$publish-structure, var.$unpublish-structure );
+
+
+
+// --------------------
+// 構成要素
+// --------------------
+
+$structure: ();
+@each $s in [ #header, #main, #aside, #footer ] {
+  @if list.index( $publish, $s ) {
+    $structure: list.join( $structure, $s, $separator: comma );
+  }
+}
+
+@if 0 < list.length($structure) {
+  #{$structure} {
+    // margin: 0;
+    // padding: 0;
+    // width: 100%;
+    // position: relative;
+    // top: 0;
+    // left: 0;
+    // @include clearfix();
+
+    display: block;
+    box-sizing: border-box;
+  }
+}
+
+
+// コンテナー
+@if list.index( $publish, var.$container-class ) {
+  #{var.$container-class},
+  #{var.$container-class}-fluid,
+  #{var.$container-class}-s,
+  #{var.$container-class}-m,
+  #{var.$container-class}-l,
+  #{var.$container-class}-xl {
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: var.$gutter;
+    padding-left:  var.$gutter;
+    width: 100%;
+    display: block;
+    position: relative;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    @include mixins.clearfix();
+  }
+}
+
+
+
+
+
+// --------------------
+// メディアクエリ
+// --------------------
+
+
+// > SMALL
+@mixin mqx-up-s {
+  @if list.index( $publish, var.$container-class ) {
+    @if var.$gutter-s {
+      #{var.$container-class} {
+        padding-right: var.$gutter-s;
+        padding-left: var.$gutter-s;
+      }
+    }
+
+    #{var.$container-class}-s {
+      padding-right: 0;
+      padding-left:  0;
+      max-width: var.$container-max-width-s;
+    }
+  }
+}
+
+// > MEDIUM
+@mixin mqx-up-m {
+  @if list.index( $publish, var.$container-class ) {
+    @if var.$gutter-m {
+      #{var.$container-class} {
+        padding-right: var.$gutter-m;
+        padding-left: var.$gutter-m;
+      }
+    }
+
+    #{var.$container-class}-m {
+      padding-right: 0;
+      padding-left:  0;
+      max-width: var.$container-max-width-m;
+    }
+  }
+}
+
+// > LARGE
+@mixin mqx-up-l {
+  @if list.index( $publish, var.$container-class ) {
+    @if var.$gutter-l {
+      #{var.$container-class} {
+        padding-right: var.$gutter-l;
+        padding-left: var.$gutter-l;
+      }
+    }
+
+    #{var.$container-class}-l {
+      padding-right: 0;
+      padding-left:  0;
+      max-width: var.$container-max-width-l;
+    }
+  }
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-xl {
+  @if list.index( $publish, var.$container-class ) {
+    // @if var.$gutter-xl {
+    //   #{var.$container-class} {
+    //     padding-right: var.$gutter-xl;
+    //     padding-left: var.$gutter-xl;
+    //   }
+    // }
+
+    #{var.$container-class},
+    #{var.$container-class}-xl {
+      padding-right: 0;
+      padding-left:  0;
+      max-width: var.$container-max-width-xl;
+    }
+  }
+}
+
+
+
+
+

@@ -1,0 +1,555 @@
+@use "sass:map";
+@use 'sass:list';
+
+@use "../variables" as var;
+@use "../mixins";
+@use "../functions" as *;
+
+$publish: get-publishes( var.$publish-components, var.$unpublish-components );
+
+
+
+// --------------------
+// 基本スタイル
+// --------------------
+
+// 初期化
+@if list.index( $publish, '.nav' ) and list.index( $publish, '.unstyled' ) {
+  .nav ol,
+  .nav ul,
+  .unstyled {
+    list-style: none;
+    padding-left: 0;
+  }
+  .nav ol,
+  .nav ul {
+    margin-bottom: 0;
+  }
+
+}
+@else if list.index( $publish, '.nav' ) {
+  .nav ol,
+  .nav ul {
+    list-style: none;
+    margin-bottom: 0;
+    padding-left: 0;
+  }
+}
+@else if list.index( $publish, '.unstyled' ) {
+  .unstyled {
+    list-style: none;
+    padding-left: 0;
+  }
+}
+
+// スタイルの一括指定
+$styled: ();
+@each $s in [ '.unordered', '.ordered' ] {
+  @if list.index( $publish, $s ) {
+    $styled: list.join( $styled, $s, $separator: comma );
+  }
+}
+
+@mixin styled() {
+  list-style: none;
+
+  &, & > li {
+    position: relative;
+  }
+
+  & > li:before {
+    text-align: right;
+    white-space: nowrap;
+    margin: 0 .25em 0 auto;
+    display: inline-block;
+    overflow: visible;
+    position: absolute;
+    top: auto;
+    left: auto;
+    right: 100%;
+  }
+}
+
+@if 1 < list.length($styled) {
+  #{$styled} {
+    @include styled();
+  }
+}
+
+
+// > SMALL
+@mixin basic-up-s {
+}
+
+// > MEDIUM
+@mixin basic-up-m {
+}
+
+// > LARGE
+@mixin basic-up-l {
+}
+
+// > LARGE DESKTOP
+@mixin basic-up-xl {
+}
+
+
+
+
+
+// --------------------
+// 順序なしリスト
+// --------------------
+
+@if list.index($publish, '.unordered') {
+  .unordered {
+    @if null == list.index( $publish, '.ordered' ) {
+      @include styled();
+    }
+
+    padding-left: 1.25em;
+
+    & > li:before {
+      content: var( --prefix, map.get( var.$ul-prefixes, default ) );
+    }
+
+    @each $name, $glyph in var.$ul-prefixes {
+      &.#{$name} > li:before {
+        content: var( --prefix, #{$glyph} );
+      }
+    }
+
+  }
+}
+
+@if list.index($publish, 'ul.notes') {
+  ul.notes {
+    padding-left: 1.25em;
+    & > li {
+      margin-top: 0;
+      margin-bottom: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+      &:before {
+        content: var( --prefix, map.get( var.$ul-prefixes, bullet ) );
+      }
+    }
+  }
+}
+
+
+// > SMALL
+@mixin ul-up-s {
+}
+
+// > MEDIUM
+@mixin ul-up-m {
+}
+
+// > LARGE
+@mixin ul-up-l {
+}
+
+// > LARGE DESKTOP
+@mixin ul-up-xl {
+}
+
+
+
+
+
+// --------------------
+// 順序リスト
+// --------------------
+
+@if list.index($publish, '.ordered') {
+  .ordered {
+    @if null == list.index( $publish, '.unordered' ) {
+      @include styled();
+    }
+
+    padding-left: 2em;
+    counter-reset: count;
+
+    & > li:before {
+      counter-increment: count;
+      content: counter(count) '.';
+    }
+
+    &.upper-alpha {
+      & > li:before {
+        content: counter(count, upper-alpha) '.';
+      }
+    }
+
+    &.parenthesis {
+      & > li:before {
+        content: '(' counter(count) ')';
+      }
+    }
+
+    // 日本語
+    &.hiragana-iroha,
+    &.katakana-iroha {
+      padding-left: 2.5em;
+      & > li:before {
+        margin: 0;
+      }
+    }
+
+    &.hiragana-iroha {
+      & > li:before {
+        content: '（' counter(count, hiragana-iroha) '）';
+      }
+    }
+
+    &.katakana-iroha {
+      & > li:before {
+        content: '（' counter(count, katakana-iroha) '）';
+      }
+    }
+
+  }
+}
+
+
+// > SMALL
+@mixin ol-up-s {
+}
+
+// > MEDIUM
+@mixin ol-up-m {
+}
+
+// > LARGE
+@mixin ol-up-l {
+}
+
+// > LARGE DESKTOP
+@mixin ol-up-xl {
+}
+
+
+
+
+
+// --------------------
+// コンパクトなスタイル
+// --------------------
+
+$has-styled: ();
+@if 0 < list.length($styled) {
+  @each $s in $styled {
+    @if list.index( $publish, $s ) {
+      $has-styled: list.join( $styled, '&#{$s}', $separator: comma );
+    }
+  }
+}
+
+@if list.index($publish, '.list-inline') {
+  .list-inline {
+    list-style: none;
+    padding-left: 0;
+
+    @if 0 < list.length($has-styled) {
+      #{$has-styled} {
+        > li:before {
+          text-align: inherit;
+          position: relative;
+          right: auto;
+        }
+      }
+    }
+
+    > li {
+      display: inline-block;
+      &:not(:last-child) {
+        margin-right: .5em;
+      }
+    }
+
+    @if list.index($publish, '.ordered') {
+      &.ordered {
+        > li {
+          &:not(:last-child) {
+            margin-right: 2.5em;
+          }
+        }
+      }
+    }
+
+    @if list.index($publish, '.unordered') {
+      &.unordered {
+        > li {
+          &:not(:last-child) {
+            margin-right: 1.75em;
+          }
+        }
+      }
+    }
+
+  }
+}
+
+
+// > SMALL
+@mixin inline-up-s {
+  @if list.index($publish, '.list-inline') {
+    .list-s-inline {
+      list-style: none;
+      padding-left: 0;
+
+      @if 0 < list.length($has-styled) {
+        #{$has-styled} {
+          > li:before {
+            text-align: inherit;
+            position: relative;
+            right: auto;
+          }
+        }
+      }
+
+      > li {
+        display: inline-block;
+        &:not(:last-child) {
+          margin-right: .5em;
+        }
+      }
+    }
+  }
+}
+
+// > MEDIUM
+@mixin inline-up-m {
+  @if list.index($publish, '.list-inline') {
+    .list-m-inline {
+      list-style: none;
+      padding-left: 0;
+
+      @if 0 < list.length($has-styled) {
+        #{$has-styled} {
+          > li:before {
+            text-align: inherit;
+            position: relative;
+            right: auto;
+          }
+        }
+      }
+
+      > li {
+        display: inline-block;
+        &:not(:last-child) {
+          margin-right: .5em;
+        }
+      }
+    }
+  }
+}
+
+// > LARGE
+@mixin inline-up-l {
+  @if list.index($publish, '.list-inline') {
+    .list-l-inline {
+      list-style: none;
+      padding-left: 0;
+
+      @if 0 < list.length($has-styled) {
+        #{$has-styled} {
+          > li:before {
+            text-align: inherit;
+            position: relative;
+            right: auto;
+          }
+        }
+      }
+
+      > li {
+        display: inline-block;
+        &:not(:last-child) {
+          margin-right: .5em;
+        }
+      }
+    }
+  }
+}
+
+// > LARGE DESKTOP
+@mixin inline-up-xl {
+  @if list.index($publish, '.list-inline') {
+    .list-xl-inline {
+      list-style: none;
+      padding-left: 0;
+
+      @if 0 < list.length($has-styled) {
+        #{$has-styled} {
+          > li:before {
+            text-align: inherit;
+            position: relative;
+            right: auto;
+          }
+        }
+      }
+
+      > li {
+        display: inline-block;
+        &:not(:last-child) {
+          margin-right: .5em;
+        }
+      }
+    }
+  }
+}
+
+
+
+
+
+// --------------------
+// 箇条書き
+// --------------------
+
+@if list.index($publish, '.itemized') {
+  .itemized {
+    padding-left: 0;
+    display: flex;
+    flex-direction: column;
+    @include mixins.border-radius(var.$itemized-border-radius);
+
+    & > li {
+      text-decoration: if(var.$link-decoration == none, null, none);
+      margin: 0;
+      padding: var.$itemized-spacer-y var.$itemized-spacer-x;
+      border: var.$itemized-border-width var.$itemized-border-style var.$itemized-border-color;
+      display: block;
+      position: relative;
+
+      &:first-child {
+        @include mixins.border-top-radius(inherit);
+      }
+      &:last-child {
+        @include mixins.border-bottom-radius(inherit);
+      }
+    }
+
+    & > li + li {
+      border-top-width: 0;
+    }
+
+    // 記号付き
+    $xgap: var.$itemized-spacer-x;
+    @if 0 < list.length($has-styled) {
+      #{$has-styled} {
+        padding-left: 0;
+      }
+    }
+    @if list.index($publish, '.unordered') {
+      &.unordered > li {
+        padding-left: calc(#{$xgap} + 1.25em);
+        &:before {
+          right: calc(100% - (#{$xgap} + 1.25em));
+        }
+      }
+    }
+    @if list.index($publish, '.ordered') {
+      &.ordered > li {
+        padding-left: calc(#{$xgap} + 2em);
+        &:before {
+          right: calc(100% - (#{$xgap} + 2em));
+        }
+      }
+      &.ordered.hiragana-iroha > li,
+      &.ordered.katakana-iroha > li {
+        padding-left: calc(#{$xgap} + 2.5em);
+        &:before {
+          right: calc(100% - (#{$xgap} + 2.5em));
+        }
+      }
+    }
+  }
+
+  .itemized-flush {
+    @include mixins.border-radius(0);
+    & > * {
+      border-width: 0 0 var.$itemized-border-width;
+
+      &:last-child {
+        border-bottom-width: 0;
+      }
+    }
+  }
+
+}
+
+
+// > SMALL
+@mixin itemized-up-s {
+  @if list.index($publish, '.itemized') {
+  }
+}
+
+// > MEDIUM
+@mixin itemized-up-m {
+  @if list.index($publish, '.itemized') {
+  }
+}
+
+// > LARGE
+@mixin itemized-up-l {
+  @if list.index($publish, '.itemized') {
+  }
+}
+
+// > LARGE DESKTOP
+@mixin itemized-up-xl {
+  @if list.index($publish, '.itemized') {
+  }
+}
+
+
+
+
+
+// --------------------
+// メディアクエリ
+// --------------------
+
+// > SMALL
+@mixin mqx-up-s {
+  @include basic-up-s;
+  @include ul-up-s;
+  @include ol-up-s;
+  @include inline-up-s;
+  @include itemized-up-s;
+}
+
+// > MEDIUM
+@mixin mqx-up-m {
+  @include basic-up-m;
+  @include ul-up-m;
+  @include ol-up-m;
+  @include inline-up-m;
+  @include itemized-up-m;
+}
+
+// > LARGE
+@mixin mqx-up-l {
+  @include basic-up-l;
+  @include ul-up-l;
+  @include ol-up-l;
+  @include inline-up-l;
+  @include itemized-up-l;
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-xl {
+  @include basic-up-xl;
+  @include ul-up-xl;
+  @include ol-up-xl;
+  @include inline-up-xl;
+  @include itemized-up-xl;
+}
+
+
+
+
+

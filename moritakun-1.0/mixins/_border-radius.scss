@@ -1,0 +1,88 @@
+
+@use "sass:meta";
+@use "sass:list";
+@use "sass:math";
+@use "../variables" as var;
+
+
+@function valid-radius( $values ) {
+  $result: ();
+  @each $value in $values {
+    @if number == meta.type-of($value) {
+      $result: list.append($result, math.max($value, 0));
+    } @else {
+      $result: list.append($result, $value);
+    }
+  }
+  @return $result;
+}
+
+
+@mixin border-radius( $value: var.$border-radius ) {
+  @if var.$enable-rounded {
+    border-radius: valid-radius($value);
+  }
+}
+
+
+@mixin border-top-radius($value: var.$border-radius) {
+  @if var.$enable-rounded {
+    border-top-left-radius: valid-radius($value);
+    border-top-right-radius: valid-radius($value);
+  }
+}
+
+
+@mixin border-end-radius($value: var.$border-radius) {
+  @if var.$enable-rounded {
+    border-top-right-radius: valid-radius($value);
+    border-bottom-right-radius: valid-radius($value);
+  }
+}
+
+
+@mixin border-bottom-radius($value: var.$border-radius) {
+  @if var.$enable-rounded {
+    border-bottom-right-radius: valid-radius($value);
+    border-bottom-left-radius: valid-radius($value);
+  }
+}
+
+
+@mixin border-start-radius($value: var.$border-radius) {
+  @if var.$enable-rounded {
+    border-top-left-radius: valid-radius($value);
+    border-bottom-left-radius: valid-radius($value);
+  }
+}
+
+
+@mixin border-top-start-radius($value: var.$border-radius) {
+  @if var.$enable-rounded {
+    border-top-left-radius: valid-radius($value);
+  }
+}
+
+
+@mixin border-top-end-radius($value: var.$border-radius) {
+  @if var.$enable-rounded {
+    border-top-right-radius: valid-radius($value);
+  }
+}
+
+
+@mixin border-bottom-end-radius($value: var.$border-radius) {
+  @if var.$enable-rounded {
+    border-bottom-right-radius: valid-radius($value);
+  }
+}
+
+
+@mixin border-bottom-start-radius($value: var.$border-radius) {
+  @if var.$enable-rounded {
+    border-bottom-left-radius: valid-radius($value);
+  }
+}
+
+
+

@@ -1,0 +1,118 @@
+@use "sass:map";
+@use 'sass:list';
+
+@use "../variables" as var;
+@use "../mixins";
+@use "../functions" as *;
+
+$publish: get-publishes( var.$publish-normalize, var.$unpublish-normalize );
+
+$font-sizes: var.$font-sizes;
+
+
+
+// --------------------
+// タイトル文字
+// --------------------
+
+// 書き出し対象の各見出しのセレクター
+@function get-h-selector($n) {
+  $h: ();
+  @if list.index( $publish, 'h1-h6' ) {
+    $h: list.join( $h, 'h#{$n}', $separator: comma );
+  }
+  @if list.index( $publish, '.h1-.h6' ) {
+    $h: list.join( $h, '.h#{$n}', $separator: comma );
+  }
+  @return $h;
+}
+
+
+$h1-h6: ();
+
+@if list.index( $publish, 'h1-h6' ) {
+  $h1-h6: list.join( $h1-h6, (h1, h2, h3, h4, h5, h6), $separator: comma );
+}
+@if list.index( $publish, '.h1-.h6' ) {
+  $h1-h6: list.join( $h1-h6, '.h1, .h2, .h3, .h4, .h5, .h6', $separator: comma );
+}
+@if 0 < list.length($h1-h6) {
+  #{$h1-h6} {
+    @include mixins.heading;
+  }
+}
+
+
+@for $i from 1 through 6 {
+  $h: get-h-selector($i);
+  @if 0 < list.length($h) {
+    #{$h} {
+      font-size: map.get($font-sizes, h#{$i});
+    }
+  }
+}
+
+
+
+
+
+// --------------------
+// メディアクエリ
+// --------------------
+
+// > SMALL
+@mixin mqx-up-s {
+  @for $i from 1 through 6 {
+    $h: get-h-selector($i);
+    $size: map.get($font-sizes, h#{$i}-s);
+    @if 0 < list.length($h) and $size {
+      #{$h} {
+        font-size: $size;
+      }
+    }
+  }
+}
+
+// > MEDIUM
+@mixin mqx-up-m {
+  @for $i from 1 through 6 {
+    $h: get-h-selector($i);
+    $size: map.get($font-sizes, h#{$i}-m);
+    @if 0 < list.length($h) and $size {
+      #{$h} {
+        font-size: $size;
+      }
+    }
+  }
+}
+
+// > LARGE
+@mixin mqx-up-l {
+  @for $i from 1 through 6 {
+    $h: get-h-selector($i);
+    $size: map.get($font-sizes, h#{$i}-l);
+    @if 0 < list.length($h) and $size {
+      #{$h} {
+        font-size: $size;
+      }
+    }
+  }
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-xl {
+  @for $i from 1 through 6 {
+    $h: get-h-selector($i);
+    $size: map.get($font-sizes, h#{$i}-xl);
+    @if 0 < list.length($h) and $size {
+      #{$h} {
+        font-size: $size;
+      }
+    }
+  }
+}
+
+
+
+
+

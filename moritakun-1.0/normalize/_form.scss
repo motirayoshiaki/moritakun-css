@@ -1,0 +1,157 @@
+@use "sass:map";
+@use 'sass:list';
+
+@use "../variables" as var;
+@use "../mixins";
+@use "../functions" as *;
+
+$publish: get-publishes( var.$publish-normalize, var.$unpublish-normalize );
+
+
+
+// --------------------
+// フォーム
+// --------------------
+
+@if list.index( $publish, 'form' ) {
+  // フィールド一括
+  $fields: ();
+  @each $s in [ button, input, select, textarea ] {
+    @if list.index( $publish, $s ) {
+      $fields: list.join( $fields, $s, $separator: comma );
+    }
+  }
+  @if 0 < list.length($fields) {
+    #{$fields} {
+      margin: 0;
+      font-family: inherit;
+      font-size: inherit;
+      line-height: inherit;
+      vertical-align: middle;
+      max-width: 100%;
+      box-sizing: border-box;
+      cursor: pointer;
+    }
+  }
+
+  // ボタンとプルダウンのスタイル
+  $fields: ();
+  @each $s in [ button, select ] {
+    @if list.index( $publish, $s ) {
+      $fields: list.join( $fields, $s, $separator: comma );
+    }
+  }
+  @if 0 < list.length($fields) {
+    #{$fields} {
+      text-transform: none;
+    }
+  }
+
+  // ボタン
+  @if list.index( $publish, 'button' ) {
+    button,
+    [type=button],
+    [type=reset],
+    [type=submit],
+    [role=button] {
+      appearance: button;
+      cursor: pointer;
+    }
+
+    // ファイル
+    ::file-selector-button,
+    ::-webkit-file-upload-button {
+      font: inherit;
+      -webkit-appearance: button;
+    }
+
+  }
+
+  // プルダウン
+  @if list.index( $publish, 'select' ) {
+    select {
+      word-wrap: normal;
+    }
+    optgroup option {
+      padding-left: 1em;
+    }
+  }
+
+  // テキストエリア
+  @if list.index( $publish, 'textarea' ) {
+    textarea {
+      resize: vertical;
+    }
+  }
+
+  // ラベル
+  @if list.index( $publish, 'label' ) {
+    label {
+      display: inline-block;
+    }
+  }
+
+  // フィールドセット
+  @if list.index( $publish, 'fieldset' ) {
+    fieldset {
+      min-width: 0;
+      padding: 0;
+      margin: 0;
+      display: block;
+      border: 0;
+    }
+
+    legend {
+      margin-bottom: map.get(var.$spacers, 2);
+      padding: 0;
+      width: 100%;
+      display: block;
+    }
+  }
+
+  // 検索
+  @if list.index( $publish, 'search' ) {
+    [type=search] {
+      outline-offset: -2px;
+      -webkit-appearance: textfield;
+    }
+
+    ::-webkit-search-decoration {
+      -webkit-appearance: none;
+    }
+
+    ::-webkit-color-swatch-wrapper {
+      padding: 0;
+    }
+  }
+
+}
+
+
+
+
+
+// --------------------
+// メディアクエリを出力
+// --------------------
+
+
+// > SMALL
+@mixin mqx-up-s {
+}
+
+// > MEDIUM
+@mixin mqx-up-m {
+}
+
+// > LARGE
+@mixin mqx-up-l {
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-xl {
+}
+
+
+
+

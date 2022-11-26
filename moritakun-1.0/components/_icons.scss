@@ -1,0 +1,189 @@
+@use "sass:map";
+@use 'sass:list';
+
+@use "../variables" as var;
+@use "../mixins";
+@use "../functions" as func;
+
+
+$publish: func.get-publishes( var.$publish-components, var.$unpublish-components );
+
+
+
+// --------------------
+// ハンバーガーメニュー
+// --------------------
+
+// バーの太さ
+$bar-size: var.$hamburger-bar-width;
+
+@if list.index($publish, '.hamburger') and $bar-size {
+  .hamburger {
+    padding: 1em 0 0;
+    width: 1em;
+    height: 0;
+    display: block;
+    position: relative;
+    top: 0;
+    cursor: pointer;
+    // overflow: hidden;
+
+    ::selection {
+      background: inherit;
+    }
+
+    i, i:before, i:after, &:before, &:after {
+      content: ' ';
+      background: currentColor;
+      width: 100%;
+      height: $bar-size;
+      display: block;
+      transition: all var.$duration linear;
+      position: absolute;
+      top: 50%;
+      // left: 50%;
+      // transform: translate(-50%, -50%);
+      opacity: 1;
+    }
+
+    i {
+      margin-top: func.round(-($bar-size) * .5);
+    }
+
+    i:before {
+      margin: 0;
+      top: -.25em;
+    }
+    i:after {
+      margin: 0;
+      top: .25em;
+    }
+
+    // '三'
+    &:before, &:after {
+      opacity: 0;
+    }
+
+    // 'x'
+    .hamburger-close & {
+      i, i:before, i:after {
+        opacity: 0;
+      }
+      &:before, &:after {
+        opacity: 1;
+      }
+      &:before {
+        transform: rotate(45deg);
+      }
+      &:after {
+        transform: rotate(-45deg);
+      }
+    }
+
+  }
+}
+
+
+// > SMALL
+@mixin mqx-up-hamburger-s {
+  @if list.index($publish, '.hamburger') and $bar-size {
+  }
+}
+
+// > MEDIUM
+@mixin mqx-up-hamburger-m {
+  @if list.index($publish, '.hamburger') and $bar-size {
+  }
+}
+
+// > LARGE
+@mixin mqx-up-hamburger-l {
+  @if list.index($publish, '.hamburger') and $bar-size {
+  }
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-hamburger-xl {
+  @if list.index($publish, '.hamburger') and $bar-size {
+  }
+}
+
+
+
+
+
+// --------------------
+// Google Material Icons
+// --------------------
+
+// バーの太さ
+$gicon-size: var.$google-material-icons-font-size;
+
+@if list.index($publish, '.material-icons') and $gicon-size {
+  .material-icons {
+    font-size: var.$google-material-icons-font-size;
+  }
+}
+
+
+// > SMALL
+@mixin mqx-up-googleico-s {
+  @if list.index($publish, '.material-icons') and $gicon-size {
+  }
+}
+
+// > MEDIUM
+@mixin mqx-up-googleico-m {
+  @if list.index($publish, '.material-icons') and $gicon-size {
+  }
+}
+
+// > LARGE
+@mixin mqx-up-googleico-l {
+  @if list.index($publish, '.material-icons') and $gicon-size {
+  }
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-googleico-xl {
+  @if list.index($publish, '.material-icons') and $gicon-size {
+  }
+}
+
+
+
+
+
+// --------------------
+// メディアクエリ
+// --------------------
+
+
+// > SMALL
+@mixin mqx-up-s {
+  @include mqx-up-hamburger-s;
+  @include mqx-up-googleico-s;
+}
+
+// > MEDIUM
+@mixin mqx-up-m {
+  @include mqx-up-hamburger-m;
+  @include mqx-up-googleico-m;
+}
+
+// > LARGE
+@mixin mqx-up-l {
+  @include mqx-up-hamburger-l;
+  @include mqx-up-googleico-l;
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-xl {
+  @include mqx-up-hamburger-xl;
+  @include mqx-up-googleico-xl;
+}
+
+
+
+
+

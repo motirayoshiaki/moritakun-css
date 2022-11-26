@@ -1,0 +1,322 @@
+@use "sass:math";
+@use "sass:map";
+@use 'sass:list';
+
+@use "../variables" as var;
+@use "../mixins";
+@use "../functions" as *;
+
+$publish: get-publishes( var.$publish-utilities, var.$unpublish-utilities );
+
+
+
+// --------------------
+// テキストスタイル
+// --------------------
+
+// フォントサイズ
+@if list.index( $publish, 'font-size' ) {
+  small, .small {
+    font-size: var.$font-size-small;
+  }
+  .fs-large {
+    font-size: var.$font-size-large;
+  }
+  .fs-base {
+    font-size: var.$font-size-base;
+  }
+}
+
+
+// フォントスタイル
+@if list.index( $publish, 'font-style' ) {
+  .italic  { font-style: italic; }
+  .oblique { font-style: oblique; }
+}
+
+// 大文字小文字
+@if list.index( $publish, 'font-variant' ) {
+  .small-caps { font-variant: small-caps;   } // スモールキャップ
+}
+@if list.index( $publish, 'text-transform' ) {
+  .capitalize { text-transform: capitalize; } // キャピタル
+  .lowercase  { text-transform: lowercase;  } // 小文字
+  .uppercase  { text-transform: uppercase;  } // 大文字
+}
+
+// 装飾テキスト
+@if list.index( $publish, 'text-decoration' ) {
+  .deco-line-through { text-decoration: line-through; }
+  .deco-underline    { text-decoration: underline;    }
+  .deco-overline     { text-decoration: overline;     }
+  .deco-none         { text-decoration: none;         }
+}
+
+
+// > SMALL
+@mixin mqx-up-style-s {
+  // フォントサイズ
+  @if list.index( $publish, 'font-size' ) {
+    .fs-s-large {
+      font-size: var.$font-size-large;
+    }
+  }
+}
+
+// > MEDIUM
+@mixin mqx-up-style-m {
+  // フォントサイズ
+  @if list.index( $publish, 'font-size' ) {
+    .fs-m-large {
+      font-size: var.$font-size-large;
+    }
+  }
+}
+
+// > LARGE
+@mixin mqx-up-style-l {
+  // フォントサイズ
+  @if list.index( $publish, 'font-size' ) {
+    .fs-l-large {
+      font-size: var.$font-size-large;
+    }
+  }
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-style-xl {
+  // フォントサイズ
+  @if list.index( $publish, 'font-size' ) {
+    .fs-xl-large {
+      font-size: var.$font-size-large;
+    }
+  }
+}
+
+
+
+
+
+// --------------------
+// 文章
+// --------------------
+
+// 整形文
+@if list.index( $publish, 'white-space' ) {
+  .text-wrap     { white-space: normal;   }
+  .text-pre      { white-space: pre;      }
+  .text-nowrap   { white-space: nowrap;   }
+  .text-pre-line { white-space: pre-line; }
+  .text-pre-wrap { white-space: pre-wrap; }
+}
+
+// 字詰め
+@if list.index( $publish, 'letter-spacing' ) {
+  .em-tight  { letter-spacing: -.1em; }
+  .em-tight2 { letter-spacing: -.2em; }
+  .em-wide  { letter-spacing: .1em;  }
+  .em-wide2 { letter-spacing: .2em;  }
+  .em-wide4 { letter-spacing: .25em; }
+  .em-wide3 { letter-spacing: .3em;  }
+  .em-wide4 { letter-spacing: .33em; }
+  .em-wide5 { letter-spacing: .5em;  }
+  .em-wide6 { letter-spacing: .66em; }
+}
+
+
+// > SMALL
+@mixin mqx-up-writing-s {
+}
+
+// > MEDIUM
+@mixin mqx-up-writing-m {
+}
+
+// > LARGE
+@mixin mqx-up-writing-l {
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-writing-xl {
+}
+
+
+
+
+
+// --------------------
+// 行揃え
+// --------------------
+
+@if list.index( $publish, 'text-align' ) {
+  .text-center {
+  text-align: center;
+  }
+  .text-right {
+    text-align: right;
+  }
+  .text-left {
+    text-align: left;
+  }
+}
+
+
+// > SMALL
+@mixin mqx-up-align-s {
+  @if list.index( $publish, 'text-align' ) {
+    .text-s-center {
+      text-align: center;
+    }
+    .text-s-right {
+      text-align: right;
+    }
+    .text-s-left {
+      text-align: left;
+    }
+  }
+}
+
+// > MEDIUM
+@mixin mqx-up-align-m {
+  @if list.index( $publish, 'text-align' ) {
+    .text-m-center {
+      text-align: center !important;
+    }
+    .text-m-right {
+      text-align: right !important;
+    }
+    .text-m-left {
+      text-align: left !important;
+    }
+  }
+}
+
+// > LARGE
+@mixin mqx-up-align-l {
+  @if list.index( $publish, 'text-align' ) {
+    .text-l-center {
+      text-align: center !important;
+    }
+    .text-l-right {
+      text-align: right !important;
+    }
+    .text-l-left {
+      text-align: left !important;
+    }
+  }
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-align-xl {
+  @if list.index( $publish, 'text-align' ) {
+    .text-xl-center {
+      text-align: center !important;
+    }
+    .text-xl-right {
+      text-align: right !important;
+    }
+    .text-xl-left {
+      text-align: left !important;
+    }
+  }
+}
+
+
+
+
+
+// --------------------
+// 改行
+// --------------------
+
+@if list.index( $publish, '.br-*' ) {
+  .br-s,
+  .br-m,
+  .br-l,
+  .br-xl {
+    display: none;
+  }
+}
+
+
+// > SMALL
+@mixin mqx-up-br-s {
+  @if list.index( $publish, '.br-*' ) {
+    .br-s {
+      display: inline !important;
+    }
+  }
+}
+
+// > MEDIUM
+@mixin mqx-up-br-m {
+  @if list.index( $publish, '.br-*' ) {
+    .br-m {
+      display: inline !important;
+    }
+  }
+}
+
+// > LARGE
+@mixin mqx-up-br-l {
+  @if list.index( $publish, '.br-*' ) {
+    .br-l {
+      display: inline !important;
+    }
+  }
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-br-xl {
+  @if list.index( $publish, '.br-*' ) {
+    .br-xl {
+      display: inline !important;
+    }
+  }
+}
+
+
+
+
+
+// --------------------
+// メディアクエリ
+// --------------------
+
+
+// > SMALL
+@mixin mqx-up-s {
+  @include mqx-up-style-s;
+  @include mqx-up-writing-s;
+  @include mqx-up-align-s;
+  @include mqx-up-br-s;
+}
+
+// > MEDIUM
+@mixin mqx-up-m {
+  @include mqx-up-style-m;
+  @include mqx-up-writing-m;
+  @include mqx-up-align-m;
+  @include mqx-up-br-m;
+}
+
+// > LARGE
+@mixin mqx-up-l {
+  @include mqx-up-style-l;
+  @include mqx-up-writing-l;
+  @include mqx-up-align-l;
+  @include mqx-up-br-l;
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-xl {
+  @include mqx-up-style-xl;
+  @include mqx-up-writing-xl;
+  @include mqx-up-align-xl;
+  @include mqx-up-br-xl;
+}
+
+
+
+
+

@@ -1,0 +1,22 @@
+@use "sass:list";
+@use "../variables" as var;
+
+
+@mixin html () {
+  width: 100%;
+  max-width: 100%;
+  word-wrap: break-word;
+  word-break: break-all;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  visibility: visible !important;
+
+  @if var.$body-scroll-behavior {
+    scroll-behavior: var.$body-scroll-behavior;
+  }
+}
+
+
+
+
+

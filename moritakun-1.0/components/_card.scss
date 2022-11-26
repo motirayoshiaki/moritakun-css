@@ -1,0 +1,172 @@
+@use "sass:map";
+@use 'sass:list';
+
+@use "../variables" as var;
+@use "../mixins";
+@use "../functions" as *;
+
+
+$publish: get-publishes( var.$publish-components, var.$unpublish-components );
+
+// カードのクラス名
+$card: var.$card-class;
+
+
+
+// --------------------
+// 基本
+// --------------------
+
+@if list.index($publish, $card) {
+  #{$card} {
+    background-color: var.$card-bg-color;
+    background-clip: border-box;
+    word-wrap: break-word;
+    flex-direction: column;
+    min-width: 0;
+    height: if(var.$card-height, var.$card-height, null);
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    @if var.$card-border-color {
+      border: var.$card-border-width solid var.$card-border-color;
+    }
+    @include mixins.border-radius( var.$card-border-radius );
+    @include mixins.box-shadow( var.$card-box-shadow );
+
+    > hr {
+      margin-right: 0;
+      margin-left: 0;
+    }
+  }
+
+  // 内容
+  #{$card}-body {
+    color: var.$card-color;
+    max-width: 100%;
+    padding: var.$card-spacer-y var.$card-spacer-x;
+    flex: 1 1 auto;
+    box-sizing: border-box;
+  }
+
+  // 見出し
+  #{$card}-title {
+    margin-bottom: var.$card-title-spacer-y;
+  }
+
+  #{$card}-subtitle {
+    margin-top: -(var.$card-title-spacer-y) * .5;
+    margin-bottom: 0;
+  }
+
+  // テキスト
+  #{$card}-text:last-child {
+    margin-bottom: 0;
+  }
+
+  #{$card}-link {
+    &:hover {
+      text-decoration: none;
+    }
+
+     + #{$card}-link {
+      margin-left: var.$card-spacer-x #{"/* rtl:ignore */"};
+    }
+  }
+
+  // ヘッダー
+  #{$card}-header {
+    padding: var.$card-cap-padding-y var.$card-cap-padding-x;
+    // margin-bottom: 0; // Removes the default margin-bottom of <hN>
+    margin: 0;
+    color: var.$card-cap-color;
+    background-color: if( var.$card-cap-bg, var.$card-cap-bg, null );
+    border-bottom: var.$card-border-width solid var.$card-border-color;
+
+    &:first-child {
+      var.$card-inner-border-radius: if(var.$card-inner-border-radius, var.$card-inner-border-radius, subtract(var.$card-border-radius, var.$card-border-width));
+      @include mixins.border-radius(var.$card-inner-border-radius var.$card-inner-border-radius 0 0);
+    }
+
+    #{$card}.flex-row > & {
+      padding-top: var.$card-spacer-y;
+      padding-bottom: var.$card-spacer-y;
+    }
+  }
+
+  #{$card}-header-pills {
+    margin-right: -(var.$card-cap-padding-x) * .5;
+    margin-left: -(var.$card-cap-padding-x) * .5;
+  }
+
+  // フッター
+  #{$card}-footer {
+    padding: var.$card-cap-padding-y var.$card-cap-padding-x;
+    color: var.$card-cap-color;
+    background-color: if( var.$card-cap-bg, var.$card-cap-bg, null );
+    border-top: var.$card-border-width solid var.$card-border-color;
+
+    &:last-child {
+      @include mixins.border-radius(0 0 var.$card-inner-border-radius var.$card-inner-border-radius);
+    }
+  }
+
+  // 画像
+  #{$card}-img-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: var.$card-img-overlay-padding;
+  }
+
+  #{$card}-img,
+  #{$card}-img-top,
+  #{$card}-img-bottom {
+    width: 100%;
+  }
+
+  #{$card}-img,
+  #{$card}-img-overlay {
+    @include mixins.border-radius(var.$card-inner-border-radius);
+  }
+
+  #{$card}-img-top {
+    @include mixins.border-top-radius(var.$card-inner-border-radius);
+  }
+
+  #{$card}-img-bottom {
+    @include mixins.border-bottom-radius(var.$card-inner-border-radius);
+  }
+}
+
+
+
+
+
+// --------------------
+// メディアクエリ
+// --------------------
+
+
+// > SMALL
+@mixin mqx-up-s {
+}
+
+// > MEDIUM
+@mixin mqx-up-m {
+}
+
+// > LARGE
+@mixin mqx-up-l {
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-xl {
+}
+
+
+
+
+

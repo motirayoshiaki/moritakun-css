@@ -1,0 +1,444 @@
+@use "sass:map";
+@use 'sass:list';
+
+@use "../variables" as var;
+@use "../mixins";
+@use "../functions" as *;
+
+$publish: get-publishes( var.$publish-components, var.$unpublish-components );
+
+
+
+// --------------------
+// 基本スタイル
+// --------------------
+
+@if list.index( $publish, '.table' ) {
+  .table {
+    --#{var.$var-prefix}table-bg: #{var.$table-bg};
+    --#{var.$var-prefix}table-striped-color: #{var.$table-striped-color};
+    --#{var.$var-prefix}table-striped-bg: #{var.$table-striped-bg};
+
+    color:  var.$table-color;
+    vertical-align: var.$table-cell-vertical-align;
+    margin-bottom:  var.$spacer;
+    width: 100%;
+
+    @if var.$table-border-color {
+      border-color: var.$table-border-color;
+    }
+
+    > :not(caption):not(tr) > tr > *,
+    > tr > * {
+      padding: var.$table-cell-padding-y var.$table-cell-padding-x;
+      background: var(--#{var.$var-prefix}table-bg);
+
+      @if var.$table-border-color {
+        border-color: var.$table-border-color;
+        border-bottom-width: var.$table-border-width;
+        border-style: var.$table-border-style;
+      }
+    }
+  }
+}
+
+@if list.index( $publish, '.table-*' ) {
+  // 余白の少ないテーブル
+  @if list.index( $publish, '.table-small' ) {
+    .table-small {
+      > :not(caption):not(tr) > tr > *,
+      > tr > * {
+        padding: var.$table-cell-padding-y-small var.$table-cell-padding-x-small;
+      }
+    }
+  }
+
+  // ボーダー
+  @if list.index( $publish, '.table-bordered' ) {
+    .table-bordered {
+      > :not(caption):not(tr) > tr,
+      > tr {
+        > * {
+          border-width: var.$table-border-width var.$table-border-width 0 0;
+        }
+        > *:first-child {
+          border-left-width: var.$table-border-width;
+        }
+      }
+      > :not(caption):not(tr):last-child > tr:last-child > *,
+      > tr:last-child > * {
+        border-bottom-width: var.$table-border-width;
+      }
+    }
+  }
+
+  // ボーダーなし
+  @if list.index( $publish, '.table-borderless' ) {
+    .table-borderless {
+      > :not(caption):not(tr) > tr > *,
+      > tr > * {
+        border-bottom-width: 0;
+      }
+    }
+  }
+
+  // 交互背景色
+  @if list.index( $publish, '.table-striped' ) {
+    .table-striped {
+      > tbody > tr:nth-of-type(#{var.$table-striped-order}) {
+        --#{var.$var-prefix}table-accent-bg: var(--#{var.$var-prefix}table-striped-bg);
+        color: var(--#{var.$var-prefix}table-striped-color);
+        background: var(--#{var.$var-prefix}table-accent-bg);
+      }
+    }
+  }
+
+  // テーブルレイアウト
+  @if list.index( $publish, '.table-fixed' ) {
+    table.table-fixed {
+      table-layout: fixed;
+      max-width: unset;
+      width: auto;
+    }
+  }
+
+}
+
+
+// > SMALL
+@mixin mqx-up-styles-s {
+}
+
+// > MEDIUM
+@mixin mqx-up-styles-m {
+}
+
+// > LARGE
+@mixin mqx-up-styles-l {
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-styles-xl {
+}
+
+
+
+
+
+// --------------------
+// キャプション
+// --------------------
+
+@if list.index( $publish, '.caption-*' ) {
+  @if list.index( $publish, '.caption-top' ) {
+    .caption-top {
+      caption-side: top;
+    }
+  }
+}
+
+
+// > SMALL
+@mixin mqx-up-caption-s {
+}
+
+// > MEDIUM
+@mixin mqx-up-caption-m {
+}
+
+// > LARGE
+@mixin mqx-up-caption-l {
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-caption-xl {
+}
+
+
+
+
+
+// --------------------
+// ブロックレイアウト
+// --------------------
+
+// テーブルレイアウトを解除
+@mixin -vertical {
+  display: block;
+
+  & > *, & > * > tr {
+    &, & > * {
+      display: block;
+    }
+  }
+
+  // ボーダー
+  @if list.index( $publish, '.table' ) {
+    &.table {
+      &,
+      > :not(caption):not(tr) > tr > *,
+      > tr > * {
+        border-style: none;
+      }
+    }
+  }
+
+  @if list.index( $publish, '.table-*' ) {
+    // 交互背景色
+    @if list.index( $publish, '.table-striped' ) {
+      &.table-striped {
+        > tbody > tr:nth-of-type(#{var.$table-striped-order}) {
+          background: inherit;
+        }
+      }
+    }
+  }
+}
+
+@if list.index( $publish, '.table-*' ) {
+  @if list.index( $publish, '.table-vertical' ) {
+    .table-vertical {
+      @include -vertical;
+    }
+  }
+}
+
+// テーブルレイアウトを復元
+@mixin -restore {
+  display: table;
+
+  & > caption {
+    display: table-caption;
+  }
+  & > thead {
+    display: table-header-group;
+  }
+  & > tbody {
+    display: table-row-group;
+  }
+  & > tfoot {
+    display: table-footer-group;
+  }
+  & > tr, & > * > tr {
+    display: table-row;
+    & > th, & td {
+      display: table-cell;
+    }
+  }
+
+  // ボーダー
+  @if list.index( $publish, '.table' ) and var.$table-border-style {
+    &.table {
+      &,
+      > :not(caption):not(tr) > tr > *,
+      > tr > * {
+        border-style: var.$table-border-style;
+      }
+    }
+  }
+
+  @if list.index( $publish, '.table-*' ) {
+    // 交互背景色
+    @if list.index( $publish, '.table-striped' ) {
+      &.table-striped {
+        > tbody > tr:nth-of-type(#{var.$table-striped-order}) {
+          background: var(--#{var.$var-prefix}table-accent-bg);
+        }
+      }
+    }
+  }
+}
+
+
+// > SMALL
+@mixin mqx-up-vertical-s {
+  @if list.index( $publish, '.table-*' ) {
+    @if list.index( $publish, '.table-vertical' ) {
+      .table-s-vertical {
+        @include -vertical;
+      }
+      // テーブルレイアウトを復元
+      .table-vertical-s-restore {
+        @include -restore;
+      }
+    }
+  }
+}
+
+// > MEDIUM
+@mixin mqx-up-vertical-m {
+  @if list.index( $publish, '.table-*' ) {
+    @if list.index( $publish, '.table-vertical' ) {
+      .table-m-vertical {
+        @include -vertical;
+      }
+      // テーブルレイアウトを復元
+      .table-vertical-m-restore {
+        @include -restore;
+      }
+    }
+  }
+}
+
+// > LARGE
+@mixin mqx-up-vertical-l {
+  @if list.index( $publish, '.table-*' ) {
+    @if list.index( $publish, '.table-vertical' ) {
+      .table-l-vertical {
+        @include -vertical;
+      }
+      // テーブルレイアウトを復元
+      .table-vertical-l-restore {
+        @include -restore;
+      }
+    }
+  }
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-vertical-xl {
+  @if list.index( $publish, '.table-*' ) {
+    @if list.index( $publish, '.table-vertical' ) {
+      .table-xl-vertical {
+        @include -vertical;
+      }
+      // テーブルレイアウトを復元
+      .table-vertical-xl-restore {
+        @include -restore;
+      }
+    }
+  }
+}
+
+
+
+
+
+// --------------------
+// スクロール
+// --------------------
+
+// スクロールのラッパー
+@mixin -responsive {
+  overflow-x: auto;
+  overflow-scrolling: touch;
+}
+
+@mixin -responsive-restore {
+  overflow-x: visible;
+  overflow-scrolling: auto;
+}
+
+@if list.index( $publish, '.table-*' ) {
+  @if list.index( $publish, '.table-responsive' ) {
+    .table-responsive {
+      @include -responsive;
+    }
+    .table-responsive-restore {
+      @include -responsive-restore;
+    }
+  }
+}
+
+
+// > SMALL
+@mixin mqx-up-responsive-s {
+  @if list.index( $publish, '.table-*' ) {
+    @if list.index( $publish, '.table-responsive' ) {
+      .table-s-responsive {
+        @include -responsive;
+      }
+      .table-responsive-s-restore {
+        @include -responsive-restore;
+      }
+    }
+  }
+}
+
+// > MEDIUM
+@mixin mqx-up-responsive-m {
+  @if list.index( $publish, '.table-*' ) {
+    @if list.index( $publish, '.table-responsive' ) {
+      .table-m-responsive {
+        @include -responsive;
+      }
+      .table-responsive-m-restore {
+        @include -responsive-restore;
+      }
+    }
+  }
+}
+
+// > LARGE
+@mixin mqx-up-responsive-l {
+  @if list.index( $publish, '.table-*' ) {
+    @if list.index( $publish, '.table-responsive' ) {
+      .table-l-responsive {
+        @include -responsive;
+      }
+      .table-responsive-l-restore {
+        @include -responsive-restore;
+      }
+    }
+  }
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-responsive-xl {
+  @if list.index( $publish, '.table-*' ) {
+    @if list.index( $publish, '.table-responsive' ) {
+      .table-xl-responsive {
+        @include -responsive;
+      }
+      .table-responsive-xl-restore {
+        @include -responsive-restore;
+      }
+    }
+  }
+}
+
+
+
+
+
+// --------------------
+// メディアクエリ
+// --------------------
+
+
+// > SMALL
+@mixin mqx-up-s {
+  @include mqx-up-styles-s;
+  @include mqx-up-caption-s;
+  @include mqx-up-vertical-s;
+  @include mqx-up-responsive-s;
+}
+
+// > MEDIUM
+@mixin mqx-up-m {
+  @include mqx-up-styles-m;
+  @include mqx-up-caption-m;
+  @include mqx-up-vertical-m;
+  @include mqx-up-responsive-m;
+}
+
+// > LARGE
+@mixin mqx-up-l {
+  @include mqx-up-styles-l;
+  @include mqx-up-caption-l;
+  @include mqx-up-vertical-l;
+  @include mqx-up-responsive-l;
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-xl {
+  @include mqx-up-styles-xl;
+  @include mqx-up-caption-xl;
+  @include mqx-up-vertical-xl;
+  @include mqx-up-responsive-xl;
+}
+
+
+
+
+

@@ -1,0 +1,85 @@
+@use 'sass:list';
+
+@use "../variables" as var;
+@use "../functions" as *;
+
+$publish: get-publishes( var.$publish-normalize, var.$unpublish-normalize );
+
+
+
+// --------------------
+// テーブル
+// --------------------
+
+@if list.index( $publish, 'table' ) {
+  table {
+    // caption-side: bottom;
+    border-collapse: collapse;
+    margin-bottom: var.$spacer;
+
+    &[role="presentation"] {
+      font-size: 100%;
+      width: 100%;
+    }
+  }
+
+  caption {
+    color: var.$table-caption-color;
+    text-align: left;
+    padding-top: var.$table-cell-padding-y;
+    padding-bottom: var.$table-cell-padding-y;
+  }
+
+  th, td {
+    vertical-align: var.$table-cell-vertical-align;
+    box-sizing: border-box;
+  }
+
+  th {
+    font-weight: var.$table-th-font-weight; // 1
+    text-align: inherit; // 2
+    text-align: -webkit-match-parent; // 3
+  }
+
+  thead,
+  tbody,
+  tfoot,
+  tr,
+  td,
+  th {
+    border-color: inherit;
+    border-style: solid;
+    border-width: 0;
+  }
+
+}
+
+
+
+
+
+// --------------------
+// メディアクエリ
+// --------------------
+
+
+// > SMALL
+@mixin mqx-up-s {
+}
+
+// > MEDIUM
+@mixin mqx-up-m {
+}
+
+// > LARGE
+@mixin mqx-up-l {
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-xl {
+}
+
+
+
+
+

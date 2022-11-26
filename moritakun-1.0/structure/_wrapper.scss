@@ -1,0 +1,61 @@
+@use "sass:map";
+@use 'sass:list';
+
+@use "../variables" as var;
+@use "../mixins";
+@use "../functions" as *;
+
+$publish: get-publishes( var.$publish-structure, var.$unpublish-structure );
+
+
+
+// --------------------
+// ボディ直下のルートレイヤー
+// --------------------
+
+@if list.index( $publish, '#wrapper' ) {
+  body > #wrapper {
+    width: 100%;
+    height: auto;
+    min-height: 100%;
+    position: relative;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    visibility: visible;
+    overflow: hidden;
+  }
+}
+
+
+// > SMALL
+@mixin mqx-up-s {
+  @if list.index( $publish, '#wrapper' ) {
+  }
+}
+
+// > MEDIUM
+@mixin mqx-up-m {
+  @if list.index( $publish, '#wrapper' ) {
+  }
+}
+
+// > LARGE
+@mixin mqx-up-l {
+  @if list.index( $publish, '#wrapper' ) {
+  }
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-xl {
+  @if list.index( $publish, '#wrapper' ) {
+  }
+}
+
+
+
+
+
+
+
+

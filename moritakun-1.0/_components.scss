@@ -1,0 +1,112 @@
+
+@use "sass:meta";
+
+@use "variables" as var;
+@use "mixins";
+
+@use "components/img";        // 画像
+@use "components/text";       // テキスト
+@use "components/table";      // テーブル
+@use "components/list";       // リスト
+@use "components/button";     // ボタン
+@use "components/card";       // カード
+@use "components/grid";       // グリッドレイアウト
+@use "components/float";      // テキスト回り込み
+@use "components/embed";      // 埋め込みコンテンツ
+@use "components/codesample"; // コードサンプル
+@use "components/icons";      // アイコン、ハンバーガーアイコン
+@use "components/fade";       // トランジション
+
+
+
+
+
+// --------------------
+// メディアクエリ
+// --------------------
+
+// > SMALL
+@mixin mqx-up-s {
+  @include img.mqx-up-s;
+  @include text.mqx-up-s;
+  @include table.mqx-up-s;
+  @include list.mqx-up-s;
+  @include button.mqx-up-s;
+  @include card.mqx-up-s;
+  @include grid.mqx-up-s;
+  @include float.mqx-up-s;
+  @include embed.mqx-up-s;
+  @include codesample.mqx-up-s;
+  @include icons.mqx-up-s;
+  @include fade.mqx-up-s;
+}
+
+// > MEDIUM
+@mixin mqx-up-m {
+  @include img.mqx-up-m;
+  @include text.mqx-up-m;
+  @include table.mqx-up-m;
+  @include list.mqx-up-m;
+  @include button.mqx-up-m;
+  @include card.mqx-up-m;
+  @include grid.mqx-up-m;
+  @include float.mqx-up-m;
+  @include embed.mqx-up-m;
+  @include codesample.mqx-up-m;
+  @include icons.mqx-up-m;
+  @include fade.mqx-up-m;
+}
+
+// > LARGE
+@mixin mqx-up-l {
+  @include img.mqx-up-l;
+  @include text.mqx-up-l;
+  @include table.mqx-up-l;
+  @include list.mqx-up-l;
+  @include button.mqx-up-l;
+  @include card.mqx-up-l;
+  @include grid.mqx-up-l;
+  @include float.mqx-up-l;
+  @include embed.mqx-up-l;
+  @include codesample.mqx-up-l;
+  @include icons.mqx-up-l;
+  @include fade.mqx-up-l;
+}
+
+// > LARGE DESKTOP
+@mixin mqx-up-xl {
+  @include img.mqx-up-xl;
+  @include text.mqx-up-xl;
+  @include table.mqx-up-xl;
+  @include list.mqx-up-xl;
+  @include button.mqx-up-xl;
+  @include card.mqx-up-xl;
+  @include grid.mqx-up-xl;
+  @include float.mqx-up-xl;
+  @include embed.mqx-up-xl;
+  @include codesample.mqx-up-xl;
+  @include icons.mqx-up-xl;
+  @include fade.mqx-up-xl;
+}
+
+
+// メディアクエリを出力
+@if var.$publish-media-query and var.$publish-mqx-up {
+  @include mixins.mqx-up (s) {
+    @include mqx-up-s;
+  }
+  @include mixins.mqx-up (m) {
+    @include mqx-up-m;
+  }
+  @include mixins.mqx-up (l) {
+    @include mqx-up-l;
+  }
+  @include mixins.mqx-up (xl) {
+    @include mqx-up-xl;
+  }
+}
+
+
+
+
+
