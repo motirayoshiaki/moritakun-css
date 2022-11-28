@@ -6,15 +6,15 @@
 @use 'sass:meta';
 
 @forward "variables";
-@forward "functions";
-@forward "mixins";
+@use "functions";
+@use "mixins";
 
 //
-@forward 'reset';      // CSSリセット
-@forward 'normalize';  // ノーマライズ
-@forward 'structure';  // 構造
-@forward 'utilities';  // 汎用クラス
-@forward 'components'; // 部品
+@use 'reset';      // CSSリセット
+@use 'normalize';  // ノーマライズ
+@use 'structure';  // 構造
+@use 'utilities';  // 汎用クラス
+@use 'components'; // 部品
 
 
 
