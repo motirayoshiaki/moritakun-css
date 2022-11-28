@@ -39,9 +39,9 @@ $publish: func.get-publishes( var.$publish-components, var.$unpublish-components
 // > SMALL
 @mixin mqx-up-codesample-s {
   @if list.index($publish, '.codesample') {
-    @if var.$gap-s or 0 == var.$gap-s {
+    @if var.$gutter-s or 0 == var.$gutter-s {
       .codesample {
-        padding: func.round(var.$gap-s * .5);
+        padding: var.$gutter-s;
       }
     }
   }
@@ -50,9 +50,9 @@ $publish: func.get-publishes( var.$publish-components, var.$unpublish-components
 // > MEDIUM
 @mixin mqx-up-codesample-m {
   @if list.index($publish, '.codesample') {
-    @if var.$gap-m or 0 == var.$gap-m {
+    @if var.$gutter-m or 0 == var.$gutter-m {
       .codesample {
-        padding: func.round(var.$gap-m * .5);
+        padding: var.$gutter-m;
       }
     }
   }
@@ -61,9 +61,9 @@ $publish: func.get-publishes( var.$publish-components, var.$unpublish-components
 // > LARGE
 @mixin mqx-up-codesample-l {
   @if list.index($publish, '.blockquote') {
-    @if var.$gap-l or 0 == var.$gap-l {
+    @if var.$gutter-l or 0 == var.$gutter-l {
       .codesample {
-        padding: func.round(var.$gap-l * .5);
+        padding: var.$gutter-l;
       }
     }
   }
@@ -72,9 +72,9 @@ $publish: func.get-publishes( var.$publish-components, var.$unpublish-components
 // > LARGE DESKTOP
 @mixin mqx-up-codesample-xl {
   @if list.index($publish, '.blockquote') {
-    @if var.$gap-xl or 0 == var.$gap-xl {
+    @if var.$gutter-xl or 0 == var.$gutter-xl {
       .codesample {
-        padding: func.round(var.$gap-xl * .5);
+        padding: var.$gutter-xl;
       }
     }
   }
