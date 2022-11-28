@@ -2702,17 +2702,17 @@ ul.notes > li:before {
 .hamburger:before, .hamburger:after {
   opacity: 0;
 }
-.hamburger-close .hamburger i, .hamburger-close .hamburger i:before, .hamburger-close .hamburger i:after {
+.hamburger-close .hamburger i, .hamburger-close .hamburger i:before, .hamburger-close .hamburger i:after, .hamburger.hamburger-close i, .hamburger.hamburger-close i:before, .hamburger.hamburger-close i:after {
   opacity: 0;
 }
-.hamburger-close .hamburger:before, .hamburger-close .hamburger:after {
+.hamburger-close .hamburger:before, .hamburger-close .hamburger:after, .hamburger.hamburger-close:before, .hamburger.hamburger-close:after {
   opacity: 1;
 }
-.hamburger-close .hamburger:before {
+.hamburger-close .hamburger:before, .hamburger.hamburger-close:before {
   -webkit-transform: rotate(45deg);
           transform: rotate(45deg);
 }
-.hamburger-close .hamburger:after {
+.hamburger-close .hamburger:after, .hamburger.hamburger-close:after {
   -webkit-transform: rotate(-45deg);
           transform: rotate(-45deg);
 }
