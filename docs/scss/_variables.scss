@@ -1,0 +1,244 @@
+// ----------------------------------------
+//
+// 変数や使用するスタイルをカスタマイズする
+//
+// ----------------------------------------
+
+
+// --------------------
+// 変数を上書きして読み込む
+// --------------------
+
+@use 'sass:list';
+
+@forward "../../moritakun-1.0/variables" with(
+
+  // CSS変数プレフィックス
+  $var-prefix: '--mysite-',
+  // :root {
+  //   --mysite-breakpoint-s: 580px
+  //   --mysite-breakpoint-m: 768px
+  //   --mysite-breakpoint-l: 1000px
+  //   --mysite-breakpoint-xl: 1240px
+  // }
+
+
+  // --------------------
+  // Color
+  // --------------------
+
+
+  // グレー
+  $whitesmoke: #f6f6f6,
+
+  // BootStrap 互換
+  $blue: #36c,
+
+  // カラーテーマを使用しない場合は配列を空にする
+  $theme-colors: (),
+
+  // BODY設定
+  $body-color: #333,
+  $body-bg: #fff,
+
+  // リンクテキスト
+  $link-color: #36c,
+  $link-decoration: none,
+  $link-hover-color: #3c6,
+  $link-hover-decoration: none,
+
+
+  // --------------------
+  // Effect
+  // --------------------
+
+  // 影
+  $box-shadow: rgba(#000, .1) 0 4px 4px,
+  $box-shadow-reverse: rgba(#000, .1) 0 -4px 4px,
+  $box-shadow-inset: rgba(0, 0, 0, .1) 0 0 8px inset,
+  $text-shadow: rgba(#000, .5) 0 1px 4px,
+
+  // 透明度
+  $alpha:      .75,
+  $lightalpha: .25, // 淡い透明度
+
+  // スライドエフェクト
+  $slide-length: 5rem,
+  $slide-easing: ease-out, // ease-in-out
+
+
+  // --------------------
+  // Fonts
+  // --------------------
+
+  // フォントサイズ
+  $font-size:    16px,
+  $font-size-s:  false,
+  $font-size-m:  false,
+  $font-size-l:  false,
+  $font-size-xl: false,
+  $h1-font-size: 200%,
+  $h2-font-size: 175%,
+  $h3-font-size: 150%,
+  $h4-font-size: 125%,
+  $h5-font-size: 112%,
+  $h6-font-size: 100%,
+
+  // ブレイクポイントでタイトル文字の大きさを変更
+  $h1-font-size-l: 250%,
+  $h2-font-size-l: 240%,
+  $h3-font-size-l: 180%,
+  $h4-font-size-l: 150%,
+  $h5-font-size-l: 125%,
+  $h6-font-size-l: 100%,
+
+  $font-size-small:  87.5%,
+  $font-size-large:  1.25em,
+
+  // フォントファミリー
+  $font-family-serif: list.join( 'Noto Serif JP', serif, $separator: comma ),
+  $body-font-family: list.join( 'Noto Sans JP', sans-serif, $separator: comma ),
+  $body-font-weight: bold,
+
+  // タイトル文字の行間とウェイト
+  $headings-line-height: 1.33,
+  $headings-weight: bolder,
+
+  // 行間
+  $line-height: 1.5,
+
+  // ハンバーガーメニュー（不要時: false）
+  $hamburger-bar-width: false, //  .133em
+
+  // グーグルアイコン（不要時: false）
+  $google-material-icons-font-size: false,
+
+
+  // --------------------
+  // Gap, Gutter
+  // --------------------
+
+  // 汎用的なマージン
+  $gap: 20px,
+  // ブレイクポイントでマージンを変更しない場合は各サイズでのガーターをnull値にする
+  $gap-s: null,
+  $gap-m: null,
+  $gap-l: null,
+  $gap-xl: null,
+
+  // 左右のガーター
+  $gutter: 10px,
+  // ブレイクポイントでガーターを変更しない場合は各サイズでのガーターをnull値にする
+  $gutter-s: null,
+  $gutter-m: null,
+  $gutter-l: null,
+  $gutter-xl: null,
+
+
+  // --------------------
+  // Breakpoints, Size
+  // --------------------
+
+  // ブレイクポイントを変更
+  $grid-breakpoint-s:  400px,
+  $grid-breakpoint-m:  640px,
+
+  // コンテンツ領域の最大幅を変更
+  // 通常はブレイクポイントから左右のガーター分を引いた値
+  $container-max-width-s:  380px,
+  $container-max-width-m:  600px,
+
+  // グリッドの最大数を変更
+  $grid-max-columns: 6,
+
+
+  // --------------------
+  // Border
+  // --------------------
+
+  // ボーダーの色を変更
+  $border-color: #333,
+
+
+  // --------------------
+  // Button
+  // --------------------
+
+  // ボタンの色を変更
+  $btn-bg-color: #c00,
+  $btn-bg-hover-color: #f00,
+
+
+  // --------------------
+  // List
+  // --------------------
+
+  // リストのプレフィックスを変更する
+  $ul-prefix-bullet: '○',
+
+
+  // --------------------
+  // Publish
+  // --------------------
+
+  // メディアクエリを書き出すかどうか
+  $publish-media-query: true,
+  $publish-mqx-up: false, // mqx-up() を書き出すかどうか
+
+  // _normalize.scssの中で使用しないセレクタを列記
+  // 有効な値は _variable.scss 内の $publish-normalize を参照
+  $unpublish-normalize: (
+    // normalize/_heading.scss
+    '.h1-.h6',
+    // normalize/_div.scss
+    'hr',
+    // normalize/_form.scss
+    'fieldset',
+  ),
+
+  // _structure.scssの中で使用しないセレクタを選んで列記
+  // 有効な値は _variable.scss 内の $publish-structure を参照
+  $unpublish-structure: (
+    '#header', '#main', '#aside', '#footer',
+  ),
+  // $publish-structure の値を全て使用しない場合は $publish-structure を空にする
+  $publish-structure: (),
+
+  // _utilities.scssの中で使用しないセレクタを選んで列記
+  // 有効な値は _variable.scss 内の $publish-utilities を参照
+  $unpublish-utilities: (
+    // utilities/_text.scss
+    'font-style', 'font-variant', 'text-transform', 'text-decoration', 'white-space', 'letter-spacing', '.br-*',
+  ),
+  // $publish-utilities の値を全て使用しない場合は $publish-utilities を空にする
+  $publish-utilities: (),
+
+
+  // _components.scssの中で使用しないセレクタを列記
+  // 有効な値は _variable.scss 内の $publish-components を参照
+  $unpublish-components: (
+    // components/_img.scss
+    'img.grayscale',
+    // components/_text.scss
+    '.description', '.notice', '.postalCode',
+    // components/_table.scss
+    '.table', '.table-*', '.caption-*',
+    // components/_float.scss
+    '.clearfix', '.float',
+    // components/_embed.scss
+    '.blockquote',
+    // components/_codesample.scss
+    '.codesample',
+    // components/_icons.scss
+    '.material-icons',
+    // components/_fade.scss
+    '.fade',
+  ),
+  // $publish-components の値を全て使用しない場合は $publish-components を空にする
+  $publish-components: (),
+
+);
+
+
+
+

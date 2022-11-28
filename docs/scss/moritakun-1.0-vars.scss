@@ -1,0 +1,52 @@
+// ----------------------------------------
+//
+// 変数とミックスイン、関数のみを使用
+//
+// ----------------------------------------
+
+
+@use "../../moritakun-1.0/variables" as var with(
+  $font-size: 20px,
+);
+
+// ミックスイン、関数を使用
+@use "../../moritakun-1.0/functions";
+@use "../../moritakun-1.0/mixins";
+
+// 自前のSCSS
+// @use 'my-style.scss';
+
+
+
+// --------------------
+// メディアクエリを出力
+// --------------------
+
+// > SMALL
+@include mixins.mqx-up (s) {
+  // 自前のSCSS
+  // @include my-style.mqx-up-s;
+}
+
+
+// > MEDIUM
+@include mixins.mqx-up (m) {
+  // 自前のSCSS
+  // @include my-style.mqx-up-m;
+}
+
+
+// > LARGE
+@include mixins.mqx-up (l) {
+  // 自前のSCSS
+  // @include my-style.mqx-up-l;
+}
+
+
+// > LARGE DESKTOP
+@include mixins.mqx-up (xl) {
+  // 自前のSCSS
+  // @include my-style.mqx-up-xl;
+}
+
+

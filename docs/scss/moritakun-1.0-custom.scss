@@ -1,0 +1,74 @@
+// ----------------------------------------
+//
+// 変数や使用するスタイルをカスタマイズする
+//
+// ----------------------------------------
+
+// プロジェクト用に変数を上書きする
+@use "./variables" as var;
+
+// _index.scss の代わりにライブラリ内の各SCSSを@useする
+// @use "../../moritakun-1.0/index";
+@use "../../moritakun-1.0/functions";
+@use "../../moritakun-1.0/mixins";
+
+@use '../../moritakun-1.0/reset';
+@use '../../moritakun-1.0/normalize';
+@use '../../moritakun-1.0/structure';
+// utilities, components を使用しない
+//@use '../../moritakun-1.0/utilities';
+//@use '../../moritakun-1.0/components';
+
+
+// 自前のSCSS
+// @use 'my-style.scss';
+
+
+
+// --------------------
+// メディアクエリを出力
+// --------------------
+
+// ミックスイン mixins.mqx-up(ブレイクポイントのサイズ) 
+// を利用して各サイズごとのメディアクエリを一括で書き出す
+
+// > SMALL
+@include mixins.mqx-up (s) {
+  @include normalize.mqx-up-s;
+  @include structure.mqx-up-s;
+
+  // 自前のSCSS
+  // @include my-style.mqx-up-s;
+}
+
+
+// > MEDIUM
+@include mixins.mqx-up (m) {
+  @include normalize.mqx-up-m;
+  @include structure.mqx-up-m;
+
+  // 自前のSCSS
+  // @include my-style.mqx-up-m;
+}
+
+
+// > LARGE
+@include mixins.mqx-up (l) {
+  @include normalize.mqx-up-l;
+  @include structure.mqx-up-l;
+
+  // 自前のSCSS
+  // @include my-style.mqx-up-l;
+}
+
+
+// > LARGE DESKTOP
+@include mixins.mqx-up (xl) {
+  @include normalize.mqx-up-xl;
+  @include structure.mqx-up-xl;
+
+  // 自前のSCSS
+  // @include my-style.mqx-up-xl;
+}
+
+

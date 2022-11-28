@@ -1,0 +1,20 @@
+// ----------------------------------------
+//
+// 全てのスタイルを使用（メディアクエリは不使用）
+//
+// ----------------------------------------
+
+//
+@use "../../moritakun-1.0/variables" as var with(
+  // メディアクエリを書き出すかどうか
+  $publish-media-query: false,
+
+  // スクリーン幅のメディアクエリ（mqx-up）のみ吐き出さない場合は以下の設定にする
+//  $publish-media-query: true,
+//  $publish-mqx-up: false, // mqx-up() を書き出すかどうか
+
+);
+
+@use "../../moritakun-1.0/index";
+
+

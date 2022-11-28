@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, maximum-scale=1, user-scalable=yes">
+<title>moritakun-1.0.css</title>
+<link rel="stylesheet" href="css/moritakun-1.0-full.css">
+<script>
+var d = document;
+</script>
+</head>
+<body>
+<div id="wrapper">
+
+	<header class="container-fluid" id="header">
+<h1>moritakun-1.0.scss</h1>
+<p>
+moritakun-1.0.scss は SCSSの中で @use して使用します。<br>
+moritakun-1.0/_index.css ですべてのモジュールとメディアクエリを読み込みますが、変数だけを使ったり、一部のスタイルを除外して軽量化する、など部分的な使用も可能です。<br>
+カスタマイズによる使用を想定しているため、このSCSSだけで BootStrap のようなデザインは提供されません。
+</p>
+
+<h6>モバイルファースト</h6>
+<p>
+モニター幅のブレイクポイントを s, m, l, xl の4種類の変数で設定できます。基本的にはモバイルファーストで、ブレイクポイント以上のサイズにメディアクエリ（mqx-up）を利用する作りになっています。ただし、デスクトップサイズ優先の（ブレイクポイント以下に適用する）メディアクエリ（mqx-down）も用意されています。
+</p>
+
+	</header>
+
+
+
+
+<hr>
+
+
+
+
+	<main class="container-fluid" id="main">
+
+		<section class="mb-5" id="scsslink">
+			<h2 class="mt-5 mb-5">SCSSの使用例</h2>
+<ol class="ordered">
+<li>
+<b> 全てのスタイルとメディアクエリを使用</b><br>
+<a href="./scss/moritakun-1.0-full.scss" target="_blank">moritakun-1.0-full.scss</a><br>
+</li>
+<li>
+<b>全てのスタイルを使用（メディアクエリは不使用）</b><br>
+<a href="./scss/moritakun-1.0-nomq.scss" target="_blank">moritakun-1.0-nomq.scss</a><br>
+</li>
+<li>
+<b>全てのスタイルを使用（メディアクエリを自前する）</b><br>
+<a href="./scss/moritakun-1.0-mymq.scss" target="_blank">moritakun-1.0-mymq.scss</a><br>
+</li>
+<li>
+<b>変数や使用するスタイルをカスタマイズする</b><br>
+<a href="./scss/moritakun-1.0-custom.scss" target="_blank">moritakun-1.0-custom.scss</a><br>
+</li>
+<li>
+<b> 変数とミックスイン、関数のみを使用</b><br>
+<a href="./scss/moritakun-1.0-vars.scss" target="_blank">moritakun-1.0-vars.scss</a><br>
+</li>
+</ol>
+		</section>
+
+
+<hr>
+
+<p><b>
+<a href="#mixins">ミックスイン（ mixins.scss ）</a>｜
+<a href="#functions">関数（ functions.scss ）</a>
+</b></p>
+
+<p><b>
+<a href="#structure">構成要素（ structure.scss ）</a>｜
+<a href="#utilities">ユーティリティクラス（ utilities.scss ）</a>｜
+<a href="#components">その他のクラス（ components.scss ）</a>
+</b></p>
+
+
+
+<hr>
+
+
+		<section class="mb-5" id="mixins">
+			<h2 class="mt-5 mb-5">ミックスイン（ mixins.scss ）</h2>
+
+			<dl>
+				<dt>mqx-up( $name, $breakpoints: var.$grid-breakpoints )</dt>
+				<dd>
+<code>@media (min-width: $grid-breakpoint-#{$name}) {}</code> のメディアクエリを出力
+<pre class="codesample mt-3"><code>// $grid-breakpoint-xl 以上のルール
+@include mixins.mqx-up (xl) {
+  .feature-img {
+    max-width: $container-max-width-xl;
+  }
+}
+>>
+@media (min-width: 1240px) {
+  .feature-img {
+    max-width: 1200px;
+  }
+}</code></pre>
+				</dd>
+				<dt>mqx-down( $name, $breakpoints: var.$grid-breakpoints )</dt>
+				<dd>
+<code>@media (max-width: $grid-breakpoint-#{$name}) {}</code> のメディアクエリを出力
+<pre class="codesample mt-3"><code>// $grid-breakpoint-xl 以下のルール
+@include mixins.mqx-down (xl) {
+  .feature-img {
+    max-width: 100%;
+  }
+}
+>>
+@media (max-width: 1240px) {
+  .feature-img {
+    max-width: 100%;
+  }
+}</code></pre>
+				</dd>
+				<dt>mqx-between( $min, $max, $breakpoints: var.$grid-breakpoints )</dt>
+				<dd>
+<code>@media (min-width: $min) and (max-width: $max) {}</code> のメディアクエリを出力<br>
+（ $min, $max いずれかが null の場合は mqx-up, mqx-down と同じ）
+<pre class="codesample mt-3"><code>// $grid-breakpoint-m 以上、$grid-breakpoint-l 以下のルール
+@include mixins.mqx-between (m, l) {
+  .my-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+>>
+@media (min-width: 768px) and (max-width: 1000px) {
+  .my-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}</code></pre>
+				</dd>
+			</dl>
+		</section>
+
+
+<hr>
+
+
+
+		<section class="mb-5" id="functions">
+			<h2 class="mt-5 mb-5">関数（ functions.scss ）</h2>
+
+			<dl>
+				<dt>unicode( $unicode )</dt>
+				<dd>
+バックスラッシュを含む Unicode の対策
+<pre class="codesample mt-3"><code>.my-icon:before {
+  content: functions.unicode('f300');
+}
+>>
+.my-icon:before {
+  content: "\f303";
+}</code></pre>
+				</dd>
+				<dt>str-replace( $string, $search, $replace: '' )</dt>
+				<dd>
+文字列 $string の 中の $search を $replace で置き換え
+<pre class="codesample mt-3"><code>$str: "（*）";
+p.notice:before {
+  content: functions.str-replace($str, '*', '注意');
+}
+>>
+p.notice:before {
+  content: "（注意）";
+}</code></pre>
+				</dd>
+				<dt>round( $num, $depth: 3 ), floor( $num, $depth: 3 )</dt>
+				<dd>
+$num を 小数点以下 $depth の位で四捨五入
+<pre class="codesample mt-3"><code>p.box {
+  max-width: functions.round( math.div(100, 6), 3 ) + px;
+  height: functions.floor( math.div(10, 6), 2 ) + em;
+}
+>>
+p.box {
+  max-width: 16.667px;
+  height: 1.66em;
+}</code></pre>
+				</dd>
+				<dt>get-contrast-text-color( $background-color )</dt>
+				<dd>
+背景色 $background-color からテキスト色の黒（$black）か白（$white）を取得
+<pre class="codesample mt-3"><code>p {
+  background-color: #f00;
+  color: functions.get-contrast-text-color(#f00);
+}
+>>
+p {
+  background-color: #f00;
+  color: #000;
+}</code></pre>
+				</dd>
+				<dt>add( $value1, $value2, $return-calc: true ), subtract( $value1, $value2, $return-calc: true )</dt>
+				<dd>
+$value1 と $value2 が加算（減算）できる場合は和（差）、できない場合は calc（$return-calcがなければ算式文字列）を返す
+<pre class="codesample mt-3"><code>p {
+  width: functions.add(50,10em);
+  max-width: functions.add(50%,10em);
+  height: functions.subtract(100vw,50);
+  max-height: functions.subtract(100vw,50em);
+}
+>>
+p {
+  width: 60em;
+  max-width: calc(50% + 10em);
+  height: 50vw;
+  max-height: calc(100vw - 50em);
+}</code></pre>
+				</dd>
+			</dl>
+		</section>
+
+
+<hr>
+
+
+
+		<section class="mb-5" id="structure">
+			<h2 class="mt-5 mb-5">構成要素（ structure.scss ）</h2>
+
+			<dl>
+				<dt>html</dt>
+				<dd>変数 <code>$font-size</code> の割当とノーマライズ。</dd>
+				<dt>body</dt>
+				<dd>変数 <code>$body-color</code> や <code>$body-bg</code> などの割当とノーマライズ。</dd>
+				<dt>body > #wrapper</dt>
+				<dd>BODY要素の直下に100%の大きさで配置するコンテナ。外部スクリプトによるDOM操作と自前のコンテンツを区別する目的で使用。</dd>
+				<dt>#header, #main, #aside, #footer</dt>
+				<dd><code>#wrapper</code> 要素の直下へ配置することを想定したページの構成要素。</dd>
+				<dt>.container</dt>
+				<dd>左右に変数 <code>$gutter</code>のパディングを設けたコンテナ。</dd>
+			</dl>
+
+			<div class="mt-3 bg-whitesmoke" style="padding: 1em;">
+				<section class="container-s text-white bg-primary">
+					<h3>.container-s</h3>
+					<p>最大幅が変数 <code>$container-max-width-s</code> のコンテナ</p>
+				</section>
+
+				<section class="container-m text-white bg-secondary">
+					<h3>.container-m</h3>
+					<p>最大幅が変数 <code>$container-max-width-m</code> のコンテナ</p>
+				</section>
+
+				<section class="container-l text-white bg-success">
+					<h3>.container-l</h3>
+					<p>最大幅が変数 <code>$container-max-width-l</code> のコンテナ</p>
+				</section>
+
+				<section class="container text-white bg-info">
+					<h3>.container, .container-xl</h3>
+					<p>最大幅が変数 <code>$container-max-width-xl</code> のコンテナ</p>
+				</section>
+
+				<section class="container-fluid text-white bg-dark">
+					<h3>.container-fluid</h3>
+					<p>最大幅の設定なし</p>
+				</section>
+			</div>
+		</section>
+
+
+<hr>
+
+
+		<section class="mb-5" id="utilities">
+			<h2 class="mt-5 mb-5">ユーティリティクラス（ utilities.scss ）</h2>
+
+			<dl>
+				<dt>small, .small</dt>
+				<dd>フォントサイズを変数 <code>$font-size-small</code> に設定</dd>
+				<dt>.fs-large, .fs-base</dt>
+				<dd>フォントサイズをそれぞれ変数 <code>$font-size-large</code>、<code>$font-size-base</code> に設定</dd>
+				<dt>.fs-[s,m,l,xl]-large</dt>
+				<dd>各ブレイクポイント <code>$grid-breakpoint-[s,m,l,xl]</code> 以上で <code>$font-size-large</code> を設定</dd>
+				<dt>.italic, .oblique</dt>
+				<dd><code>font-style</code> を設定</dd>
+				<dt>.small-caps</dt>
+				<dd><code>font-variant</code> を設定</dd>
+				<dt>.capitalize, .lowercase, .uppercase</dt>
+				<dd><code>text-transform</code> を設定</dd>
+				<dt>.deco-line-through, .deco-underline, .deco-overline, .deco-none</dt>
+				<dd><code>text-decoration</code> を設定</dd>
+				<dt>.text-wrap, .text-pre, .text-nowrap, .text-pre-line, .text-pre-wrap</dt>
+				<dd><code>white-space</code> を設定</dd>
+				<dt>.em-tight, .em-tight2, .em-wide, .em-wide2, .em-wide3, .em-wide4, .em-wide5, .em-wide6</dt>
+				<dd><code>letter-spacing</code> を設定</dd>
+				<dt>.text-center, .text-right, .text-left</dt>
+				<dd><code>text-align</code> を設定</dd>
+				<dt>.text-[s,m,l,xl]-center, .text-[s,m,l,xl]-right, .text-[s,m,l,xl]-left</dt>
+				<dd>各ブレイクポイント <code>$grid-breakpoint-[s,m,l,xl]</code> 以上で <code>text-align</code> を設定</dd>
+				<dt>.br-[s,m,l,xl]</dt>
+				<dd>改行を非表示にし、各ブレイクポイント <code>$grid-breakpoint-[s,m,l,xl]</code> 以上で表示にする</dd>
+			</dl>
+<br>
+			<dl>
+				<dt>.visible, .invisible</dt>
+				<dd><code>visibility</code>を設定</dd>
+				<dt>
+.visually-hidden,
+ .visually-hidden-focusable:not(:focus),
+ .assistive-text,
+ .screen-reader-text
+				</dt>
+				<dd>サイズなしによる非表示</dd>
+				<dt>.d-none, .hidden</dt>
+				<dd>非表示、<code>display</code>を設定</dd>
+				<dt>.d-inline, .d-inline-block, .d-block, .d-table, .d-table-row, .d-table-cell, .d-grid, .d-flex</dt>
+				<dd><code>display</code> を設定</dd>
+				<dt>.d-[s,m,l,xl]-inline, .d-[s,m,l,xl]-inline-block, .d-[s,m,l,xl]-block, .d-[s,m,l,xl]-table, .d-[s,m,l,xl]-table-row, .d-[s,m,l,xl]-table-cell, .d-[s,m,l,xl]-grid, .d-[s,m,l,xl]-flex</dt>
+				<dd>各ブレイクポイント <code>$grid-breakpoint-[s,m,l,xl]</code> 以上で<code>display</code> を設定</dd>
+				<dt>[data-print="none"]</dt>
+				<dd>プリント時に非表示</dd>
+				<dt>.d-print-inline, .d-print-inline-block, .d-print-block, .d-print-table, .d-print-table-row, .d-print-table-cell, .d-print-grid, .d-print-flex</dt>
+				<dd>プリント時に <code>display</code> を設定</dd>
+				<dt>.mp0</dt>
+				<dd>余白・間隔なし、<code>margin, padding</code> を<code>0</code>に設定</dd>
+				<dt>.mt-auto, .mt-[<code>$spacers</code>]</dt>
+				<dd><code>margin-top</code> を設定</dd>
+				<dt>.me-auto, .me-[<code>$spacers</code>]</dt>
+				<dd><code>margin-right</code> を設定（RTL対応未定）</dd>
+				<dt>.mb-auto, .mb-[<code>$spacers</code>]</dt>
+				<dd><code>margin-bottom</code> を設定</dd>
+				<dt>.ms-auto, .ms-[<code>$spacers</code>]</dt>
+				<dd><code>margin-left</code> を設定（RTL対応未定）</dd>
+				<dt>.rounded, .rounded-0, .rounded-small, .rounded-large, .rounded-circle</dt>
+				<dd>角丸をそれぞれ <code>$border-radius</code>、<code>0</code>、<code>$border-radius-small</code>、<code>$border-radius-large</code>、<code>50%</code> に設定</dd>
+				<dt>.flex-fill</dt>
+				<dd><code>flex</code> を <code>1 1 auto !important</code> に設定</dd>
+				<dt>.flex-[s,m,l,xl]-fill</dt>
+				<dd>各ブレイクポイント <code>$grid-breakpoint-[s,m,l,xl]</code> 以上で<code>flex</code> を <code>1 1 auto !important</code> に設定</dd>
+				<dt>.flex-row, .flex-column, .flex-row-reverse, .flex-column-reverse</dt>
+				<dd><code>flex-direction</code> を設定</dd>
+				<dt>.flex-[s,m,l,xl]-row, .flex-[s,m,l,xl]-column, .flex-[s,m,l,xl]-row-reverse, .flex-[s,m,l,xl]-column-reverse</dt>
+				<dd>各ブレイクポイント <code>$grid-breakpoint-[s,m,l,xl]</code> 以上で<code>flex-direction</code> を設定</dd>
+				<dt>.cursor-help</dt>
+				<dd><code>cursor</code> を設定</dd>
+			</dl>
+<br>
+			<dl>
+				<dt>.text-[<code>$theme-colors</code>]</dt>
+				<dd><code>color</code> を各テーマカラーの変数に設定</dd>
+				<dt>.text-white, .text-body, .text-muted, .text-black-50, .text-white-50</dt>
+				<dd><code>color</code> をそれぞれ <code>$white</code>、<code>$body-color</code>、<code>$gray</code>、<code>rgba(var.$black, .5)</code>、<code>rgba(var.$white, .5)</code> に設定</dd>
+				<dt>.text-reset</dt>
+				<dd><code>color: inherit !important</code> を設定</dd>
+				<dt>.bg-[<code>$theme-colors</code>]</dt>
+				<dd><code>background-color</code> を各テーマカラーの変数に設定</dd>
+				<dt>.bg-white, .bg-body, .bg-whitesmoke</dt>
+				<dd><code>color</code> をそれぞれ <code>$white</code>、<code>$body-bg</code>、<code>$whitesmoke</code> に設定</dd>
+				<dt>.bg-transparent</dt>
+				<dd><code>background-color</code> を設定</dd>
+			</dl>
+
+		</section>
+
+
+<hr>
+
+
+		<section class="mb-5" id="components">
+			<h2 class="mt-5 mb-5">コンポーネントクラス（ components.scss ）</h2>
+
+			<h3 class="mt-5 mb-5">components/_img.scss</h3>
+			<dl>
+				<dt>.lazyload</dt>
+				<dd>遅延ロード用に画像を非表示にする（<code>$lazyload-class</code> でクラス名変更可）</dd>
+				<dt>.grayscale</dt>
+				<dd>
+グレースケール化
+				</dd>
+			</dl>
+			<div class="mt-3 bg-whitesmoke" style="padding: 1em;">
+<p class="text-center d-inline-block">
+.grayscale<br>
+<img src="./img/0436.jpeg" width="160" height="120" alt="" class="grayscale">
+</p>
+			</div>
+
+			<h3 class="mt-5 mb-5">components/_text.scss</h3>
+			<dl>
+				<dt>.description</dt>
+				<dd>説明</dd>
+				<dt>.notice</dt>
+				<dd>注意書き</dd>
+				<dt>.postalCode</dt>
+				<dd>郵便番号のクリック無効</dd>
+			</dl>
+
+			<h3 class="mt-5 mb-5">components/_table.scss</h3>
+			<dl>
+				<dt>.table</dt>
+				<dd>基本的なテーブル</dd>
+				<dt>.table-small</dt>
+				<dd>余白の少ないテーブル</dd>
+				<dt>.table-bordered, .table-borderless</dt>
+				<dd>罫線</dd>
+				<dt>.table-striped</dt>
+				<dd>交互の背景色</dd>
+				<dt>table.table-fixed</dt>
+				<dd>テーブルレイアウト</dd>
+				<dt>.caption-top</dt>
+				<dd>キャプション</dd>
+				<dt>.table-vertical</dt>
+				<dd>表形式を解除</dd>
+				<dt>.table-[s,m,l,xl]-vertical</dt>
+				<dd>各ブレイクポイント <code>$grid-breakpoint-[s,m,l,xl]</code> 以上で表形式を解除</dd>
+				<dt>.table-vertical-restore</dt>
+				<dd>表形式を復元</dd>
+				<dt>.table-[s,m,l,xl]-vertical-restore</dt>
+				<dd>各ブレイクポイント <code>$grid-breakpoint-[s,m,l,xl]</code> 以上で表形式を復元</dd>
+				<dt>.table-responsive</dt>
+				<dd>表を横スクロール可能にする</dd>
+				<dt>.table-[s,m,l,xl]-responsive</dt>
+				<dd>各ブレイクポイント <code>$grid-breakpoint-[s,m,l,xl]</code> 以上で表を横スクロール可能にする</dd>
+				<dt>.table-responsive-restore</dt>
+				<dd>表の横スクロールを解除</dd>
+				<dt>.table-[s,m,l,xl]-responsive-restore</dt>
+				<dd>各ブレイクポイント <code>$grid-breakpoint-[s,m,l,xl]</code> 以上で表の横スクロールを解除</dd>
+			</dl>
+
+			<h3 class="mt-5 mb-5">components/_list.scss</h3>
+			<dl>
+				<dt>.nav ol, .nav ul, .unstyled</dt>
+				<dd>ノーマライズで設定されたスタイルを初期化</dd>
+				<dt>.unordered</dt>
+				<dd>
+順序なしリスト
+<ul class="unordered mt-2">
+<li>プレフィックスは <code>$ul-prefixes[default]</code> で指定</li>
+<li>改行時に<br>インデントされる</li>
+<li style="--prefix: '＠';">項目のスタイル属性にCSS変数 <code>--prefix: '＠';</code> を指定した例</li>
+</ul>
+				</dd>
+				<dt>.notes</dt>
+				<dd>
+順序なしリスト（プレフィックス分のインデントなし）
+<ul class="notes mt-2">
+<li>プレフィックスは <code>$ul-prefixes[bullet]</code> で指定</li>
+<li>改行時に<br>インデントされない</li>
+<li style="--prefix: '＠';">項目のスタイル属性にCSS変数 <code>--prefix: '＠';</code> を指定した例</li>
+</ul>
+				</dd>
+				<dt>.ordered</dt>
+				<dd>
+順序リスト
+<ol class="ordered mt-2">
+<li>項目1</li>
+<li>項目2</li>
+</ol>
+				</dd>
+				<dt>.ordered.upper-alpha</dt>
+				<dd>
+<ol class="ordered upper-alpha mt-2">
+<li>項目1</li>
+<li>項目2</li>
+</ol>
+				</dd>
+				<dt>.ordered.parenthesis</dt>
+				<dd>
+<ol class="ordered parenthesis mt-2">
+<li>項目1</li>
+<li>項目2</li>
+</ol>
+				</dd>
+				<dt>.ordered.hiragana-iroha</dt>
+				<dd>
+<ol class="ordered hiragana-iroha mt-2">
+<li>項目1</li>
+<li>項目2</li>
+</ol>
+				</dd>
+				<dt>.ordered.katakana-iroha</dt>
+				<dd>
+<ol class="ordered katakana-iroha mt-2">
+<li>項目1</li>
+<li>項目2</li>
+</ol>
+				</dd>
+				<dt>.list-inline</dt>
+				<dd>
+項目を <code>inline-block</code> で表示
+<ol class="list-inline mt-2">
+<li>項目1</li>
+<li>項目2</li>
+</ol>
+				</dd>
+				<dt>.list-[s,m,l,xl]-inline</dt>
+				<dd>
+各ブレイクポイント <code>$grid-breakpoint-[s,m,l,xl]</code> 以上で項目を <code>inline-block</code> で表示
+<ul class="list-m-inline mt-2">
+<li><b>.list-m-inline</b></li>
+<li><code>$grid-breakpoint-m</code> 以上で適用</li>
+</ul>
+				</dd>
+				<dt>.itemized</dt>
+				<dd>
+箇条書き
+<ul class="itemized mt-2">
+<li>項目1</li>
+<li>項目2</li>
+</ul>
+				</dd>
+				<dt>.itemized.itemized-flush</dt>
+				<dd>
+カードなど枠罫の中で使用
+<ul class="itemized itemized-flush mt-2">
+<li>項目1</li>
+<li>項目2</li>
+</ul>
+				</dd>
+			</dl>
+
+			<h3 class="mt-5 mb-5">components/_button.scss</h3>
+			<dl>
+				<dt>.btn</dt>
+				<dd>
+ボタン（<code>$btn-class</code> でクラス名変更可）
+				</dd>
+			</dl>
+			<div class="mt-3 bg-whitesmoke" style="padding: 1em;">
+<p>
+<a href="javascript:void();" class="btn">.btn</a>&nbsp;&nbsp;
+<a href="javascript:void();" class="btn disabled">.btn.disabled</a>&nbsp;&nbsp;
+<a href="javascript:void();" class="btn btn-link">.btn.btn-link</a>&nbsp;&nbsp;
+</p>
+<p>
+<a href="javascript:void();" class="btn btn-primary">.btn.btn-primary</a>&nbsp;&nbsp;
+<a href="javascript:void();" class="btn btn-secondary">.btn.btn-secondary</a>&nbsp;&nbsp;
+<a href="javascript:void();" class="btn btn-success">.btn.btn-success</a>&nbsp;&nbsp;
+<a href="javascript:void();" class="btn btn-info">.btn.btn-info</a>&nbsp;&nbsp;
+<a href="javascript:void();" class="btn btn-warning">.btn.btn-warning</a>&nbsp;&nbsp;
+<a href="javascript:void();" class="btn btn-danger">.btn.btn-danger</a>&nbsp;&nbsp;
+<a href="javascript:void();" class="btn btn-light">.btn.btn-light</a>&nbsp;&nbsp;
+<a href="javascript:void();" class="btn btn-dark">.btn.btn-dark</a>&nbsp;&nbsp;
+</p>
+<p>
+<a href="javascript:void();" class="btn btn-white">.btn.btn-white</a>&nbsp;&nbsp;
+<a href="javascript:void();" class="btn btn-ghost">.btn.btn-ghost</a>&nbsp;&nbsp;
+<a href="javascript:void();" class="btn btn-large">.btn.btn-large</a>&nbsp;&nbsp;
+<a href="javascript:void();" class="btn btn-small">.btn.btn-small</a>&nbsp;&nbsp;
+</p>
+			</div>
+
+			<h3 class="mt-5 mb-5">components/_card.scss</h3>
+			<dl>
+				<dt>.card</dt>
+				<dd>
+カード（<code>$card-class</code> でクラス名変更可）
+				</dd>
+			</dl>
+			<div class="grid grid-cols-s-2 grid-cols-m-3 grid-cols-l-4  mt-3 bg-whitesmoke" style="padding: 1em;">
+
+				<div class="card">
+					<header class="card-header">
+<h6 class="card-title">.card-header, .card-title</h6>
+					</header>
+					<div class="card-body">.card-body</div>
+					<footer class="card-footer">
+.card-footer
+					</footer>
+				</div>
+
+				<div class="card">
+<img src="./img/0436.jpeg" width="320" height="240" alt="" class="card-img">
+						<div class="card-img-overlay">
+<b>.card-img, .card-img-overlay</b>
+						</div>
+				</div>
+
+			</div>
+
+			<h3 class="mt-5 mb-5">components/_grid.scss</h3>
+			<dl>
+				<dt>.grid</dt>
+				<dd>
+グリッド（<code>$grid-class</code> でクラス名変更可）<br>
+横並びの最大数は <code>$grid-max-columns</code> で指定（デフォルトは12）
+				</dd>
+			</dl>
+			<div class="mt-3 mb-3 bg-whitesmoke" style="padding: 1em;">
+				<h6>.grid.grid-cols-2</h6>
+				<div class="grid grid-cols-2 mb-3">
+					<div class="btn">Item1</div>
+					<div class="btn">Item2</div>
+					<div class="btn">Item3</div>
+					<div class="btn">Item4</div>
+				</div>
+				<h6>.grid.grid-cols-4.grid-cols-m-6.grid-cols-xl-12</h6>
+				<p>4列、<code>$grid-breakpoint-m</code> 以上で6列、<code>$grid-breakpoint-xl</code> 以上で12列</p>
+				<div class="grid grid-cols-4 grid-cols-m-6 grid-cols-xl-12 mb-3">
+					<div class="btn">Item1</div>
+					<div class="btn">Item2</div>
+					<div class="btn">Item3</div>
+					<div class="btn">Item4</div>
+					<div class="btn">Item5</div>
+					<div class="btn">Item6</div>
+					<div class="btn">Item7</div>
+					<div class="btn">Item8</div>
+					<div class="btn">Item9</div>
+					<div class="btn">Item10</div>
+					<div class="btn">Item11</div>
+					<div class="btn">Item12</div>
+				</div>
+				<h6>.grid.grid-cols-3.grid-cols-rtl</h6>
+				<p>列の開始方向を反転</p>
+				<div class="grid grid-cols-3 grid-cols-rtl mb-3">
+					<div class="btn">Item1</div>
+					<div class="btn">Item2</div>
+					<div class="btn">Item3</div>
+				</div>
+				<h6>.grid.grid-cols-3.grid-middle</h6>
+				<p><code>align-items: middle</code> に設定</p>
+				<div class="grid grid-cols-3 grid-middle mb-3">
+					<div class="btn">Item1</div>
+					<div class="btn">Item2<br>BR</div>
+					<div class="btn">Item3</div>
+				</div>
+				<h6>.grid.grid-cols-3.gap-xl</h6>
+				<p>変数 <code>$grid-gap-xl</code> が設定がある場合に、ブレイクポイント <code>$grid-breakpoint-xl</code> 以上で <code>gap</code> を変更（※デフォルトでは設定なし）</p>
+				<div class="grid grid-cols-3 gap-xl mb-3">
+					<div class="btn">Item1</div>
+					<div class="btn">Item2</div>
+					<div class="btn">Item3</div>
+				</div>
+				<h6>.grid.grid-cols-3.gapless</h6>
+				<p>間隔なし</p>
+				<div class="grid grid-cols-3 gapless mb-3">
+					<div class="btn">Item1</div>
+					<div class="btn">Item2</div>
+					<div class="btn">Item3</div>
+				</div>
+
+			</div>
+<p>
+注）<code>$grid-class</code> を変更すると追加のクラス名も変更されます。例えば <code>$grid-class: '.rows';</code> に変更した場合は、<code>.grid-cols-rtl</code> は <code>.rows-cols-rtl</code> になります。
+</p>
+
+			<h3 class="mt-5 mb-5">components/_float.scss</h3>
+			<dl>
+				<dt>.wrap-text, .clearfix, .clearfix-third, .clearfix-fourth</dt>
+				<dd>フロートの解除</dd>
+				<dt>.float-start, .alignleft</dt>
+				<dd>左寄せフロート（変数 <code>$wraptext-img-maxwidth</code> があれば最大幅を制限）</dd>
+				<dt>.float-end, .alignright</dt>
+				<dd>右寄せフロート（変数 <code>$wraptext-img-maxwidth</code> があれば最大幅を制限）</dd>
+				<dt>.float-none, .aligncenter</dt>
+				<dt>.float-[s,m,l,xl]-start, .float-[s,m,l,xl]-end</dt>
+				<dd>各ブレイクポイント <code>$grid-breakpoint-[s,m,l,xl]</code> 以上でフロート</dd>
+				<dd>フロート解除、中央揃え</dd>
+			</dl>
+
+			<h3 class="mt-5 mb-5">components/_embed.scss</h3>
+			<dl>
+				<dt>.blockquote</dt>
+				<dd>
+引用のスタイル
+				</dd>
+			</dl>
+<blockquote class="blockquote">
+<b>.blockquote</b><br>
+引用のテキスト
+</blockquote>
+
+			<h3 class="mt-5 mb-5">components/_codesample.scss</h3>
+			<dl>
+				<dt>.codesample</dt>
+				<dd>
+コードサンプル用のスタイル
+				</dd>
+			</dl>
+<pre class="codesample"><code>&lt;?php
+echo 'Hello World!';
+?&gt;
+</code></pre>
+
+			<h3 class="mt-5 mb-5">components/_icons.scss</h3>
+			<dl>
+				<dt>.hamburger</dt>
+				<dd>
+開閉アニメーション付きハンバーガーメニュー（アニメーションにはJSによるクラス名処理が必要）
+<p class="fs-large text-primary mt-3">
+<span class="hamburger"><i></i></span>
+</p>
+<script>
+d.querySelector('.hamburger').addEventListener('click', function(e){
+  e.target.classList.toggle('hamburger-close');
+});
+</script>
+				</dd>
+				<dt>.material-icons</dt>
+				<dd>
+変数 <code>$google-material-icons-font-size</code> があれば Google Material Icons 使用時のフォントサイズを設定
+				</dd>
+			</dl>
+
+			<h3 class="mt-5 mb-5">components/_fade.scss</h3>
+			<dl>
+				<dt>.fade</dt>
+				<dd>
+スクロールによりフェードインさせるためのクラス（アニメーションにはJSによるクラス名処理が必要）
+				</dd>
+			</dl>
+			<div class="mt-3 mb-3 bg-whitesmoke" style="padding: 1em;">
+				<h6>.fade.show-l2r</h6>
+				<div class="fade show-l2r text-white bg-primary" style="padding: 1em;">
+左から右へスライドしながらフェードイン
+				</div>
+<br><br>
+				<h6>.fade.show-r2l</h6>
+				<div class="fade show-r2l text-white bg-secondary" style="padding: 1em;">
+右から左へスライドしながらフェードイン
+				</div>
+<br><br>
+				<h6>.fade.show-b2t</h6>
+				<div class="fade show-b2t text-white bg-dark" style="padding: 1em;">
+下から上へへスライドしながらフェードイン
+				</div>
+<script>
+function serFade ( element, num ) {
+	var handler = function () {
+		var threshold = num ? num * .5 : .5;
+		var scrollY = window.scrollY + window.innerHeight * threshold;
+		var windowBottom = scrollY + window.innerHeight;
+		var absOffsetTop = getAbsOffsetTop( element );
+		if ( d.body.clientHeight < windowBottom || absOffsetTop < scrollY || windowBottom > ( absOffsetTop + element.offsetHeight + window.scrollY ) ) {
+			element.classList.add('show');
+			window.removeEventListener( 'scroll', handler );
+		}
+	};
+	window.addEventListener( 'scroll', handler );
+}
+
+function getAbsOffsetTop ( element ) {
+	var style = window.getComputedStyle(element);
+	if ( 'none' === style.display ) {
+		element.style.display = 'block';
+		var parentElement = element.offsetParent;
+		element.style.display = 'none';
+		element = parentElement;
+	}
+	var offsetTop = 0;
+	do {
+		if ( ! isNaN( element.offsetTop ) ) offsetTop += element.offsetTop;
+	} while ( element = element.offsetParent );
+	return offsetTop;
+}
+
+var fades = d.querySelectorAll('.fade');
+for ( var i = 0; i < fades.length; i++ ) {
+	serFade(fades[i], i);
+}
+window.dispatchEvent( new Event('scroll') );
+</script>
+			</div>
+
+
+
+		</section>
+
+
+
+
+	</main>
+
+<footer id="footer">
+</footer>
+</div>
+</body>
+</html>
