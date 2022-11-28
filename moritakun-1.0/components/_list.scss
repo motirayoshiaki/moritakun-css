@@ -124,6 +124,7 @@ $styled: ();
 
 @if list.index($publish, 'ul.notes') {
   ul.notes {
+    list-style: none;
     padding-left: 1.25em;
     & > li {
       margin-top: 0;
