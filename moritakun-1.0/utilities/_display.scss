@@ -201,13 +201,10 @@ $displays: inline, inline-block, block, table, table-row, table-cell, grid, flex
   .rounded-0 {
     border-radius: 0 !important;
   }
-  .rounded-1 {
+  .rounded-small {
     border-radius: var.$border-radius-small !important;
   }
-  .rounded-2 {
-    border-radius: var.$border-radius !important;
-  }
-  .rounded-3 {
+  .rounded-large {
     border-radius: var.$border-radius-large !important;
   }
   .rounded-circle {
