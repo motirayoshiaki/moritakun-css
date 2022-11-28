@@ -481,7 +481,7 @@ legend {
 }
 
 html {
-  font-size: 3.2vw;
+  font-size: 16px;
   height: auto;
 }
 
@@ -2555,3 +2555,7 @@ ul.notes > li:before {
     top: auto;
   }
 }
+/*!
+ * https://emwai.jp/
+ * Copyright (C) Yoshiaki Morita
+ */
