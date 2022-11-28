@@ -324,7 +324,7 @@ $gap-m:  null !default;
 $gap-l:  null !default;
 $gap-xl: 40px !default;
 
-// モニターの余白
+// 左右のガーター
 $gutter:    math.div( math.round(math.div($gap, 2) * 1000), 1000 ) !default;
 $gutter-s:  null        !default;
 $gutter-m:  null        !default;
