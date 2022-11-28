@@ -95,7 +95,7 @@ moritakun-1.0/_index.css ですべてのモジュールとメディアクエリ�
     max-width: $container-max-width-xl;
   }
 }
->>
+&gt;&gt;
 @media (min-width: 1240px) {
   .feature-img {
     max-width: 1200px;
@@ -111,7 +111,7 @@ moritakun-1.0/_index.css ですべてのモジュールとメディアクエリ�
     max-width: 100%;
   }
 }
->>
+&gt;&gt;
 @media (max-width: 1240px) {
   .feature-img {
     max-width: 100%;
@@ -128,7 +128,7 @@ moritakun-1.0/_index.css ですべてのモジュールとメディアクエリ�
     grid-template-columns: repeat(2, 1fr);
   }
 }
->>
+&gt;&gt;
 @media (min-width: 768px) and (max-width: 1000px) {
   .my-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -153,7 +153,7 @@ moritakun-1.0/_index.css ですべてのモジュールとメディアクエリ�
 <pre class="codesample mt-3"><code>.my-icon:before {
   content: functions.unicode('f300');
 }
->>
+&gt;&gt;
 .my-icon:before {
   content: "\f303";
 }</code></pre>
@@ -165,7 +165,7 @@ moritakun-1.0/_index.css ですべてのモジュールとメディアクエリ�
 p.notice:before {
   content: functions.str-replace($str, '*', '注意');
 }
->>
+&gt;&gt;
 p.notice:before {
   content: "（注意）";
 }</code></pre>
@@ -177,7 +177,7 @@ $num を 小数点以下 $depth の位で四捨五入
   max-width: functions.round( math.div(100, 6), 3 ) + px;
   height: functions.floor( math.div(10, 6), 2 ) + em;
 }
->>
+&gt;&gt;
 p.box {
   max-width: 16.667px;
   height: 1.66em;
@@ -190,7 +190,7 @@ p.box {
   background-color: #f00;
   color: functions.get-contrast-text-color(#f00);
 }
->>
+&gt;&gt;
 p {
   background-color: #f00;
   color: #000;
@@ -205,7 +205,7 @@ $value1 と $value2 が加算（減算）できる場合は和（差）、でき
   height: functions.subtract(100vw,50);
   max-height: functions.subtract(100vw,50em);
 }
->>
+&gt;&gt;
 p {
   width: 60em;
   max-width: calc(50% + 10em);
