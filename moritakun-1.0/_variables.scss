@@ -646,7 +646,7 @@ $tooltip-arrow-color: $tooltip-bg !default;
 
 // メディアクエリを書き出すかどうか（プロジェクト側で一括で吐き出す場合は false）
 $publish-media-query: true !default;
-$publish-mqx-up: false !default; // mqx-up() を書き出すかどうか
+$publish-mqx-up: true !default; // mqx-up() を書き出すかどうか
 
 // ノーマライズ
 $publish-normalize: (
