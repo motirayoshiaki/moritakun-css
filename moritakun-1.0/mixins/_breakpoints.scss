@@ -4,7 +4,7 @@
 
 
 // 最小のブレイクポイントを取得
-//  >> breakpoint-min(sm, (null: 0, s: 576px, m: 768px, l: 992px, xl: 1200px))
+//  >> breakpoint-min(sm, (xs: null, s: 576px, m: 768px, l: 992px, xl: 1200px))
 //  576px
 @function breakpoint-min ( $name, $breakpoints: var.$grid-breakpoints ) {
   $min: map.get($breakpoints, $name);
