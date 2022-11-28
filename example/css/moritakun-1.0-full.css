@@ -1610,10 +1610,10 @@ ul.notes > li:before {
   border-radius: 0;
 }
 .itemized-flush > * {
-  border-width: 0 0 1px;
+  border-width: 0 0 1px !important;
 }
 .itemized-flush > *:last-child {
-  border-bottom-width: 0;
+  border-bottom-width: 0 !important;
 }
 
 .btn {
