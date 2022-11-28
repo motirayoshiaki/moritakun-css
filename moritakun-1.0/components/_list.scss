@@ -471,10 +471,10 @@ $has-styled: ();
   .itemized-flush {
     @include mixins.border-radius(0);
     & > * {
-      border-width: 0 0 var.$itemized-border-width;
+      border-width: 0 0 var.$itemized-border-width !important;
 
       &:last-child {
-        border-bottom-width: 0;
+        border-bottom-width: 0 !important;
       }
     }
   }
