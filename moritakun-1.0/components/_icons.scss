@@ -116,7 +116,7 @@ $bar-size: var.$hamburger-bar-width;
 // Google Material Icons
 // --------------------
 
-// バーの太さ
+// アイコンのサイズ
 $gicon-size: var.$google-material-icons-font-size;
 
 @if list.index($publish, '.material-icons') and $gicon-size {
