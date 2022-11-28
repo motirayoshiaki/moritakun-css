@@ -101,8 +101,9 @@ $card: var.$card-class;
 
   // フッター
   #{$card}-footer {
-    padding: var.$card-cap-padding-y var.$card-cap-padding-x;
     color: var.$card-cap-color;
+    margin: 0;
+    padding: var.$card-cap-padding-y var.$card-cap-padding-x;
     background-color: if( var.$card-cap-bg, var.$card-cap-bg, null );
     border-top: var.$card-border-width solid var.$card-border-color;
 
