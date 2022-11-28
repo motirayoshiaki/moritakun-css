@@ -1493,6 +1493,7 @@ table.table-fixed {
 
 ul.notes {
   list-style: none;
+  padding-left: 0;
 }
 ul.notes > li {
   margin-top: 0;
