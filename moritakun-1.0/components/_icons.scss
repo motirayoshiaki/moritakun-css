@@ -65,7 +65,7 @@ $bar-size: var.$hamburger-bar-width;
     }
 
     // 'x'
-    .hamburger-close & {
+    .hamburger-close &, &.hamburger-close {
       i, i:before, i:after {
         opacity: 0;
       }
