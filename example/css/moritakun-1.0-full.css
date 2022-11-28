@@ -681,10 +681,6 @@ small, .small {
   letter-spacing: 0.2em;
 }
 
-.em-wide4 {
-  letter-spacing: 0.25em;
-}
-
 .em-wide3 {
   letter-spacing: 0.3em;
 }
@@ -947,24 +943,16 @@ small, .small {
   border-radius: 0 !important;
 }
 
-.rounded-1 {
+.rounded-small {
   border-radius: 0.2rem !important;
 }
 
-.rounded-2 {
-  border-radius: 0.25rem !important;
-}
-
-.rounded-3 {
+.rounded-large {
   border-radius: 0.3rem !important;
 }
 
 .rounded-circle {
   border-radius: 50% !important;
-}
-
-.rounded-pill {
-  border-radius: 50rem !important;
 }
 
 .flex-fill {
@@ -1504,6 +1492,7 @@ table.table-fixed {
 }
 
 ul.notes {
+  list-style: none;
   padding-left: 1.25em;
 }
 ul.notes > li {
