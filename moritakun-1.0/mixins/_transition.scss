@@ -1,5 +1,5 @@
-
 @use "sass:list";
+
 @use "../variables" as var;
 
 
@@ -21,9 +21,11 @@
       transition: $values;
     }
 
-    @if var.$enable-reduced-motion and list.nth($values, 1) != null and list.nth($values, 1) != none {
-      @media (prefers-reduced-motion: reduce) {
-        transition: none;
+    @if var.$publish-media-query {
+      @if var.$enable-reduced-motion and list.nth($values, 1) != null and list.nth($values, 1) != none {
+        @media (prefers-reduced-motion: reduce) {
+          transition: none;
+        }
       }
     }
   }
