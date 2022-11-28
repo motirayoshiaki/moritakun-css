@@ -55,11 +55,11 @@
       @content;
     }
   } @else if null == $max {
-    @include media-breakpoint-up( $min ) {
+    @include mqx-up( $min ) {
       @content;
     }
   } @else if null == $min {
-    @include media-breakpoint-down( $max ) {
+    @include mqx-down( $max ) {
       @content;
     }
   }
