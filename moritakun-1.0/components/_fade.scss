@@ -53,18 +53,20 @@ $publish: func.get-publishes( var.$publish-components, var.$unpublish-components
   }
 
   // 簡潔
-  @media (prefers-reduced-motion: reduce) {
-    .fade {
-      transition: none !important;
-      opacity: 1;
-      &.show-l2r {
-        left: auto;
-      }
-      &.show-r2l {
-        right: auto;
-      }
-      &.show-b2t {
-        top: auto;
+  @if var.$publish-media-query {
+    @media (prefers-reduced-motion: reduce) {
+      .fade {
+        transition: none !important;
+        opacity: 1;
+        &.show-l2r {
+          left: auto;
+        }
+        &.show-r2l {
+          right: auto;
+        }
+        &.show-b2t {
+          top: auto;
+        }
       }
     }
   }
