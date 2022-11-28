@@ -97,7 +97,7 @@ $displays: inline, inline-block, block, table, table-row, table-cell, grid, flex
 }
 
 // > PRINT
-@if list.index( $publish, '@print' ) {
+@if var.$publish-media-query {
   @media print {
     // 表示
     @if list.index( $publish, 'display' ) {
@@ -111,7 +111,6 @@ $displays: inline, inline-block, block, table, table-row, table-cell, grid, flex
         }
       }
     }
-
   }
 }
 
