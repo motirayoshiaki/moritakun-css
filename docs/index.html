@@ -689,8 +689,9 @@ echo 'Hello World!';
 <span class="hamburger"><i></i></span>
 </p>
 <script>
-d.querySelector('.hamburger').addEventListener('click', function(e){
-  e.target.classList.toggle('hamburger-close');
+var hamburger = d.querySelector('.hamburger');
+hamburger.addEventListener('click', function(e){
+  hamburger.classList.toggle('hamburger-close');
 });
 </script>
 				</dd>
