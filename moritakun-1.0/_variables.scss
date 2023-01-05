@@ -117,6 +117,9 @@ $body-bg-size-xl: null !default;
 
 $body-scroll-behavior: smooth !default;
 
+// #wrapper設定
+$wrapper-overflow: hidden !default;
+
 
 // カラーコントラスト機能向け
 $color-contrast-dark:  $black !default;
