@@ -35,6 +35,9 @@ $enable-reduced-motion:       true !default;
 
 $object-positions: ( 1: 0, 2: 12.5%, 3: 25%, 4: 33.33%, 5: center, 6: 66.66%, 7: 75%, 8: 87.5%, 9: 100% ); // クロップ画像のクラスとポジション
 
+// #wrapper設定
+$wrapper-overflow: hidden !default;
+
 
 
 
@@ -116,9 +119,6 @@ $body-bg-size-l:  null !default;
 $body-bg-size-xl: null !default;
 
 $body-scroll-behavior: smooth !default;
-
-// #wrapper設定
-$wrapper-overflow: hidden !default;
 
 
 // カラーコントラスト機能向け
