@@ -37,6 +37,7 @@ $publish: get-publishes( var.$publish-structure, var.$unpublish-structure );
     min-width: 100%;
     min-height: 100%;
     height: 100%;
+    overflow: var.$body-overflow;
 
     @if not list.index( $publish, 'html' ) {
       @include mixins.html();
