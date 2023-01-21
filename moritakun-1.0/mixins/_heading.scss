@@ -12,7 +12,7 @@
   $color: if( $color, $color, var.$headings-color);
   color: if( $color, $color, null);
 
-  $weight: if( $weight, $weight, var.$headings-weight );
+  $weight: if( $weight, $weight, var.$headings-font-weight );
   font-weight: if( $weight, $weight, null );
 
   $line-height: if( $line-height, $line-height, var.$headings-line-height );
