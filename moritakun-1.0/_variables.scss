@@ -304,8 +304,12 @@ $body-font-weight: null !default;
 
 // タイトル文字
 $headings-color: null !default;
-$headings-weight: null !default;
+$headings-font-weight: null !default;
 $headings-line-height: 1.2 !default;
+$headings-weight: null !default; // 前方互換
+@if $headings-weight and null == $headings-font-weight {
+  $headings-font-weight: $headings-weight;
+}
 
 // ハンバーガーアイコン
 $hamburger-bar-width: 2px !default; // バーの太さ
