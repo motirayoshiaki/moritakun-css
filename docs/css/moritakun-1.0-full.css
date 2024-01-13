@@ -587,7 +587,7 @@ body > #wrapper {
 }
 @media (min-width: 1240px) {
   .container,
-.container-xl {
+  .container-xl {
     padding-right: 0;
     padding-left: 0;
     max-width: 1200px;
@@ -698,15 +698,15 @@ small, .small {
 }
 
 .text-center {
-  text-align: center;
+  text-align: center !important;
 }
 
 .text-right {
-  text-align: right;
+  text-align: right !important;
 }
 
 .text-left {
-  text-align: left;
+  text-align: left !important;
 }
 
 .br-s,
@@ -1102,13 +1102,13 @@ small, .small {
     font-size: 1.25rem;
   }
   .text-s-center {
-    text-align: center;
+    text-align: center !important;
   }
   .text-s-right {
-    text-align: right;
+    text-align: right !important;
   }
   .text-s-left {
-    text-align: left;
+    text-align: left !important;
   }
   .br-s {
     display: inline !important;
@@ -1479,16 +1479,16 @@ table.table-fixed {
   content: var(--prefix, "・");
 }
 .unordered.default > li:before {
-  content: var(--prefix, ・);
+  content: var(--prefix, "・");
 }
 .unordered.bullet > li:before {
-  content: var(--prefix, ・);
+  content: var(--prefix, "・");
 }
 .unordered.circle > li:before {
-  content: var(--prefix, ●);
+  content: var(--prefix, "●");
 }
 .unordered.asterisk > li:before {
-  content: var(--prefix, ※);
+  content: var(--prefix, "※");
 }
 
 ul.notes {
@@ -2449,7 +2449,8 @@ ul.notes > li:before {
       -ms-flex-align: end;
           align-items: end;
 }
-.grid ul.grid, .grid ol.grid {
+
+ul.grid, ol.grid {
   padding-left: 0;
   list-style: none;
 }
@@ -2782,8 +2783,8 @@ ul.notes > li:before {
     display: block;
   }
   .table-s-vertical.table,
-.table-s-vertical.table > :not(caption):not(tr) > tr > *,
-.table-s-vertical.table > tr > * {
+  .table-s-vertical.table > :not(caption):not(tr) > tr > *,
+  .table-s-vertical.table > tr > * {
     border-style: none;
   }
   .table-s-vertical.table-striped > tbody > tr:nth-of-type(odd) {
@@ -2811,8 +2812,8 @@ ul.notes > li:before {
     display: table-cell;
   }
   .table-vertical-s-restore.table,
-.table-vertical-s-restore.table > :not(caption):not(tr) > tr > *,
-.table-vertical-s-restore.table > tr > * {
+  .table-vertical-s-restore.table > :not(caption):not(tr) > tr > *,
+  .table-vertical-s-restore.table > tr > * {
     border-style: solid;
   }
   .table-vertical-s-restore.table-striped > tbody > tr:nth-of-type(odd) {
@@ -3091,8 +3092,8 @@ ul.notes > li:before {
     display: block;
   }
   .table-m-vertical.table,
-.table-m-vertical.table > :not(caption):not(tr) > tr > *,
-.table-m-vertical.table > tr > * {
+  .table-m-vertical.table > :not(caption):not(tr) > tr > *,
+  .table-m-vertical.table > tr > * {
     border-style: none;
   }
   .table-m-vertical.table-striped > tbody > tr:nth-of-type(odd) {
@@ -3120,8 +3121,8 @@ ul.notes > li:before {
     display: table-cell;
   }
   .table-vertical-m-restore.table,
-.table-vertical-m-restore.table > :not(caption):not(tr) > tr > *,
-.table-vertical-m-restore.table > tr > * {
+  .table-vertical-m-restore.table > :not(caption):not(tr) > tr > *,
+  .table-vertical-m-restore.table > tr > * {
     border-style: solid;
   }
   .table-vertical-m-restore.table-striped > tbody > tr:nth-of-type(odd) {
@@ -3400,8 +3401,8 @@ ul.notes > li:before {
     display: block;
   }
   .table-l-vertical.table,
-.table-l-vertical.table > :not(caption):not(tr) > tr > *,
-.table-l-vertical.table > tr > * {
+  .table-l-vertical.table > :not(caption):not(tr) > tr > *,
+  .table-l-vertical.table > tr > * {
     border-style: none;
   }
   .table-l-vertical.table-striped > tbody > tr:nth-of-type(odd) {
@@ -3429,8 +3430,8 @@ ul.notes > li:before {
     display: table-cell;
   }
   .table-vertical-l-restore.table,
-.table-vertical-l-restore.table > :not(caption):not(tr) > tr > *,
-.table-vertical-l-restore.table > tr > * {
+  .table-vertical-l-restore.table > :not(caption):not(tr) > tr > *,
+  .table-vertical-l-restore.table > tr > * {
     border-style: solid;
   }
   .table-vertical-l-restore.table-striped > tbody > tr:nth-of-type(odd) {
@@ -3709,8 +3710,8 @@ ul.notes > li:before {
     display: block;
   }
   .table-xl-vertical.table,
-.table-xl-vertical.table > :not(caption):not(tr) > tr > *,
-.table-xl-vertical.table > tr > * {
+  .table-xl-vertical.table > :not(caption):not(tr) > tr > *,
+  .table-xl-vertical.table > tr > * {
     border-style: none;
   }
   .table-xl-vertical.table-striped > tbody > tr:nth-of-type(odd) {
@@ -3738,8 +3739,8 @@ ul.notes > li:before {
     display: table-cell;
   }
   .table-vertical-xl-restore.table,
-.table-vertical-xl-restore.table > :not(caption):not(tr) > tr > *,
-.table-vertical-xl-restore.table > tr > * {
+  .table-vertical-xl-restore.table > :not(caption):not(tr) > tr > *,
+  .table-vertical-xl-restore.table > tr > * {
     border-style: solid;
   }
   .table-vertical-xl-restore.table-striped > tbody > tr:nth-of-type(odd) {
