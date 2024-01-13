@@ -103,13 +103,14 @@ $grid: var.$grid-class;
       }
     }
 
-    // リスト
-    ul#{&}, ol#{&} {
-      padding-left: 0;
-      list-style: none;
-    }
-
   }
+
+  // リスト
+  ul#{$grid}, ol#{$grid} {
+    padding-left: 0;
+    list-style: none;
+  }
+
 }
 
 
