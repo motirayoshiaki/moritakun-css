@@ -30,23 +30,33 @@ $grid: var.$grid-class;
       }
 
       @if list.index($publish, '#{$grid}.gapless') {
-        &.gap#{$infix}-0,
-        &.gapless#{$infix} {
-          grid-gap: 0;
-          gap: 0;
+//        &.gap#{$infix}-0,
+//        &.gapless#{$infix} {
+//          grid-gap: 0;
+//          gap: 0;
 
-          $percent: func.floor(math.div(99.99%, $i), 3);
-          @if '' != $infix {
-            grid-template-columns: repeat($i, $percent) !important;
-          }
-          @else {
-            grid-template-columns: repeat($i, $percent);
-          }
-        }
+//          $percent: func.floor(math.div(99.99%, $i), 3);
+//          @if '' != $infix {
+//            grid-template-columns: repeat($i, $percent) !important;
+//          }
+//          @else {
+//            grid-template-columns: repeat($i, $percent);
+//          }
+//        }
       }
 
     }
 
+  }
+
+  // 間隔なし
+  @if list.index($publish, '#{$grid}.gapless') {
+    &.gap#{$infix}-0,
+    &.gapless#{$infix} {
+      --gap: 0;
+      grid-gap: 0 !important;
+      gap: 0 !important;
+    }
   }
 
   // ディレクション
@@ -110,7 +120,6 @@ $grid: var.$grid-class;
     padding-left: 0;
     list-style: none;
   }
-
 }
 
 
@@ -121,9 +130,18 @@ $grid: var.$grid-class;
     #{$grid} {
 
       // 間隔
-      &, &.gap-s {
-        grid-gap: if(var.$grid-gap-s, var.$grid-gap-s, null);
-        gap: if(var.$grid-gap-s, var.$grid-gap-s, null);
+      @if var.$grid-gap-s {
+        --gap: #{var.$grid-gap-s};
+        grid-gap: var.$grid-gap-s;
+        gap: var.$grid-gap-s;
+      }
+      $gap-s: if(var.$grid-gap-s, var.$grid-gap-s, var.$grid-gap);
+      @if ( $gap-s ) {
+        &.gap-s {
+          --gap: #{$gap-s};
+          grid-gap: var(--gap, #{$gap-s}) !important;
+          gap: var(--gap, #{$gap-s}) !important;
+        }
       }
 
       // グリッド設定
@@ -138,9 +156,18 @@ $grid: var.$grid-class;
     #{$grid} {
 
       // 間隔
-      &, &.gap-m {
-        grid-gap: if(var.$grid-gap-m, var.$grid-gap-m, null);
-        gap: if(var.$grid-gap-m, var.$grid-gap-m, null);
+      @if var.$grid-gap-m {
+        --gap: #{var.$grid-gap-m};
+        grid-gap: var.$grid-gap-m;
+        gap: var.$grid-gap-m;
+      }
+      $gap-m: if(var.$grid-gap-m, var.$grid-gap-m, if(var.$grid-gap-s, var.$grid-gap-s, var.$grid-gap));
+      @if ( $gap-m ) {
+        &.gap-m {
+          --gap: #{$gap-m};
+          grid-gap: var(--gap, #{$gap-m}) !important;
+          gap: var(--gap, #{$gap-m}) !important;
+        }
       }
 
       // グリッド設定
@@ -155,9 +182,18 @@ $grid: var.$grid-class;
     #{$grid} {
 
       // 間隔
-      &, &.gap-l {
-        grid-gap: if(var.$grid-gap-l, var.$grid-gap-l, null);
-        gap: if(var.$grid-gap-l, var.$grid-gap-l, null);
+      @if var.$grid-gap-l {
+        --gap: #{var.$grid-gap-l};
+        grid-gap: var.$grid-gap-l;
+        gap: var.$grid-gap-l;
+      }
+      $gap-l: if(var.$grid-gap-l, var.$grid-gap-l, if(var.$grid-gap-m, var.$grid-gap-m, if(var.$grid-gap-s, var.$grid-gap-s, var.$grid-gap)));
+      @if ( $gap-l ) {
+        &.gap-l {
+          --gap: #{$gap-l};
+          grid-gap: var(--gap, #{$gap-l}) !important;
+          gap: var(--gap, #{$gap-l}) !important;
+        }
       }
 
       // グリッド設定
@@ -172,9 +208,18 @@ $grid: var.$grid-class;
     #{$grid} {
 
       // 間隔
-      &, &.gap-xl {
-        grid-gap: if(var.$grid-gap-xl, var.$grid-gap-xl, null);
-        gap: if(var.$grid-gap-xl, var.$grid-gap-xl, null);
+      @if var.$grid-gap-xl {
+        --gap: #{var.$grid-gap-xl};
+        grid-gap: var.$grid-gap-xl;
+        gap: var.$grid-gap-xl;
+      }
+      $gap-xl: if(var.$grid-gap-xl, var.$grid-gap-xl, if(var.$grid-gap-l, var.$grid-gap-l, if(var.$grid-gap-m, var.$grid-gap-m, if(var.$grid-gap-s, var.$grid-gap-s, var.$grid-gap))));
+      @if ( $gap-xl ) {
+        &.gap-xl {
+          --gap: #{$gap-xl};
+          grid-gap: var(--gap, #{$gap-xl}) !important;
+          gap: var(--gap, #{$gap-xl}) !important;
+        }
       }
 
       // グリッド設定
@@ -204,23 +249,21 @@ $grid: var.$grid-class;
   }
 }
 
-/*
-#{$grid}-align-stretch {
-  align-self: stretch;
-}
+//#{$grid}-align-stretch {
+//  align-self: stretch;
+//}
 
-#{$grid}-align-start {
-  align-self: start;
-}
+//#{$grid}-align-start {
+//  align-self: start;
+//}
 
-#{$grid}-align-center {
-  align-self: center;
-}
+//#{$grid}-align-center {
+//  align-self: center;
+//}
 
-#{$grid}-align-end {
-  align-self: end;
-}
- */
+//#{$grid}-align-end {
+//  align-self: end;
+//}
 
 
 // > SMALL
