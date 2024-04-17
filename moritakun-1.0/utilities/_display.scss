@@ -53,7 +53,7 @@ $displays: inline, inline-block, block, table, table-row, table-cell, grid, flex
 
 
 // > SMALL
-@mixin mqx-up-visually-s {
+@mixin visually-s {
   @if list.index( $publish, 'display' ) {
     @each $value in $displays {
       .d-s-#{$value} {
@@ -64,7 +64,7 @@ $displays: inline, inline-block, block, table, table-row, table-cell, grid, flex
 }
 
 // > MEDIUM
-@mixin mqx-up-visually-m {
+@mixin visually-m {
   @if list.index( $publish, 'display' ) {
     @each $value in $displays {
       .d-m-#{$value} {
@@ -75,7 +75,7 @@ $displays: inline, inline-block, block, table, table-row, table-cell, grid, flex
 }
 
 // > LARGE
-@mixin mqx-up-visually-l {
+@mixin visually-l {
   @if list.index( $publish, 'display' ) {
     @each $value in $displays {
       .d-l-#{$value} {
@@ -86,7 +86,7 @@ $displays: inline, inline-block, block, table, table-row, table-cell, grid, flex
 }
 
 // > LARGE DESKTOP
-@mixin mqx-up-visually-xl {
+@mixin visually-xl {
   @if list.index( $publish, 'display' ) {
     @each $value in $displays {
       .d-xl-#{$value} {
@@ -113,8 +113,6 @@ $displays: inline, inline-block, block, table, table-row, table-cell, grid, flex
     }
   }
 }
-
-
 
 
 
@@ -169,22 +167,20 @@ $displays: inline, inline-block, block, table, table-row, table-cell, grid, flex
 
 
 // > SMALL
-@mixin mqx-up-gap-s {
+@mixin gap-s {
 }
 
 // > MEDIUM
-@mixin mqx-up-gap-m {
+@mixin gap-m {
 }
 
 // > LARGE
-@mixin mqx-up-gap-l {
+@mixin gap-l {
 }
 
 // > LARGE DESKTOP
-@mixin mqx-up-gap-xl {
+@mixin gap-xl {
 }
-
-
 
 
 
@@ -213,8 +209,6 @@ $displays: inline, inline-block, block, table, table-row, table-cell, grid, flex
 
 
 
-
-
 // --------------------
 // グリッド・フレックス
 // --------------------
@@ -235,7 +229,7 @@ $flex-directions: row, column, row-reverse, column-reverse;
 
 
 // > SMALL
-@mixin mqx-up-misc-s {
+@mixin misc-s {
   @if list.index( $publish, 'flex' ) {
     .flex-s-fill {
       flex: 1 1 auto !important;
@@ -250,7 +244,7 @@ $flex-directions: row, column, row-reverse, column-reverse;
 }
 
 // > MEDIUM
-@mixin mqx-up-misc-m {
+@mixin misc-m {
   @if list.index( $publish, 'flex' ) {
     .flex-m-fill {
       flex: 1 1 auto !important;
@@ -265,9 +259,9 @@ $flex-directions: row, column, row-reverse, column-reverse;
 }
 
 // > LARGE
-@mixin mqx-up-misc-l {
+@mixin misc-l {
   @if list.index( $publish, 'flex' ) {
-    .flex-m-fill {
+    .flex-l-fill {
       flex: 1 1 auto !important;
     }
 
@@ -280,9 +274,9 @@ $flex-directions: row, column, row-reverse, column-reverse;
 }
 
 // > LARGE DESKTOP
-@mixin mqx-up-misc-xl {
+@mixin misc-xl {
   @if list.index( $publish, 'flex' ) {
-    .flex-m-fill {
+    .flex-xl-fill {
       flex: 1 1 auto !important;
     }
 
@@ -293,8 +287,6 @@ $flex-directions: row, column, row-reverse, column-reverse;
     }
   }
 }
-
-
 
 
 
@@ -311,22 +303,20 @@ $flex-directions: row, column, row-reverse, column-reverse;
 
 
 // > SMALL
-@mixin mqx-up-misc-s {
+@mixin misc-s {
 }
 
 // > MEDIUM
-@mixin mqx-up-misc-m {
+@mixin misc-m {
 }
 
 // > LARGE
-@mixin mqx-up-misc-l {
+@mixin misc-l {
 }
 
 // > LARGE DESKTOP
-@mixin mqx-up-misc-xl {
+@mixin misc-xl {
 }
-
-
 
 
 
@@ -335,34 +325,32 @@ $flex-directions: row, column, row-reverse, column-reverse;
 // --------------------
 
 // > SMALL
-@mixin mqx-up-s {
-  @include mqx-up-visually-s;
-  @include mqx-up-gap-s;
-  @include mqx-up-misc-s;
+@mixin mqx-s {
+  @include visually-s;
+  @include gap-s;
+  @include misc-s;
 }
 
 // > MEDIUM
-@mixin mqx-up-m {
-  @include mqx-up-visually-m;
-  @include mqx-up-gap-m;
-  @include mqx-up-misc-m;
+@mixin mqx-m {
+  @include visually-m;
+  @include gap-m;
+  @include misc-m;
 }
 
 // > LARGE
-@mixin mqx-up-l {
-  @include mqx-up-visually-l;
-  @include mqx-up-gap-l;
-  @include mqx-up-misc-l;
+@mixin mqx-l {
+  @include visually-l;
+  @include gap-l;
+  @include misc-l;
 }
 
 // > LARGE DESKTOP
-@mixin mqx-up-xl {
-  @include mqx-up-visually-xl;
-  @include mqx-up-gap-xl;
-  @include mqx-up-misc-xl;
+@mixin mqx-xl {
+  @include visually-xl;
+  @include gap-xl;
+  @include misc-xl;
 }
-
-
 
 
 
